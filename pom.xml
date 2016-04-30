@@ -3,8 +3,8 @@
                          http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.stefanini</groupId>
-	<artifactId>SgrStefanini</artifactId>
+	<groupId>com.msulista</groupId>
+	<artifactId>EasyCare</artifactId>
 	<version>0.1</version>
 	<packaging>pom</packaging>
 
