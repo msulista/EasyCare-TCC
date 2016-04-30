@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+    template="/pages/template/default.xhtml">
+
+    <ui:define name="content">
+    
+   	   <div id="profissionais" class="painel">
+        	<h:link outcome="pretty:profissional">
+        		<div class="img-painel">
+        			<h:graphicImage styleClass="img-relatorio" value="/resources/img/profissional.png" />
+        		</div>
+        		<div class="text-painel">
+        			Profissionais
+        		</div>
+       		</h:link>
+        </div>    	
+    </ui:define>
+
+</ui:composition>

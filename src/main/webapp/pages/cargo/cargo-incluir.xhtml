@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+    template="/pages/template/default.xhtml"
+    xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+    <ui:define name="content">
+   		<p:breadCrumb>
+		    <p:menuitem value="#{message['pao.home']}" url="#" />
+		    <p:menuitem value="#{message['pao.cargo']}" outcome="pretty:cargo"/>
+		    <p:menuitem value="#{message['pao.cargo.incluir']}" outcome="pretty:cargo-incluir" disabled="true"/>
+		</p:breadCrumb>
+    	<h2>#{message['title.cargos']}</h2>
+        <h:form>
+        	<p:growl id="growl" life="4000" />
+			<p:panel header="#{message['title.cargo.cadastro']}" id="painel">	
+				<p:focus context="painel"/>		
+				<p:outputLabel for="nome" value="#{message['label.nome']}" styleClass="label" />
+				<p:inputText id="nome" value="#{cargoManager.cargo.nome}" required="true" requiredMessage="#{message['span.obrigatorio.Nome']}" />
+				<br /><br />
+				<p:outputLabel for="button" value="#{message['label.data.inicio']}" styleClass="label" />
+				<p:calendar id="button" value="#{cargoManager.cargo.registroValidadeInicio}" pattern="dd/MM/yyyy" mask="true" showOn="button" required="true" requiredMessage="#{message['span.obrigatorio.dataInicio']}" disabledWeekends="true"/>
+				<br /><br />
+				<p:outputLabel for="buttonFim" value="#{message['label.data.final']}" styleClass="label" />
+				<p:calendar id="buttonFim" value="#{cargoManager.cargo.registroValidadeFim}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="true"/>
+				<br /><br />
+				<p:commandButton value="#{message['button.salvar']}" action="#{cargoManager.save()}" update="growl" styleClass="btn"/>				
+				<p:button  value="#{message['button.cancelar']}" outcome="pretty:cargo" styleClass="btn"/>
+				
+			</p:panel>
+		</h:form>
+    </ui:define>
+
+</ui:composition>

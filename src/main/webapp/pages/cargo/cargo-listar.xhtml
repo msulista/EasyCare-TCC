@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/template/default.xhtml"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="content">
+		<p:breadCrumb>
+		    <p:menuitem value="#{message['pao.home']}" url="#" />
+		    <p:menuitem value="#{message['pao.cargo']}" outcome="pretty:cargo"  disabled="true"/>
+		</p:breadCrumb>
+		<div class="panel-formulario">
+			<h2>#{message['title.cargos']}</h2>
+			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
+			<h:form>
+				<p:dataTable id="gridCargos" var="cargo" value="#{cargoManager.lista}" emptyMessage="#{message['alerta.listaVazia']}" >
+	
+					<p:column headerText="#{message['label.nome']}" sortBy="#{cargo.nome}">
+						<h:outputText value="#{cargo.nome}" />
+					</p:column>
+					
+					<p:column headerText="#{message['label.acoes']}" styleClass="txtCenter">
+						<p:commandButton id="desativar" styleClass="btn-acao" icon="ui-icon-closethick" action="#{cargoManager.desativar(cargo.id)}" update="gridCargos">
+							<p:confirm header="#{message['button.desativar']}" message="#{message['questiona.desativar']}" icon="ui-icon-alert" />	
+						</p:commandButton>
+						
+						<p:tooltip id="alt-desativar" for="desativar" value="#{message['button.desativar']}" styleClass="alt"/>
+						
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="#{message['button.sim']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{message['button.nao']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+				<br />
+				<p:button styleClass="btn-default" value="#{message['button.novo']}" outcome="pretty:cargo-incluir" />
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>
