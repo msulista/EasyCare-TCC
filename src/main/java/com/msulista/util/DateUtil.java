@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 
 public class DateUtil {
 
-	public static boolean verificaData(String data) {
+	public static boolean verificaData(String data) { 
 		return (data.matches("\\d{2}/\\d{2}/\\d{4}"));
 	}
 

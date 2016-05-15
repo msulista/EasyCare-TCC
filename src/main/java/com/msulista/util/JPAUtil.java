@@ -15,7 +15,7 @@ public class JPAUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return emf.createEntityManager();
+		return emf.createEntityManager(); 
 	}
 
 }

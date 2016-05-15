@@ -18,7 +18,7 @@ public class Mensagem {
     }
     
     public static FacesContext context(){
-    	return FacesContext.getCurrentInstance();
+    	return FacesContext.getCurrentInstance(); 
     }
     
 }

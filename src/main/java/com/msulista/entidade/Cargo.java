@@ -49,7 +49,7 @@ public class Cargo implements BaseEntity, Serializable{
 		this.dataManipulacao = DateUtil.getProximoDiaUtil();
 	}
 
-	public Long getId() {
+	public Long getId() { 
 		return id;
 	}
 
