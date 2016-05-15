@@ -158,11 +158,11 @@ html, body {
 
 
 .img-logo {
-    width: 208px;
-    height: 47px;
+    width: 340px;
+    height: 70px;
     background-image: url("../img/logo.jpg");
     float: left;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .date-time-icon{
@@ -312,6 +312,9 @@ input[type=text] {
 
 .panel-formulario{
 	width: 35%;
+}
+.panel-agenda{
+	width: 85%;
 }
 
 .ui-button-text-only .ui-button-text {
