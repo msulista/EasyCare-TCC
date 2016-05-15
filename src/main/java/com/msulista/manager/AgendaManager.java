@@ -1,6 +1,8 @@
 package com.msulista.manager;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -11,6 +13,7 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
+import com.msulista.dao.AgendaDao;
 import com.msulista.entidade.Agenda;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
@@ -23,17 +26,54 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 public class AgendaManager implements Serializable {
 
 	private ScheduleModel eventModel;
-	private ScheduleEvent event;
+	private AgendaDao agendaDao;
 	private Agenda agenda;
-
+	private List<Agenda> eventos;
+	
+	
 	@PostConstruct
 	public void inicializar() {
-		eventModel = new DefaultScheduleModel();
-		event = new DefaultScheduleEvent();
+		agendaDao = new AgendaDao();
 		agenda = new Agenda();
+		eventModel = new DefaultScheduleModel();
 		
-		
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
+
+	public ScheduleModel getEventModel() {
+		return eventModel;
+	}
+	public void setEventModel(ScheduleModel eventModel) {
+		this.eventModel = eventModel;
+	}
+
+	public AgendaDao getAgendaDao() {
+		return agendaDao;
+	}
+	public void setAgendaDao(AgendaDao agendaDao) {
+		this.agendaDao = agendaDao;
+	}
+
+	public Agenda getAgenda() {
+		return agenda;
+	}
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
+	}
+
+	public List<Agenda> getEventos() {
+		return eventos;
+	}
+	public void setEventos(List<Agenda> eventos) {
+		this.eventos = eventos;
+	}
+
+
+
 	
 	
 	

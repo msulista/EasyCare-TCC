@@ -3,6 +3,12 @@ package com.msulista.entidade;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+@NamedQueries({
+	@NamedQuery(name = "Agenda.findAll", query = "SELECT a FROM Agenda a")
+})
 public class Agenda implements BaseEntity, Serializable{
 	
 	private static final long serialVersionUID = 6430508817163207959L;
