@@ -3,9 +3,17 @@ package com.msulista.entidade;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
+import javax.persistence.Table;
+import javax.persistence.Transient;
+@Entity
+@Table(name = "AGENDA")
 @NamedQueries({
 	@NamedQuery(name = "Agenda.findAll", query = "SELECT a FROM Agenda a")
 })
@@ -13,14 +21,39 @@ public class Agenda implements BaseEntity, Serializable{
 	
 	private static final long serialVersionUID = 6430508817163207959L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "agenda_id", nullable = false, precision = 32)
 	private Long id;
+	
+	@Column(name = "agenda_titulo", length = 50, nullable = false)
 	private String titulo;
+	
+	@Column(name = "agenda_dt_inicio", nullable = false)
 	private Date dataInicio;
+	
+	@Column(name = "agenda_dt_fim", nullable = false)
 	private Date dataFim;
-	private Date hora;
+	
+	@Column(name = "agenda_hr_inicio", nullable = true)
+	private Date horaInicio;
+	
+	@Column(name = "agenda_hr_fim", nullable = true)
+	private Date horaFim;
+	
+	@Column(name = "agenda_descricao", length = 200, nullable = true)
 	private String descricao;
+	
+	@Transient
+	private Boolean status;
+	
+	@Transient
 	private Paciente paciente;
+	
+	@Transient
 	private Medicacao medicacao;
+	
+	@Transient
 	private Dieta dieta;
 	
 	public Long getId() {
@@ -47,12 +80,7 @@ public class Agenda implements BaseEntity, Serializable{
 	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
-	public Date getHora() {
-		return hora;
-	}
-	public void setHora(Date hora) {
-		this.hora = hora;
-	}
+	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -77,5 +105,25 @@ public class Agenda implements BaseEntity, Serializable{
 	public void setDieta(Dieta dieta) {
 		this.dieta = dieta;
 	}
+	public Date getHoraInicio() {
+		return horaInicio;
+	}
+	public void setHoraInicio(Date horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+	public Date getHoraFim() {
+		return horaFim;
+	}
+	public void setHoraFim(Date horaFim) {
+		this.horaFim = horaFim;
+	}
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+	
+	
 
 }

@@ -1,5 +1,6 @@
 package com.msulista.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -22,9 +23,8 @@ public class AgendaDao implements BaseDao{
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Agenda> obterLista() {
+	public List<Agenda> obterLista() throws SQLException{
 
 		EntityManager manager = JPAUtil.getEntityManager();
 

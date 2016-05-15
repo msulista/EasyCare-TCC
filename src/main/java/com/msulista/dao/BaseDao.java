@@ -1,5 +1,6 @@
 package com.msulista.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.msulista.entidade.Agenda;
@@ -10,7 +11,7 @@ public interface BaseDao {
 	
 	public Boolean alterar(Agenda agenda);
 	
-	public List<Agenda> obterLista();
+	public List<Agenda> obterLista() throws SQLException;
 	
 	public Agenda obterAgenda(Long id);
 	

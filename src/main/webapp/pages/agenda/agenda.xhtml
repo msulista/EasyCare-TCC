@@ -11,36 +11,15 @@
 		<div class="panel-agenda">
 			<h2>#{message['title.agenda']}</h2>
 			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
-			<h:form>
+			
 			    <p:growl id="messages" showDetail="true" />
 			 
-			    <p:schedule id="schedule" value="#{agendaManager.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
+			    <p:schedule id="schedule" value="#{agendaManager.eventModel}" >
 			 
-			        <p:ajax event="dateSelect" listener="#{agendaManager.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-			        <p:ajax event="eventSelect" listener="#{agendaManager.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-			        <p:ajax event="eventMove" listener="#{agendaManager.onEventMove}" update="messages" />
-			        <p:ajax event="eventResize" listener="#{agendaManager.onEventResize}" update="messages" />
+			      
 			    </p:schedule>
 			 
-			    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-			        <h:panelGrid id="eventDetails" columns="2">
-			            <p:outputLabel for="title" value="Titles:" />
-			            <p:inputText id="title" value="#{agendaManager.event.title}" required="true" />
-			 
-			            <p:outputLabel for="from" value="From:" />
-			            <p:calendar id="from" value="#{agendaManager.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
-			 
-			            <p:outputLabel for="to" value="To:" />
-			            <p:calendar id="to" value="#{agendaManager.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
-			 
-			            <p:outputLabel for="allDay" value="All Day:" />
-			            <h:selectBooleanCheckbox id="allDay" value="#{agendaManager.event.allDay}" />
-			 
-			            <p:commandButton type="reset" value="Reset" />
-			            <p:commandButton id="addButton" value="Save" actionListener="#{agendaManager.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
-			        </h:panelGrid>
-			    </p:dialog>    
-			</h:form>
+			
 		</div>
 	</ui:define>
 

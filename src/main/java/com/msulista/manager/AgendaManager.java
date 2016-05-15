@@ -1,12 +1,15 @@
 package com.msulista.manager;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
@@ -25,6 +28,9 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 })
 public class AgendaManager implements Serializable {
 
+	
+	private static final long serialVersionUID = -4557100553498435618L;
+	
 	private ScheduleModel eventModel;
 	private AgendaDao agendaDao;
 	private Agenda agenda;
@@ -39,8 +45,25 @@ public class AgendaManager implements Serializable {
 		
 		try {
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+			eventos = agendaDao.obterLista();
+			
+		} catch (SQLException sqe) {
+			sqe.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
+		}
+		
+		for (Agenda evento : eventos) {
+			
+			DefaultScheduleEvent evt = new DefaultScheduleEvent();
+			evt.setData(evento.getId());
+			evt.setTitle(evento.getTitulo());
+			evt.setStartDate(evento.getDataInicio());
+			evt.setEndDate(evento.getDataFim());
+			evt.setDescription(evento.getDescricao());
+			evt.setAllDay(true);
+			evt.setEditable(true);
+			
+			eventModel.addEvent(evt);
 		}
 	}
 
