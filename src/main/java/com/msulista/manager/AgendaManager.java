@@ -2,7 +2,6 @@ package com.msulista.manager;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
@@ -66,7 +66,25 @@ public class AgendaManager implements Serializable {
 			eventModel.addEvent(evt);
 		}
 	}
+	
+	public void quandoSelecionado(SelectEvent selectEvent) {
+	
+		ScheduleEvent eventoSelecionado = (ScheduleEvent) selectEvent.getObject();
+		
+		for (Agenda ev : eventos) {
+			if (ev.getId() == (Long) eventoSelecionado.getData()) {
+				this.agenda = ev;
+				break;				
+			}
+		}
+	}
 
+	
+	
+	
+	
+	
+	
 	public ScheduleModel getEventModel() {
 		return eventModel;
 	}

@@ -13,12 +13,33 @@
 			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
 			
 			    <p:growl id="messages" showDetail="true" />
-			 
+			 <h:form>
 			    <p:schedule id="schedule" value="#{agendaManager.eventModel}" >
-			 
+			    
+			      <p:ajax event="eventSelect" listener="#{agendaManager.quandoSelecionado}" update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();"/>
 			      
 			    </p:schedule>
-			 
+			    
+			    <p:dialog widgetVar="caixaDialogo" header="#{message['title.agenda']}" resizable="false" modal="true" showEffect="clip">
+			   		<h:panelGrid id="eventoDetalhe" columns="2">
+			   			<p:outputLabel value="Titulo"/>
+			   			<p:inputText value="#{agendaManager.agenda.titulo}"/>
+			   				
+			   			<p:outputLabel value="Data Inicio"/>
+			   			<p:calendar value="#{agendaManager.agenda.dataInicio}" pattern="dd/MM/yyyy"/>
+			   				
+			   			<p:outputLabel value="Data Fim"/>
+			   			<p:calendar value="#{agendaManager.agenda.dataFim}" pattern="dd/MM/yyyy"/>
+			   				
+			   			<p:outputLabel value="Descrição"/>
+			   			<p:inputText value="#{agendaManager.agenda.descricao}"/>
+			   				
+			   			<p:separator/>
+			   			<p:commandButton value="Salvar"/>
+		   			</h:panelGrid>
+			    </p:dialog>
+			    
+			 </h:form>
 			
 		</div>
 	</ui:define>

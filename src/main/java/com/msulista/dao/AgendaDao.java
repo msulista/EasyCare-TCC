@@ -23,6 +23,7 @@ public class AgendaDao implements BaseDao{
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Agenda> obterLista() throws SQLException{
 
