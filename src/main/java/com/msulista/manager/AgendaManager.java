@@ -1,14 +1,12 @@
 package com.msulista.manager;
 
 import java.io.Serializable;
-import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
@@ -16,8 +14,8 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
-import com.msulista.dao.AgendaDao;
 import com.msulista.entidade.Agenda;
+import com.msulista.negocio.AgendaNegocio;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
@@ -32,25 +30,18 @@ public class AgendaManager implements Serializable {
 	private static final long serialVersionUID = -4557100553498435618L;
 	
 	private ScheduleModel eventModel;
-	private AgendaDao agendaDao;
+	private AgendaNegocio agendaNegocio;
 	private Agenda agenda;
 	private List<Agenda> eventos;
 	
 	
 	@PostConstruct
 	public void inicializar() {
-		agendaDao = new AgendaDao();
-		agenda = new Agenda();
-		eventModel = new DefaultScheduleModel();
+		this.agendaNegocio = new AgendaNegocio();
+		this.agenda = new Agenda();
+		this.eventModel = new DefaultScheduleModel();
 		
-		try {
-			
-			eventos = agendaDao.obterLista();
-			
-		} catch (SQLException sqe) {
-			sqe.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
-		}
+		this.eventos = this.agendaNegocio.obterLista();
 		
 		for (Agenda evento : eventos) {
 			
@@ -67,7 +58,7 @@ public class AgendaManager implements Serializable {
 		}
 	}
 	
-	public void quandoSelecionado(SelectEvent selectEvent) {
+	public void quandoSelecionado(SelectEvent selectEvent ) {
 	
 		ScheduleEvent eventoSelecionado = (ScheduleEvent) selectEvent.getObject();
 		
@@ -78,8 +69,22 @@ public class AgendaManager implements Serializable {
 			}
 		}
 	}
-
 	
+	public void quandoNovo(SelectEvent selectEvent) {
+		
+		ScheduleEvent novoEvento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+		
+		agenda = new Agenda();
+		agenda.setDataInicio(new java.sql.Date(novoEvento.getStartDate().getTime()));
+		agenda.setDataFim(new java.sql.Date(novoEvento.getEndDate().getTime()));
+	}
+
+	public void gravar() {
+		
+		this.agendaNegocio.gravar(agenda);
+		agenda = new Agenda();
+		this.inicializar();
+	}
 	
 	
 	
@@ -92,11 +97,12 @@ public class AgendaManager implements Serializable {
 		this.eventModel = eventModel;
 	}
 
-	public AgendaDao getAgendaDao() {
-		return agendaDao;
+	public AgendaNegocio getAgendaNegocio() {
+		return agendaNegocio;
 	}
-	public void setAgendaDao(AgendaDao agendaDao) {
-		this.agendaDao = agendaDao;
+
+	public void setAgendaNegocio(AgendaNegocio agendaNegocio) {
+		this.agendaNegocio = agendaNegocio;
 	}
 
 	public Agenda getAgenda() {

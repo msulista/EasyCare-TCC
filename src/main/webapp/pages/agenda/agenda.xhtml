@@ -10,13 +10,14 @@
 		
 		<div class="panel-agenda">
 			<h2>#{message['title.agenda']}</h2>
-			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
 			
-			    <p:growl id="messages" showDetail="true" />
 			 <h:form>
-			    <p:schedule id="schedule" value="#{agendaManager.eventModel}" >
+			 <p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
+			 <p:growl id="messages" showDetail="true" />
+			    <p:schedule id="schedule" value="#{agendaManager.eventModel}" timeZone="America/Sao_Paulo" >
 			    
 			      <p:ajax event="eventSelect" listener="#{agendaManager.quandoSelecionado}" update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();"/>
+			      <p:ajax event="dateSelect" listener="#{agendaManager.quandoNovo}" update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();"/>
 			      
 			    </p:schedule>
 			    
@@ -33,9 +34,10 @@
 			   				
 			   			<p:outputLabel value="Descrição"/>
 			   			<p:inputText value="#{agendaManager.agenda.descricao}"/>
-			   				
+			   			<br/>
 			   			<p:separator/>
-			   			<p:commandButton value="Salvar"/>
+			   			<br/>
+			   			<p:commandButton value="Salvar" actionListener="#{agendaManager.gravar}" update="messages schedule"/>
 		   			</h:panelGrid>
 			    </p:dialog>
 			    

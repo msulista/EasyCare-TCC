@@ -15,7 +15,8 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "AGENDA")
 @NamedQueries({
-	@NamedQuery(name = "Agenda.findAll", query = "SELECT a FROM Agenda a")
+	@NamedQuery(name = "Agenda.findAll", query = "SELECT a FROM Agenda a"),
+	@NamedQuery(name = "Agenga.findId", query = "SELECT a FROM Agenda a WHERE a.id = :id"),
 })
 public class Agenda implements BaseEntity, Serializable{
 	
