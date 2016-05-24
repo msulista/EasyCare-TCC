@@ -14,11 +14,12 @@
 			 <h:form>
 			 <p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
 			 <p:growl id="messages" showDetail="true" />
-			    <p:schedule id="schedule" value="#{agendaManager.eventModel}" timeZone="America/Sao_Paulo" >
+			    <p:schedule id="schedule" value="#{agendaManager.eventModel}" timeZone="America/Sao_Paulo" locale="pt" >
 			    
 			      <p:ajax event="eventSelect" listener="#{agendaManager.quandoSelecionado}" update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();"/>
 			      <p:ajax event="dateSelect" listener="#{agendaManager.quandoNovo}" update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();"/>
-			      
+			      <p:ajax event="eventMove" listener="#{agendaManager.quandoMovido}" update="schedule" />
+			      <p:ajax event="eventResize" listener="#{agendaManager.quandoRedimencionado}" update="schedule" />
 			    </p:schedule>
 			    
 			    <p:dialog widgetVar="caixaDialogo" header="#{message['title.agenda']}" resizable="false" modal="true" showEffect="clip">
@@ -33,11 +34,11 @@
 			   			<p:calendar value="#{agendaManager.agenda.dataFim}" pattern="dd/MM/yyyy"/>
 			   				
 			   			<p:outputLabel value="Descrição"/>
-			   			<p:inputText value="#{agendaManager.agenda.descricao}"/>
+			   			<p:inputText value="#{agendaManager.agenda.descricao}" autocomplete="true"/>
 			   			<br/>
 			   			<p:separator/>
 			   			<br/>
-			   			<p:commandButton value="Salvar" actionListener="#{agendaManager.gravar}" update="messages schedule"/>
+			   			<p:commandButton value="Salvar" actionListener="#{agendaManager.gravar}" update="messages schedule" oncomplete="PF('caixaDialogo').hide();"/>
 		   			</h:panelGrid>
 			    </p:dialog>
 			    

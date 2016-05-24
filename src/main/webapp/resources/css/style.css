@@ -475,3 +475,13 @@ input[type=text] {
 	color: #bbb;
 	padding: 5px;
 }
+
+/*--------------Schedule-------------*/
+
+.emp1 .fc-event-inner{
+	background: #006600 !important;
+}
+
+.emp2 .fc-event-inner{
+	background: #003399 !important;
+}

@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.event.ScheduleEntryMoveEvent;
+import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
@@ -53,6 +55,11 @@ public class AgendaManager implements Serializable {
 			evt.setDescription(evento.getDescricao());
 			evt.setAllDay(true);
 			evt.setEditable(true);
+			if (evt.isEditable()) {
+				evt.setStyleClass("emp1");
+			}else {
+				evt.setStyleClass("emp2");
+			}
 			
 			eventModel.addEvent(evt);
 		}
@@ -72,9 +79,9 @@ public class AgendaManager implements Serializable {
 	
 	public void quandoNovo(SelectEvent selectEvent) {
 		
+		agenda = new Agenda();
 		ScheduleEvent novoEvento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
 		
-		agenda = new Agenda();
 		agenda.setDataInicio(new java.sql.Date(novoEvento.getStartDate().getTime()));
 		agenda.setDataFim(new java.sql.Date(novoEvento.getEndDate().getTime()));
 	}
@@ -82,12 +89,33 @@ public class AgendaManager implements Serializable {
 	public void gravar() {
 		
 		this.agendaNegocio.gravar(agenda);
-		agenda = new Agenda();
 		this.inicializar();
+		agenda = new Agenda();
 	}
 	
+	public void quandoMovido(ScheduleEntryMoveEvent evSelect) {
+		
+		for (Agenda ev : eventos) {
+			if (ev.getId() == (Long) evSelect.getScheduleEvent().getData()) {
+				this.agenda = ev;
+				this.agendaNegocio.gravar(agenda);
+				this.inicializar();
+				break;
+			}
+		}
+	}
 	
-	
+	public void quandoRedimencionado(ScheduleEntryResizeEvent evSelect) {
+		
+		for (Agenda ev : eventos) {
+			if (ev.getId() == (Long) evSelect.getScheduleEvent().getData()) {
+				this.agenda = ev;
+				this.agendaNegocio.gravar(agenda);
+				this.inicializar();
+				break;
+			}
+		}
+	}
 	
 	
 	public ScheduleModel getEventModel() {
