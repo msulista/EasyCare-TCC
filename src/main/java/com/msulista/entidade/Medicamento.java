@@ -2,15 +2,51 @@ package com.msulista.entidade;
 
 import java.io.Serializable;
 
-public class Medicacao implements BaseEntity, Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "medicamento")
+@NamedQueries({
+	@NamedQuery(name = "Medicamento.findAll", query = "SELECT m FROM Medicamento m ORDER BY m.nome ASC"),
+})
+public class Medicamento implements BaseEntity, Serializable {
 	
 	private static final long serialVersionUID = -1660999301423330553L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "medi_id")
 	private Long id;
+	
+	@Column(name = "medi_nome")
 	private String nome;
+	
+	@Column(name = "medi_posologia")
 	private String posologia;
+	
+	@Column(name = "medi_dosagem")
 	private String dosagem;
+	
+	@Column(name = "medi_via")
 	private String viaAdministracao;
+	
+	@Column(name = "medi_quanti_estoque")
+	private Integer estoque;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "paci_id")
+	private Paciente paciente;
+	
 	
 	public Long getId() {
 		return id;
@@ -42,6 +78,19 @@ public class Medicacao implements BaseEntity, Serializable {
 	public void setViaAdministracao(String viaAdministracao) {
 		this.viaAdministracao = viaAdministracao;
 	}
+	
+	public Integer getEstoque() {
+		return estoque;
+	}
+	public void setEstoque(Integer estoque) {
+		this.estoque = estoque;
+	}
+	public Paciente getPaciente() {
+		return paciente;
+	}
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,7 +106,7 @@ public class Medicacao implements BaseEntity, Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Medicacao other = (Medicacao) obj;
+		Medicamento other = (Medicamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -65,5 +114,7 @@ public class Medicacao implements BaseEntity, Serializable {
 			return false;
 		return true;
 	}
+
+   
 
 }

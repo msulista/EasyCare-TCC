@@ -3,17 +3,15 @@ package com.msulista.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.msulista.entidade.Agenda;
-
-public interface BaseDao {
+public interface BaseDao<T> {
 	
-	public Boolean salvar(Agenda agenda) throws SQLException;
+	public Boolean salvar(T bean) throws SQLException;
 	
-	public Boolean alterar(Agenda agenda) throws SQLException;
+	public Boolean alterar(T bean) throws SQLException;
 	
-	public List<Agenda> obterLista() throws SQLException;
+	public List<T> obterLista() throws SQLException;
 	
-	public Agenda obterAgenda(Long id) throws SQLException;
+	public T obterEvento(Long id) throws SQLException;
 	
 	public void excluir(Long id);
 

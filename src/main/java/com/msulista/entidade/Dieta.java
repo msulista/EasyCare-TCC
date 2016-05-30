@@ -7,7 +7,10 @@ public class Dieta implements BaseEntity, Serializable{
 	private static final long serialVersionUID = -8708257484929430757L;
 	
 	private Long id;
+	
 	private String nome;
+	
+	private Paciente paciente;
 	
 	public Long getId() {
 		return id;

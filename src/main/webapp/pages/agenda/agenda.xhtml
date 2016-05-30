@@ -24,17 +24,29 @@
 			    
 			    <p:dialog widgetVar="caixaDialogo" header="#{message['title.agenda']}" resizable="false" modal="true" showEffect="clip">
 			   		<h:panelGrid id="eventoDetalhe" columns="2">
-			   			<p:outputLabel value="Titulo"/>
-			   			<p:inputText value="#{agendaManager.agenda.titulo}"/>
+			   			<p:outputLabel for="titulo" value="Titulo"/>
+			   			<p:inputText id="titulo" value="#{agendaManager.agenda.titulo}"/>
+			   			
+			   			<p:outputLabel for="paciente" value="Paciênte"/>
+			   			<p:selectOneMenu id="paciente" value="#{agendaManager.agenda.paciente}" converter="simpleEntityConverter">
+			   				<f:selectItem  noSelectionOption="true" itemLabel="Selecione um paciênte"/>
+			   				<f:selectItems value="#{agendaManager.pacientes}" var="paciente" itemValue="#{paciente}" itemLabel="#{paciente.nomePaciente}"/>
+			   			</p:selectOneMenu>
+			   			
+			   			<p:outputLabel for="medicamento" value="Medicamento"/>
+			   			<p:selectOneMenu id="medicamento" value="#{agendaManager.agenda.medicamento}" converter="simpleEntityConverter">
+			   				<f:selectItem  noSelectionOption="true" itemLabel="Selecione um medicamento"/>
+			   				<f:selectItems value="#{agendaManager.medicamentos}" var="medicamento" itemValue="#{medicamento}" itemLabel="#{medicamento.nome}"/>
+			   			</p:selectOneMenu>
+			   						   				
+			   			<p:outputLabel for="dtIni" value="Data Inicio"/>
+			   			<p:calendar id="dtIni" value="#{agendaManager.agenda.dataInicio}" pattern="dd/MM/yyyy HH:mm" timeOnly="false"/>
 			   				
-			   			<p:outputLabel value="Data Inicio"/>
-			   			<p:calendar value="#{agendaManager.agenda.dataInicio}" pattern="dd/MM/yyyy"/>
+			   			<p:outputLabel for="dtFim" value="Data Fim"/>
+			   			<p:calendar id="dtFim" value="#{agendaManager.agenda.dataFim}" pattern="dd/MM/yyyy"/>
 			   				
-			   			<p:outputLabel value="Data Fim"/>
-			   			<p:calendar value="#{agendaManager.agenda.dataFim}" pattern="dd/MM/yyyy"/>
-			   				
-			   			<p:outputLabel value="Descrição"/>
-			   			<p:inputText value="#{agendaManager.agenda.descricao}" autocomplete="true"/>
+			   			<p:outputLabel for="descri" value="Descrição"/>
+			   			<p:inputText id="descri" value="#{agendaManager.agenda.descricao}" autocomplete="true"/>
 			   			<br/>
 			   			<p:separator/>
 			   			<br/>

@@ -1,21 +1,67 @@
 package com.msulista.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "paciente")
+@NamedQueries({
+	@NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p ORDER BY p.nomePaciente ASC"),
+})
 public class Paciente implements BaseEntity, Serializable{
 	
 	private static final long serialVersionUID = -51227891126451827L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "paci_id")
 	private Long id;
+	
+	@Column(name = "paci_nome")
 	private String nomePaciente;
+	
+	@Column(name = "paci_fone")
 	private String fonePaciente;
+	
+	@Column(name = "paci_dt_nascimento")
 	private Date dtNascimento;
+	
+	@Column(name = "paci_no_familiar")
 	private String nomeFamiliar;
+	
+	@Column(name = "paci_fone_familiar")
 	private String foneFamiliar;
+	
+	@Column(name = "paci_email_familiar")
 	private String emailFamiliar;
+	
+	@Column(name = "paci_endereco")
 	private String endereco;
+	
+	@Column(name = "paci_freq_hidra")
 	private Integer frequenciaHidratacao;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
+	private List<Medicamento> medicacoes = new ArrayList<>();
+	
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
+	@Transient
+	private List<Dieta> dietas = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -70,6 +116,19 @@ public class Paciente implements BaseEntity, Serializable{
 	}
 	public void setFrequenciaHidratacao(Integer frequenciaHidratacao) {
 		this.frequenciaHidratacao = frequenciaHidratacao;
+	}	
+	public List<Medicamento> getMedicacoes() {
+		return medicacoes;
+	}
+	public void setMedicacoes(List<Medicamento> medicacoes) {
+		this.medicacoes = medicacoes;
+	}
+	
+	public List<Dieta> getDietas() {
+		return dietas;
+	}
+	public void setDietas(List<Dieta> dietas) {
+		this.dietas = dietas;
 	}
 	@Override
 	public int hashCode() {
@@ -94,5 +153,6 @@ public class Paciente implements BaseEntity, Serializable{
 			return false;
 		return true;
 	}
+	
 		
 }

@@ -6,36 +6,34 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.msulista.entidade.Agenda;
+import com.msulista.entidade.EventoAtendimento;
 import com.msulista.util.JPAUtil;
 
-public class AgendaDao implements BaseDao{
+public class AgendaDao {
 
-	@Override
-	public Boolean salvar(Agenda agenda) throws SQLException{
+	public Boolean salvar(EventoAtendimento eventoAtendimento) throws SQLException{
 		
 		EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 		
-		manager.persist(agenda);
+		manager.persist(eventoAtendimento);
 		manager.getTransaction().commit();
 		manager.close();
 		
 		return true;
 	}
 
-	@Override
-	public Boolean alterar(Agenda agenda) throws SQLException{
+	public Boolean alterar(EventoAtendimento eventoAtendimento) throws SQLException{
 
 		EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		Agenda retorno = this.obterAgenda(agenda.getId());
-		retorno.setTitulo(agenda.getTitulo());
-		retorno.setDataInicio(agenda.getDataInicio());
-		retorno.setDataFim(agenda.getDataFim());
-		retorno.setStatus(agenda.getStatus());
-		retorno.setDescricao(agenda.getDescricao());
+		EventoAtendimento retorno = this.obterEvento(eventoAtendimento.getId());
+		retorno.setTitulo(eventoAtendimento.getTitulo());
+		retorno.setDataInicio(eventoAtendimento.getDataInicio());
+		retorno.setDataFim(eventoAtendimento.getDataFim());
+		retorno.setStatus(eventoAtendimento.getStatus());
+		retorno.setDescricao(eventoAtendimento.getDescricao());
 		
 		manager.merge(retorno);
 		manager.getTransaction().commit();
@@ -45,35 +43,32 @@ public class AgendaDao implements BaseDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<Agenda> obterLista() throws SQLException{
+	public List<EventoAtendimento> obterLista() throws SQLException{
 
 		EntityManager manager = JPAUtil.getEntityManager();
 
-		Query query = manager.createNamedQuery("Agenda.findAll");
-		List<Agenda> retorno = query.getResultList();
+		Query query = manager.createNamedQuery("EventoAtendimento.findAll");
+		List<EventoAtendimento> retorno = query.getResultList();
 		manager.close();		
 		
 		return retorno;
 	}
 
-	@Override
-	public Agenda obterAgenda(Long id) {
+	public EventoAtendimento obterEvento(Long id) {
 		
 		EntityManager manager = JPAUtil.getEntityManager();
-		Query query = manager.createNamedQuery("Agenda.findId");
+		Query query = manager.createNamedQuery("EventoAtendimento.findId");
 		query.setParameter("id", id);
-		Agenda agenda = (Agenda)query.getSingleResult();
+		EventoAtendimento eventoAtendimento = (EventoAtendimento)query.getSingleResult();
 		manager.close();
-		return agenda;
+		return eventoAtendimento;
 	}
 
-	@Override
 	public void excluir(Long id) {
 
 		EntityManager manager = JPAUtil.getEntityManager();
-		Agenda agenda = this.obterAgenda(id);
-		manager.remove(agenda);
+		EventoAtendimento eventoAtendimento = this.obterEvento(id);
+		manager.remove(eventoAtendimento);
 		manager.close();
 	}
 	

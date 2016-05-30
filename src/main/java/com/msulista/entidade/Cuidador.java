@@ -2,24 +2,50 @@ package com.msulista.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "cuidador")
 public class Cuidador implements BaseEntity, Serializable{
 	
 	private static final long serialVersionUID = 8989135807543251135L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cuid_id")
 	private Long id;
 	
+	@Column(name = "cuid_nome")
 	private String nome;
 	
+	@Column(name = "cuid_fone")
 	private String telefone;
 	
+	@Column(name = "cuid_email")
 	private String email;
 	
+	@Column(name = "cuid_dt_nascimento")
 	private Date dataNascimento;
 	
+	@Column(name = "cuid_descricao")
 	private String descricao;
 	
-	private Agenda agenda;
+	@Column(name = "cuid_anuncio")
+	private String anuncio;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cuidador", cascade = CascadeType.REMOVE)
+	private Set<EventoAtendimento> agenda = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -61,11 +87,19 @@ public class Cuidador implements BaseEntity, Serializable{
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Agenda getAgenda() {
+	public String getAnuncio() {
+		return anuncio;
+	}
+
+	public void setAnuncio(String anuncio) {
+		this.anuncio = anuncio;
+	}
+	
+	public Set<EventoAtendimento> getAgenda() {
 		return agenda;
 	}
 
-	public void setAgenda(Agenda agenda) {
+	public void setAgenda(Set<EventoAtendimento> agenda) {
 		this.agenda = agenda;
 	}
 

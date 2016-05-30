@@ -16,8 +16,12 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
-import com.msulista.entidade.Agenda;
+import com.msulista.entidade.EventoAtendimento;
+import com.msulista.entidade.Medicamento;
+import com.msulista.entidade.Paciente;
 import com.msulista.negocio.AgendaNegocio;
+import com.msulista.negocio.MedicamentoNegocio;
+import com.msulista.negocio.PacienteNegocio;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
@@ -33,19 +37,25 @@ public class AgendaManager implements Serializable {
 	
 	private ScheduleModel eventModel;
 	private AgendaNegocio agendaNegocio;
-	private Agenda agenda;
-	private List<Agenda> eventos;
+	private PacienteNegocio pacienteNegocio;
+	private MedicamentoNegocio medicamentoNegocio;
+	private EventoAtendimento eventoAtendimento;
+	private List<Paciente> pacientes;
+	private List<Medicamento> medicamentos;
+	private List<EventoAtendimento> eventos;
 	
 	
 	@PostConstruct
 	public void inicializar() {
 		this.agendaNegocio = new AgendaNegocio();
-		this.agenda = new Agenda();
+		this.pacienteNegocio = new PacienteNegocio();
+		this.medicamentoNegocio = new MedicamentoNegocio();
+		this.eventoAtendimento = new EventoAtendimento();
 		this.eventModel = new DefaultScheduleModel();
 		
 		this.eventos = this.agendaNegocio.obterLista();
 		
-		for (Agenda evento : eventos) {
+		for (EventoAtendimento evento : eventos) {
 			
 			DefaultScheduleEvent evt = new DefaultScheduleEvent();
 			evt.setData(evento.getId());
@@ -53,7 +63,7 @@ public class AgendaManager implements Serializable {
 			evt.setStartDate(evento.getDataInicio());
 			evt.setEndDate(evento.getDataFim());
 			evt.setDescription(evento.getDescricao());
-			evt.setAllDay(true);
+			evt.setAllDay(false);
 			evt.setEditable(true);
 			if (evt.isEditable()) {
 				evt.setStyleClass("emp1");
@@ -69,9 +79,9 @@ public class AgendaManager implements Serializable {
 	
 		ScheduleEvent eventoSelecionado = (ScheduleEvent) selectEvent.getObject();
 		
-		for (Agenda ev : eventos) {
+		for (EventoAtendimento ev : eventos) {
 			if (ev.getId() == (Long) eventoSelecionado.getData()) {
-				this.agenda = ev;
+				this.eventoAtendimento = ev;
 				break;				
 			}
 		}
@@ -79,26 +89,31 @@ public class AgendaManager implements Serializable {
 	
 	public void quandoNovo(SelectEvent selectEvent) {
 		
-		agenda = new Agenda();
+		eventoAtendimento = new EventoAtendimento();
+		this.pacienteNegocio = new PacienteNegocio();
+		this.medicamentoNegocio = new MedicamentoNegocio();
+		this.pacientes = this.pacienteNegocio.obterLista();
+		this.medicamentos = this.medicamentoNegocio.obterLista();
+		
 		ScheduleEvent novoEvento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
 		
-		agenda.setDataInicio(new java.sql.Date(novoEvento.getStartDate().getTime()));
-		agenda.setDataFim(new java.sql.Date(novoEvento.getEndDate().getTime()));
+		eventoAtendimento.setDataInicio(new java.sql.Date(novoEvento.getStartDate().getTime()));
+		eventoAtendimento.setDataFim(new java.sql.Date(novoEvento.getEndDate().getTime()));
 	}
 
 	public void gravar() {
 		
-		this.agendaNegocio.gravar(agenda);
+		this.agendaNegocio.gravar(eventoAtendimento);
 		this.inicializar();
-		agenda = new Agenda();
+		eventoAtendimento = new EventoAtendimento();
 	}
 	
 	public void quandoMovido(ScheduleEntryMoveEvent evSelect) {
 		
-		for (Agenda ev : eventos) {
+		for (EventoAtendimento ev : eventos) {
 			if (ev.getId() == (Long) evSelect.getScheduleEvent().getData()) {
-				this.agenda = ev;
-				this.agendaNegocio.gravar(agenda);
+				this.eventoAtendimento = ev;
+				this.agendaNegocio.gravar(eventoAtendimento);
 				this.inicializar();
 				break;
 			}
@@ -107,10 +122,10 @@ public class AgendaManager implements Serializable {
 	
 	public void quandoRedimencionado(ScheduleEntryResizeEvent evSelect) {
 		
-		for (Agenda ev : eventos) {
+		for (EventoAtendimento ev : eventos) {
 			if (ev.getId() == (Long) evSelect.getScheduleEvent().getData()) {
-				this.agenda = ev;
-				this.agendaNegocio.gravar(agenda);
+				this.eventoAtendimento = ev;
+				this.agendaNegocio.gravar(eventoAtendimento);
 				this.inicializar();
 				break;
 			}
@@ -133,19 +148,49 @@ public class AgendaManager implements Serializable {
 		this.agendaNegocio = agendaNegocio;
 	}
 
-	public Agenda getAgenda() {
-		return agenda;
+	public EventoAtendimento getAgenda() {
+		return eventoAtendimento;
 	}
-	public void setAgenda(Agenda agenda) {
-		this.agenda = agenda;
+	public void setAgenda(EventoAtendimento eventoAtendimento) {
+		this.eventoAtendimento = eventoAtendimento;
 	}
 
-	public List<Agenda> getEventos() {
+	public List<EventoAtendimento> getEventos() {
 		return eventos;
 	}
-	public void setEventos(List<Agenda> eventos) {
+	public void setEventos(List<EventoAtendimento> eventos) {
 		this.eventos = eventos;
 	}
+
+	public EventoAtendimento getEventoAtendimento() {
+		return eventoAtendimento;
+	}
+
+	public void setEventoAtendimento(EventoAtendimento eventoAtendimento) {
+		this.eventoAtendimento = eventoAtendimento;
+	}
+
+	public List<Paciente> getPacientes() {
+		return pacientes;
+	}
+
+	public void setPacientes(List<Paciente> pacientes) {
+		this.pacientes = pacientes;
+	}
+
+	public List<Medicamento> getMedicamentos() {
+		return medicamentos;
+	}
+
+	public void setMedicamentos(List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
+	}
+
+//	@URLActions(actions = { @URLAction(mappingId = "profissional-historico", onPostback = false) })
+//	public void loadHistorico() throws IOException {
+//		profissionalHistorico = service.getProfissionalHistorico(profissional.getMatricula());
+//	}
+	
 
 
 

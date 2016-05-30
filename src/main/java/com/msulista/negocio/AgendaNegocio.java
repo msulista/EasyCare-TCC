@@ -1,6 +1,8 @@
 package com.msulista.negocio;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -8,48 +10,48 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import com.msulista.dao.AgendaDao;
-import com.msulista.entidade.Agenda;
+import com.msulista.entidade.EventoAtendimento;
 import com.msulista.util.Mensagem;
 
 public class AgendaNegocio {
 
 	private AgendaDao agendaDao;
 	
-	public void gravar(Agenda agenda) {
+	public void gravar(EventoAtendimento eventoAtendimento) {
 		
-		this.verificaDataSeDataInicioMaiorQueFim(agenda.getDataInicio(), agenda.getDataFim());
+		this.verificaDataSeDataInicioMaiorQueFim(eventoAtendimento.getDataInicio(), eventoAtendimento.getDataFim());
 		
-		if (agenda.getId() == null) {
+		if (eventoAtendimento.getId() == null) {
 			
-			this.salvar(agenda);
+			this.salvar(eventoAtendimento);
 		}else {
 			
-			this.alterar(agenda);
+			this.alterar(eventoAtendimento);
 		}
 	}
 	
-	private void salvar(Agenda agenda) {
+	private void salvar(EventoAtendimento eventoAtendimento) {
 		
 		
 		try {
-			this.agendaDao.salvar(agenda);
+			this.agendaDao.salvar(eventoAtendimento);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Mensagem.add("Ocorreu um erro ao salvar novo evento.");
+//			Mensagem.add("Ocorreu um erro ao salvar novo evento.");
 		}
 		
 	}
 	
-	private void alterar(Agenda agenda) {
+	private void alterar(EventoAtendimento eventoAtendimento) {
 		
 		try {
-			this.agendaDao.alterar(agenda);
+			this.agendaDao.alterar(eventoAtendimento);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			Mensagem.add("Ocorreu um erro ao alterar o evento.");
 		}
 	}
-	
+		
 	private void verificaDataSeDataInicioMaiorQueFim(Date dtinicio, Date dtFim) {
 		
 		if (dtinicio.getTime() > dtFim.getTime()) {
@@ -57,11 +59,11 @@ public class AgendaNegocio {
 		}
 	}
 		
-	public List<Agenda> obterLista() {
+	public List<EventoAtendimento> obterLista() {
 		
 		this.agendaDao = new AgendaDao();
 		
-		List<Agenda> retorno = null;
+		List<EventoAtendimento> retorno = null;
 		try {
 			retorno = this.agendaDao.obterLista();
 		} catch (SQLException e) {
@@ -71,9 +73,28 @@ public class AgendaNegocio {
 		return retorno; 
 	}
 	
-	public Agenda obterAgenda(Long id) {
+	public EventoAtendimento obterAgenda(Long id) {
 		
 		this.agendaDao = new AgendaDao();
-		return this.agendaDao.obterAgenda(id);
+		return this.agendaDao.obterEvento(id);
 	}
+	
+//	 private EventoAtendimento ajustaHora(EventoAtendimento evento) {
+//		 
+//		 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+//		 Date hora = Calendar.getInstance().getTime();
+//		 String dataFormatada = sdf.format(hora);
+//		 
+//	        Calendar calendar = Calendar.getInstance();
+//	        calendar.setTime(evento.getHoraAdministracao());
+//	        calendar.g
+//	        if(calendar.g 12){
+//	        	calendar.set(Calendar.AM_PM, Calendar.PM);
+//	        	calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 1);
+//	        	calendar.set(Calendar.HOUR, 9);
+//	        	
+//	        }
+//	         
+//	        return calendar.getTime();
+//	}
 }
