@@ -1,7 +1,6 @@
 package com.msulista.negocio;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,14 +18,15 @@ public class AgendaNegocio {
 	
 	public void gravar(EventoAtendimento eventoAtendimento) {
 		
-		this.verificaDataSeDataInicioMaiorQueFim(eventoAtendimento.getDataInicio(), eventoAtendimento.getDataFim());
-		
-		if (eventoAtendimento.getId() == null) {
-			
-			this.salvar(eventoAtendimento);
-		}else {
-			
-			this.alterar(eventoAtendimento);
+		Boolean testeData = this.verificaDataSeDataInicioMaiorQueFim(eventoAtendimento.getDataInicio(), eventoAtendimento.getDataFim());
+		if (testeData) {
+			if (eventoAtendimento.getId() == null) {
+				
+				this.salvar(eventoAtendimento);
+			}else {
+				
+				this.alterar(eventoAtendimento);
+			}
 		}
 	}
 	
@@ -52,11 +52,21 @@ public class AgendaNegocio {
 		}
 	}
 		
-	private void verificaDataSeDataInicioMaiorQueFim(Date dtinicio, Date dtFim) {
+	private Boolean verificaDataSeDataInicioMaiorQueFim(Date dtinicio, Date dtFim) {
+		Calendar calIni = Calendar.getInstance();
+		Calendar calFim = Calendar.getInstance();
+		calIni.setTime(dtinicio);
+		calIni.set(Calendar.HOUR_OF_DAY, 0);
+		calIni.set(Calendar.MINUTE, 0);
+		calIni.set(Calendar.SECOND, 0);
+		calIni.set(Calendar.MILLISECOND, 0);
+		calFim.setTime(dtFim);
 		
-		if (dtinicio.getTime() > dtFim.getTime()) {
+		if (calFim.before(calIni)) {
 			Mensagem.add("Data inicial não pode ser maior que data final.");
+			return false;
 		}
+		return true;
 	}
 		
 	public List<EventoAtendimento> obterLista() {

@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -7,55 +9,81 @@
 	xmlns:pretty="http://ocpsoft.com/prettyfaces">
 
 	<ui:define name="content">
-		
-		<div class="panel-agenda">
-			<h2>#{message['title.agenda']}</h2>
-			
-			 <h:form>
-			 <p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
-			 <p:growl id="messages" showDetail="true" />
-			    <p:schedule id="schedule" value="#{agendaManager.eventModel}" timeZone="America/Sao_Paulo" locale="pt" >
-			    
-			      <p:ajax event="eventSelect" listener="#{agendaManager.quandoSelecionado}" update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();"/>
-			      <p:ajax event="dateSelect" listener="#{agendaManager.quandoNovo}" update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();"/>
-			      <p:ajax event="eventMove" listener="#{agendaManager.quandoMovido}" update="schedule" />
-			      <p:ajax event="eventResize" listener="#{agendaManager.quandoRedimencionado}" update="schedule" />
-			    </p:schedule>
-			    
-			    <p:dialog widgetVar="caixaDialogo" header="#{message['title.agenda']}" resizable="false" modal="true" showEffect="clip">
-			   		<h:panelGrid id="eventoDetalhe" columns="2">
-			   			<p:outputLabel for="titulo" value="Titulo"/>
-			   			<p:inputText id="titulo" value="#{agendaManager.agenda.titulo}"/>
-			   			
-			   			<p:outputLabel for="paciente" value="Paciênte"/>
-			   			<p:selectOneMenu id="paciente" value="#{agendaManager.agenda.paciente}" converter="simpleEntityConverter">
-			   				<f:selectItem  noSelectionOption="true" itemLabel="Selecione um paciênte"/>
-			   				<f:selectItems value="#{agendaManager.pacientes}" var="paciente" itemValue="#{paciente}" itemLabel="#{paciente.nomePaciente}"/>
-			   			</p:selectOneMenu>
-			   			
-			   			<p:outputLabel for="medicamento" value="Medicamento"/>
-			   			<p:selectOneMenu id="medicamento" value="#{agendaManager.agenda.medicamento}" converter="simpleEntityConverter">
-			   				<f:selectItem  noSelectionOption="true" itemLabel="Selecione um medicamento"/>
-			   				<f:selectItems value="#{agendaManager.medicamentos}" var="medicamento" itemValue="#{medicamento}" itemLabel="#{medicamento.nome}"/>
-			   			</p:selectOneMenu>
-			   						   				
-			   			<p:outputLabel for="dtIni" value="Data Inicio"/>
-			   			<p:calendar id="dtIni" value="#{agendaManager.agenda.dataInicio}" pattern="dd/MM/yyyy HH:mm" timeOnly="false"/>
-			   				
-			   			<p:outputLabel for="dtFim" value="Data Fim"/>
-			   			<p:calendar id="dtFim" value="#{agendaManager.agenda.dataFim}" pattern="dd/MM/yyyy"/>
-			   				
-			   			<p:outputLabel for="descri" value="Descrição"/>
-			   			<p:inputText id="descri" value="#{agendaManager.agenda.descricao}" autocomplete="true"/>
-			   			<br/>
-			   			<p:separator/>
-			   			<br/>
-			   			<p:commandButton value="Salvar" actionListener="#{agendaManager.gravar}" update="messages schedule" oncomplete="PF('caixaDialogo').hide();"/>
-		   			</h:panelGrid>
-			    </p:dialog>
-			    
-			 </h:form>
-			
+
+		<div class="panel-agenda" id="panel-agenda">
+		<h2>#{message['title.agenda']}</h2>
+
+		<h:form id="form" prependId="false">
+			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
+			<p:growl id="messages" showDetail="true" />
+			<p:schedule id="schedule" value="#{agendaManager.eventModel}"
+				timeZone="America/Sao_Paulo" locale="pt">
+
+				<p:ajax event="eventSelect"
+					listener="#{agendaManager.quandoSelecionado}"
+					update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();" />
+				<p:ajax event="dateSelect" listener="#{agendaManager.quandoNovo}"
+					update="eventoDetalhe" oncomplete="PF('caixaDialogo').show();" />
+				<p:ajax event="eventMove" listener="#{agendaManager.quandoMovido}"
+					update="schedule" />
+				<p:ajax event="eventResize"
+					listener="#{agendaManager.quandoRedimencionado}" update="schedule" />
+			</p:schedule>
+		</h:form>
+		<h:form id="form-modal" prependId="false">
+			<p:dialog widgetVar="caixaDialogo"
+				header="#{message['title.agenda']}" resizable="false" modal="true"
+				showEffect="clip">
+				<h:panelGrid id="eventoDetalhe" columns="2">
+					<p:outputLabel for="titulo" value="Titulo" />
+					<p:inputText id="titulo"
+						value="#{agendaManager.eventoAtendimento.titulo}" />
+
+					<p:outputLabel for="paciente" value="Paciente" />
+					<p:selectOneMenu id="paciente"
+						value="#{agendaManager.eventoAtendimento.paciente}"
+						converter="simpleEntityConverter">
+						<f:selectItem noSelectionOption="true" itemLabel="Selecione um paciênte" />
+						<f:selectItems value="#{agendaManager.pacientes}" var="paciente"
+							itemValue="#{paciente}" itemLabel="#{paciente.nomePaciente}" />
+						<p:ajax event="change" process="@this" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="medicamento" value="Medicamento" />
+					<p:selectOneMenu id="medicamento"
+						value="#{agendaManager.eventoAtendimento.medicamento}"
+						converter="simpleEntityConverter">
+						<f:selectItem noSelectionOption="true" itemLabel="Selecione um medicamento" />
+						<f:selectItems value="#{agendaManager.medicamentos}"
+							var="medicamento" itemValue="#{medicamento}"
+							itemLabel="#{medicamento.nome}" />
+						<p:ajax event="change" process="@this" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="dtIni" value="Data Inicio" />
+					<p:calendar id="dtIni"
+						value="#{agendaManager.eventoAtendimento.dataInicio}"
+						pattern="dd/MM/yyyy HH:mm" timeOnly="false" />
+
+					<p:outputLabel for="dtFim" value="Data Fim" />
+					<p:calendar id="dtFim"
+						value="#{agendaManager.eventoAtendimento.dataFim}"
+						pattern="dd/MM/yyyy" />
+
+					<p:outputLabel for="descri" value="Descrição" />
+					<p:inputText id="descri"
+						value="#{agendaManager.eventoAtendimento.descricao}"
+						autocomplete="true" />
+					<br />
+					<p:separator />
+					<br />
+					<p:commandButton value="Salvar" action="#{agendaManager.gravar}"
+						update="messages schedule" oncomplete="PF('caixaDialogo').hide();" process="@this form-modal"/>
+				</h:panelGrid>
+			</p:dialog>
+
+		</h:form>
+
 		</div>
 	</ui:define>
 

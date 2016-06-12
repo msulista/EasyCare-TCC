@@ -477,11 +477,21 @@ input[type=text] {
 }
 
 /*--------------Schedule-------------*/
+ 
+ .fc-event{
+   background: #056501 !important; 
+ }
+ .ui-state-highlight{
+ 	background: #ffffff!important; 
+ }
+ .ui-selectonemenu-list-item{
+ 	color: black !important;
+ }
 
-.emp1 .fc-event-inner{
-	background: #006600 !important;
-}
-
-.emp2 .fc-event-inner{
-	background: #003399 !important;
+ /*--- .ui-state-highlight, .ui-widget-header .ui-state-highlight 
+ 
+ verde escuro #056501
+ verde claro #57ae00
+  ---*/
+ 
 }
