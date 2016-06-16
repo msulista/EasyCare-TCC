@@ -482,11 +482,12 @@ input[type=text] {
    background: #056501 !important; 
  }
  .ui-state-highlight{
- 	background: #ffffff!important; 
+ 	background: #81db6f!important; 
  }
- .ui-selectonemenu-list-item{
+ .ui-selectonemenu-list-item .fc-basic-view .fc-day-number{
  	color: black !important;
  }
+
 
  /*--- .ui-state-highlight, .ui-widget-header .ui-state-highlight 
  
