@@ -130,6 +130,7 @@ public class Paciente implements BaseEntity, Serializable{
 	public void setDietas(List<Dieta> dietas) {
 		this.dietas = dietas;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -153,6 +154,5 @@ public class Paciente implements BaseEntity, Serializable{
 			return false;
 		return true;
 	}
-	
 		
 }

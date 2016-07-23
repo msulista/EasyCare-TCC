@@ -18,15 +18,13 @@ public class AgendaNegocio {
 	
 	public void gravar(EventoAtendimento eventoAtendimento) {
 		
-		Boolean testeData = this.verificaDataSeDataInicioMaiorQueFim(eventoAtendimento.getDataInicio(), eventoAtendimento.getDataFim());
-		if (testeData) {
-			if (eventoAtendimento.getId() == null) {
+		this.setaDataFim(eventoAtendimento);
+		if (eventoAtendimento.getId() == null) {
 				
-				this.salvar(eventoAtendimento);
-			}else {
+			this.salvar(eventoAtendimento);
+		}else {
 				
-				this.alterar(eventoAtendimento);
-			}
+			this.alterar(eventoAtendimento);
 		}
 	}
 	
@@ -35,6 +33,7 @@ public class AgendaNegocio {
 		
 		try {
 			this.agendaDao.salvar(eventoAtendimento);
+			Mensagem.add("Evento salvo com sucesso.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 //			Mensagem.add("Ocorreu um erro ao salvar novo evento.");
@@ -67,6 +66,18 @@ public class AgendaNegocio {
 			return false;
 		}
 		return true;
+	}
+	
+	private void setaDataFim(EventoAtendimento evento) {
+		Calendar calIni = Calendar.getInstance();
+		Calendar calFim = Calendar.getInstance();
+		calIni.setTime(evento.getDataInicio());
+//		calIni.set(Calendar.HOUR_OF_DAY, 0);
+		calIni.set(Calendar.MINUTE, 5);
+		calIni.set(Calendar.SECOND, 0);
+		calIni.set(Calendar.MILLISECOND, 0);
+		calFim.setTime(calIni.getTime());
+		evento.setDataFim(calFim.getTime());
 	}
 		
 	public List<EventoAtendimento> obterLista() {
