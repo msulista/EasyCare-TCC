@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -14,112 +15,74 @@ import javax.persistence.Transient;
 import com.msulista.entidade.Dieta;
 import com.msulista.entidade.Medicamento;
 import com.msulista.entidade.Paciente;
+import com.msulista.negocio.PacienteNegocio;
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
+@ViewScoped
+@URLMappings(mappings = {
+		@URLMapping(id = "paciente", pattern = "/paciente", viewId = "/pages/paciente/paciente-listar.xhtml"),
+		@URLMapping(id = "paciente-incluir", pattern = "/incluir", viewId = "/pages/paciente/paciente-incluir.xhtml", parentId = "paciente"),
+		@URLMapping(id = "paciente-editar", pattern = "/#{pacienteManager.paciente.id}/editar", viewId = "/pages/paciente/paciente-editar.xhtml", parentId = "paciente")
+})
 public class PacienteManager {
 	
-	List<Paciente> pacientes = new ArrayList<>();
+	private Paciente paciente;
+	private List<Paciente> pacientes;
+	private PacienteNegocio pacienteNegocio;
 	
-private Long id;
+	public PacienteManager() {
+		super();
+		this.paciente = new Paciente();
+		this.pacientes = new ArrayList<>();
+		this.pacienteNegocio = new PacienteNegocio();
+	}
 	
-	private String nomePaciente;
-	private String fonePaciente;
-	private Date dtNascimento;
-	private String nomeFamiliar;
-	private String foneFamiliar;
-	private String emailFamiliar;
-	private String endereco;
-	private Integer frequenciaHidratacao;
-	private List<Dieta> dietas = new ArrayList<>();
-
-	public Paciente findPacientebyNome(String nome) {
-		
-		for (Paciente paciente : pacientes) {
-			if (paciente.getNomePaciente().equalsIgnoreCase(nome)) {
-				return paciente;
-			}
-		}
-		return null;
+	/**
+	 * Cadastra paciente
+	 * 
+	 * @param paciente
+	 */
+	public void salvar() {
+		this.pacienteNegocio.gravar(paciente);
 	}
 
+	//Serviços
+//	public Paciente findPacientebyNome(String nome) {
+//		for (Paciente paciente : pacientes) {
+//			if (paciente.getNomePaciente().equalsIgnoreCase(nome)) {
+//				return paciente;
+//			}
+//		}
+//		return null;
+//	}
+	
+	//Getters Setters
 	public List<Paciente> getPacientes() {
 		return pacientes;
 	}
 	public void setPacientes(List<Paciente> pacientes) {
 		this.pacientes = pacientes;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getNomePaciente() {
-		return nomePaciente;
-	}
-	public void setNomePaciente(String nomePaciente) {
-		this.nomePaciente = nomePaciente;
-	}
-	public String getFonePaciente() {
-		return fonePaciente;
-	}
-	public void setFonePaciente(String fonePaciente) {
-		this.fonePaciente = fonePaciente;
-	}
-	public Date getDtNascimento() {
-		return dtNascimento;
-	}
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
+
+	public Paciente getPaciente() {
+		return paciente;
 	}
 
-	public String getNomeFamiliar() {
-		return nomeFamiliar;
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
-	public void setNomeFamiliar(String nomeFamiliar) {
-		this.nomeFamiliar = nomeFamiliar;
+	public PacienteNegocio getPacienteNegocio() {
+		return pacienteNegocio;
 	}
 
-	public String getFoneFamiliar() {
-		return foneFamiliar;
+	public void setPacienteNegocio(PacienteNegocio pacienteNegocio) {
+		this.pacienteNegocio = pacienteNegocio;
 	}
-
-	public void setFoneFamiliar(String foneFamiliar) {
-		this.foneFamiliar = foneFamiliar;
-	}
-
-	public String getEmailFamiliar() {
-		return emailFamiliar;
-	}
-
-	public void setEmailFamiliar(String emailFamiliar) {
-		this.emailFamiliar = emailFamiliar;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public Integer getFrequenciaHidratacao() {
-		return frequenciaHidratacao;
-	}
-
-	public void setFrequenciaHidratacao(Integer frequenciaHidratacao) {
-		this.frequenciaHidratacao = frequenciaHidratacao;
-	}
-
-	public List<Dieta> getDietas() {
-		return dietas;
-	}
-
-	public void setDietas(List<Dieta> dietas) {
-		this.dietas = dietas;
-	}
+	
+	
 
 	
 }

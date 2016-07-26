@@ -12,8 +12,16 @@ import com.msulista.util.JPAUtil;
 public class PacienteDao implements BaseDao<Paciente>{
 
 	public Boolean salvar(Paciente paciente) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+
+		EntityManager manager = JPAUtil.getEntityManager();
+		manager.getTransaction().begin();
+		
+		manager.persist(paciente);
+		manager.getTransaction().commit();
+		manager.close();
+		
+		return true;
+		
 	}
 
 	public Boolean alterar(Paciente paciente) throws SQLException {

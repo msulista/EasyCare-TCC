@@ -30,7 +30,6 @@ public class AgendaNegocio {
 	
 	private void salvar(EventoAtendimento eventoAtendimento) {
 		
-		
 		try {
 			this.agendaDao.salvar(eventoAtendimento);
 			Mensagem.add("Evento salvo com sucesso.");

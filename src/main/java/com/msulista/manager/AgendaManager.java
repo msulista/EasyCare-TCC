@@ -69,8 +69,7 @@ public class AgendaManager implements Serializable {
 
 	public void quandoSelecionado(SelectEvent selectEvent) {
 
-		ScheduleEvent eventoSelecionado = (ScheduleEvent) selectEvent
-				.getObject();
+		ScheduleEvent eventoSelecionado = (ScheduleEvent) selectEvent.getObject();
 
 		for (EventoAtendimento ev : eventos) {
 			if (ev.getId() == (Long) eventoSelecionado.getData()) {

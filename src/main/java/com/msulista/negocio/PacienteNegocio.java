@@ -7,11 +7,46 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import com.msulista.dao.PacienteDao;
+import com.msulista.entidade.EventoAtendimento;
 import com.msulista.entidade.Paciente;
+import com.msulista.util.Mensagem;
 
 public class PacienteNegocio {
 
 	private PacienteDao pacienteDao;
+	
+	public void gravar(Paciente paciente) {
+		
+		if (paciente.getId() == null) {
+				
+			this.salvar(paciente);
+		}else {
+				
+			this.alterar(paciente);
+		}
+	}
+	
+	private void salvar(Paciente paciente) {	
+		
+		try {
+			this.pacienteDao.salvar(paciente);
+			Mensagem.add("Cadastro realizado com sucesso.");
+		} catch (SQLException e) {
+			Mensagem.add("Ocorreu um erro ao salvar.");
+			e.printStackTrace();
+		}
+	}
+	
+	private void alterar(Paciente paciente) {
+		
+		try {
+			this.pacienteDao.alterar(paciente);
+			Mensagem.add("Edição realizada com sucesso.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			Mensagem.add("Ocorreu um erro ao alterar o evento.");
+		}
+	}
 
 	public List<Paciente> obterLista() {
 
@@ -27,5 +62,7 @@ public class PacienteNegocio {
 		}
 		return retorno;
 	}
+	
+
 
 }
