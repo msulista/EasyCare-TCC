@@ -42,10 +42,18 @@ public class PacienteManager {
 	/**
 	 * Cadastra paciente
 	 * 
-	 * @param paciente
 	 */
 	public void salvar() {
 		this.pacienteNegocio.gravar(paciente);
+	}
+	
+	/**
+	 * Obtem lista de pacientes
+	 * 
+	 * @return lista de {@link Paciente}
+	 */
+	public List<Paciente> obterLista() {
+		return this.pacienteNegocio.obterLista();
 	}
 
 	//Serviços

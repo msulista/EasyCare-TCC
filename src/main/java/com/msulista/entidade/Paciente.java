@@ -1,6 +1,7 @@
 package com.msulista.entidade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,8 @@ import javax.persistence.Transient;
 public class Paciente implements BaseEntity, Serializable{
 	
 	private static final long serialVersionUID = -51227891126451827L;
+	
+	private static final String DATA_FORMATO = "dd/MM/yyyy";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +65,15 @@ public class Paciente implements BaseEntity, Serializable{
 	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
 	@Transient
 	private List<Dieta> dietas = new ArrayList<>();
+	
+	@Transient
+	private String transientDtNascimento;
+	
+	@Transient
+	private Integer transientIdade;
+	
+	@Transient
+	private Boolean transientResponsavel;
 	
 	public Long getId() {
 		return id;
@@ -130,7 +142,30 @@ public class Paciente implements BaseEntity, Serializable{
 	public void setDietas(List<Dieta> dietas) {
 		this.dietas = dietas;
 	}
-	
+		
+	public String getTransientDtNascimento() {
+		
+		 if (this.getDtNascimento() != null) {
+	            final SimpleDateFormat sdf = new SimpleDateFormat(DATA_FORMATO);
+	            this.transientDtNascimento = sdf.format(this.getDtNascimento());
+	        }
+		return transientDtNascimento;
+	}
+	public void setTransientDtNascimento(String transientDtNascimento) {
+		this.transientDtNascimento = transientDtNascimento;
+	}
+	public Integer getTransientIdade() {
+		return transientIdade;
+	}
+	public void setTransientIdade(Integer transientIdade) {
+		this.transientIdade = transientIdade;
+	}
+	public Boolean getTransientResponsavel() {
+		return transientResponsavel;
+	}
+	public void setTransientResponsavel(Boolean transientResponsavel) {
+		this.transientResponsavel = transientResponsavel;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
