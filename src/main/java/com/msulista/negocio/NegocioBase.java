@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface NegocioBase<T> {
 
-	public void gravar(T bean);
+	public void salvar(T bean);
 		
 	public void alterar(T bean);
 	

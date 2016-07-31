@@ -13,7 +13,7 @@ import com.msulista.util.Mensagem;
 
 public class PacienteNegocio {
 
-	private PacienteDao pacienteDao;
+	protected PacienteDao pacienteDao;
 	
 	public void gravar(Paciente paciente) {
 		
@@ -26,19 +26,19 @@ public class PacienteNegocio {
 		}
 	}
 	
-	private void salvar(Paciente paciente) {	
-		
+	public void salvar(Paciente paciente) {	
+		this.pacienteDao = new PacienteDao();
 		try {
-			this.pacienteDao.salvar(paciente);
-			Mensagem.add("Cadastro realizado com sucesso.");
+			pacienteDao.salvar(paciente);
+			//Mensagem.add("Cadastro realizado com sucesso.");
 		} catch (SQLException e) {
 			Mensagem.add("Ocorreu um erro ao salvar.");
 			e.printStackTrace();
 		}
 	}
 	
-	private void alterar(Paciente paciente) {
-		
+	public void alterar(Paciente paciente) {
+		this.pacienteDao = new PacienteDao();
 		try {
 			this.pacienteDao.alterar(paciente);
 			Mensagem.add("Edição realizada com sucesso.");

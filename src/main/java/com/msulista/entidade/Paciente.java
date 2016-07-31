@@ -59,7 +59,8 @@ public class Paciente implements BaseEntity, Serializable{
 	@Column(name = "paci_freq_hidra")
 	private Integer frequenciaHidratacao;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
+	@Transient
 	private List<Medicamento> medicacoes = new ArrayList<>();
 	
 	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)

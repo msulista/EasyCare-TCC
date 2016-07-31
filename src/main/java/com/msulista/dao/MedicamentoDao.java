@@ -12,9 +12,16 @@ import com.msulista.util.JPAUtil;
 public class MedicamentoDao implements BaseDao<Medicamento>{
 
 	@Override
-	public Boolean salvar(Medicamento bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean salvar(Medicamento medicamento) throws SQLException {
+		
+		EntityManager manager = JPAUtil.getEntityManager();
+		manager.getTransaction().begin();
+		
+		manager.persist(medicamento);
+		manager.getTransaction().commit();
+		manager.close();
+		
+		return true;
 	}
 
 	@Override

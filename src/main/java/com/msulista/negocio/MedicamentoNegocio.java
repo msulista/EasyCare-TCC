@@ -12,9 +12,13 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento>{
 	private MedicamentoDao medicamentoDao;
 	
 	@Override
-	public void gravar(Medicamento bean) {
-		// TODO Auto-generated method stub
-		
+	public void salvar(Medicamento medicamento) {
+		this.medicamentoDao = new MedicamentoDao();
+		try {
+			this.medicamentoDao.salvar(medicamento);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

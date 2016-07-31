@@ -44,7 +44,7 @@ public class PacienteManager {
 	 * 
 	 */
 	public void salvar() {
-		this.pacienteNegocio.gravar(paciente);
+		this.pacienteNegocio.salvar(paciente);
 	}
 	
 	/**
