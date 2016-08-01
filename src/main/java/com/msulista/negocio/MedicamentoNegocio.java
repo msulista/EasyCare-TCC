@@ -3,9 +3,11 @@ package com.msulista.negocio;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import com.msulista.dao.MedicamentoDao;
 import com.msulista.entidade.Medicamento;
-import com.msulista.util.Mensagem;
 
 public class MedicamentoNegocio implements NegocioBase<Medicamento>{
 
@@ -31,13 +33,15 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento>{
 	public List<Medicamento> obterLista() {
 		
 		this.medicamentoDao = new MedicamentoDao();
+		List<Medicamento> retorno = null;
 		try {
-			return this.medicamentoDao.obterLista();
+			retorno = this.medicamentoDao.obterLista();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Mensagem.add("Ocorreu um erro ao alterar o evento.");
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
 		}
-		return null;
+		return retorno;
 	}
 
 	@Override

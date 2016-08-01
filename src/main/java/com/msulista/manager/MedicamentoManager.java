@@ -33,6 +33,10 @@ public class MedicamentoManager {
 	public void salvar() {
 		this.medicamentoNegocio.salvar(medicamento);
 	}
+	
+	public List<Medicamento> obterLista() {
+		return this.medicamentoNegocio.obterLista();
+	}
 
 	
 	

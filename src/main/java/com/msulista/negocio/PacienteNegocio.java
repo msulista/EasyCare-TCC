@@ -7,7 +7,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import com.msulista.dao.PacienteDao;
-import com.msulista.entidade.EventoAtendimento;
 import com.msulista.entidade.Paciente;
 import com.msulista.util.Mensagem;
 
