@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface NegocioBase<T> {
 
-	public void salvar(T bean);
+	public String salvar(T bean);
 		
-	public void alterar(T bean);
+	public String alterar(T bean);
 	
 	public List<T> obterLista();
 	

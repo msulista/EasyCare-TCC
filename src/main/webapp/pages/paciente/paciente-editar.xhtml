@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+    template="/pages/template/default.xhtml"
+    xmlns:pretty="http://ocpsoft.com/prettyfaces"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="content">
+    	<div class="incluir-editar">
+	    	
+	    	<h2>#{message['title.paciente.cadastrar']}</h2>
+	        <h:form>
+	        	<p:growl id="growl" life="4000" />
+				<p:panel header="#{message['title.paciente']}" id="painel">			
+					
+					<p:focus context="painel"/>
+					<p:outputLabel for="nome"  value="#{message['label.nome']}" styleClass="label" />
+					<p:inputText id="nome" value="#{pacienteManager.paciente.nomePaciente}" required="true" requiredMessage="#{message['span.obrigatorio.nomePaci']}"/>
+					<br/><br/>										
+					<p:outputLabel for="fone" value="#{message['label.fone']}" styleClass="label" />
+					<p:inputText id="fone" value="#{pacienteManager.paciente.fonePaciente}" required="true" requiredMessage="#{message['span.obrigatorio.telefone']}"/>
+					<br/><br/>						
+					<p:outputLabel for="dtNascimento" value="#{message['label.data.nascimento']}" styleClass="label" title="#{message['label.paciente.dtNascimento']}"/>
+	        		<p:calendar id="dtNascimento" value="#{pacienteManager.paciente.dtNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="true"/>
+	        		<br/><br/>	 
+	        		<p:outputLabel for="endereco" value="#{message['label.endereco']}" styleClass="label" />
+					<p:inputTextarea id="endereco" rows="6" cols="33" value="#{pacienteManager.paciente.endereco}" required="true" requiredMessage="#{message['span.obrigatorio.endereco']}"/>
+					<br/><br/>	
+					<br/><br/>
+					<h3>#{message['title.paciente.familiarResponsavel']}</h3>  
+					<br/><br/>	     		
+	        		<p:outputLabel for="nomeParente" value="#{message['label.nome.responsavel']}" styleClass="label" />
+					<p:inputText id="nomeParente" value="#{pacienteManager.paciente.nomeFamiliar}" required="false" />
+					<br/><br/>
+					<p:outputLabel for="foneFamiliar" value="#{message['label.fone.responsavel']}" styleClass="label" />
+					<p:inputText id="foneFamiliar" value="#{pacienteManager.paciente.foneFamiliar}" required="false" />
+					<br/><br/>	
+					<p:outputLabel for="email" value="#{message['label.email.responsavel']}" styleClass="label" />
+					<p:inputText id="email" value="#{pacienteManager.paciente.emailFamiliar}" required="false"/>					
+					<br/><br/>						
+			        <p:selectOneRadio id="console" value="#{radioView.console}">
+			            <f:selectItem itemLabel="Google Calendar" itemValue="true" />
+			        </p:selectOneRadio>
+					<br/><br/>
+					     		       		
+	        		<p:commandButton value="#{message['button.salvar']}" action="#{pacienteManager.alterar}" update="growl" />
+	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:paciente" />
+				</p:panel> 
+			</h:form>
+		</div>
+    </ui:define>
+</ui:composition>

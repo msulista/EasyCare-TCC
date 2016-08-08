@@ -25,26 +25,30 @@ public class PacienteNegocio {
 		}
 	}
 	
-	public void salvar(Paciente paciente) {	
+	public String salvar(Paciente paciente) {	
 		this.pacienteDao = new PacienteDao();
 		try {
 			pacienteDao.salvar(paciente);
 			//Mensagem.add("Cadastro realizado com sucesso.");
+			return "pretty:paciente";
 		} catch (SQLException e) {
 			Mensagem.add("Ocorreu um erro ao salvar.");
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
-	public void alterar(Paciente paciente) {
+	public String alterar(Paciente paciente) {
 		this.pacienteDao = new PacienteDao();
 		try {
 			this.pacienteDao.alterar(paciente);
-			Mensagem.add("Edição realizada com sucesso.");
+//			Mensagem.add("Edição realizada com sucesso.");
+			return "pretty:paciente";
 		} catch (SQLException e) {
 			e.printStackTrace();
 			Mensagem.add("Ocorreu um erro ao alterar o evento.");
 		}
+		return null;
 	}
 
 	public List<Paciente> obterLista() {

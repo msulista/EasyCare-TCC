@@ -42,11 +42,19 @@
 		<div class="menu">
 			<ul class="clearfix">
 				<li><a href="#"  class="menu-categoria">Home</a></li>
-				<li><a href="#"  class="menu-categoria">Cadastros<span class="arrow">&#9660;</span></a></li>
+				<li><a href="#"  class="menu-categoria">Cadastros<span class="arrow">&#9660;</span></a>
 					<ul class="sub-menu">
-						<p:separator />
-						<li><h:link outcome="pretty:cargo" styleClass="submenu-categoria">#{message['title.cargos']}</h:link></li>
+										
+						<li>
+							<h:link outcome="pretty:paciente" styleClass="submenu-categoria">#{message['title.paciente']}</h:link>
+						</li>
+						<li>
+							<h:link outcome="pretty:medicamento" styleClass="submenu-categoria">#{message['title.medicamento']}</h:link>
+						</li>
+						
+						
 					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
