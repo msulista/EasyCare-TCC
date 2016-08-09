@@ -43,8 +43,15 @@ public class PacienteManager {
 	 * Cadastra paciente
 	 * 
 	 */
-	public void salvar() {
-		this.pacienteNegocio.salvar(paciente);
+	public String salvar() {
+		return this.pacienteNegocio.salvar(paciente);
+	}
+	
+	public String alterar() {
+		return this.pacienteNegocio.alterar(paciente);
+	}
+	public Paciente obterPaciente(Long id) {
+		return this.pacienteNegocio.obterPaciente(id);
 	}
 	
 	/**

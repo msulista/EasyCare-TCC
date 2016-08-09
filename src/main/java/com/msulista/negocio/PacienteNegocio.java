@@ -14,16 +14,16 @@ public class PacienteNegocio {
 
 	protected PacienteDao pacienteDao;
 	
-	public void gravar(Paciente paciente) {
-		
-		if (paciente.getId() == null) {
-				
-			this.salvar(paciente);
-		}else {
-				
-			this.alterar(paciente);
-		}
-	}
+//	public void gravar(Paciente paciente) {
+//		
+//		if (paciente.getId() == null) {
+//				
+//			this.salvar(paciente);
+//		}else {
+//				
+//			this.alterar(paciente);
+//		}
+//	}
 	
 	public String salvar(Paciente paciente) {	
 		this.pacienteDao = new PacienteDao();
@@ -42,15 +42,25 @@ public class PacienteNegocio {
 		this.pacienteDao = new PacienteDao();
 		try {
 			this.pacienteDao.alterar(paciente);
-//			Mensagem.add("Edição realizada com sucesso.");
 			return "pretty:paciente";
 		} catch (SQLException e) {
-			e.printStackTrace();
 			Mensagem.add("Ocorreu um erro ao alterar o evento.");
+			e.printStackTrace();
 		}
 		return null;
 	}
 
+	public Paciente obterPaciente(Long id) {
+		
+		try {
+			return this.pacienteDao.obterEvento(id);
+		} catch (SQLException e) {
+			Mensagem.add("Ocorreu um erro ao alterar o evento.");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public List<Paciente> obterLista() {
 
 		this.pacienteDao = new PacienteDao();

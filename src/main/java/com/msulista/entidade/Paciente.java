@@ -6,16 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -23,6 +20,7 @@ import javax.persistence.Transient;
 @Table(name = "paciente")
 @NamedQueries({
 	@NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p ORDER BY p.nomePaciente ASC"),
+	@NamedQuery(name = "Paciente.findPorId", query = "SELECT p FROM Paciente p WHERE p.id = :id"),
 })
 public class Paciente implements BaseEntity, Serializable{
 	

@@ -37,9 +37,9 @@
 					<p:outputLabel for="email" value="#{message['label.email.responsavel']}" styleClass="label" />
 					<p:inputText id="email" value="#{pacienteManager.paciente.emailFamiliar}" required="false"/>					
 					<br/><br/>						
-			        <p:selectOneRadio id="console" value="#{radioView.console}">
-			            <f:selectItem itemLabel="Google Calendar" itemValue="true" />
-			        </p:selectOneRadio>
+			        <h:outputText value="#{message['label.google.calendar']}" styleClass="label" />
+        			<p:selectBooleanCheckbox value="#{selectBooleanView.value1}" />
+					<br/><br/>
 					<br/><br/>
 					     		       		
 	        		<p:commandButton value="#{message['button.salvar']}" action="#{pacienteManager.salvar}" update="growl" />

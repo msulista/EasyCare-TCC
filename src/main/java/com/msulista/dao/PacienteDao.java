@@ -41,8 +41,14 @@ public class PacienteDao implements BaseDao<Paciente>{
 	}
 
 	public Paciente obterEvento(Long id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		EntityManager manager = JPAUtil.getEntityManager();
+		Query query = manager.createNamedQuery("Paciente.findPorId");		
+		query.setParameter("id", id);
+		
+		Paciente paciente = (Paciente) query.getSingleResult();
+		manager.close();
+		return paciente;
 	}
 
 	public void excluir(Long id) {

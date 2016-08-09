@@ -33,7 +33,12 @@
 					</p:column>
 					<p:column headerText="#{message['label.fone.responsavel']}" >
 						<h:outputText value="#{paciente.foneFamiliar}" />
-					</p:column>				
+					</p:column>		
+					<p:column headerText="#{message['label.acoes']}" >
+						
+						<p:commandButton id="editar" styleClass="btn-acao" icon="ui-icon-closethick" action="#{pacienteManager.obterPaciente(paciente.id)}" outcome="pretty:paciente" />
+						
+					</p:column>			
 				</p:dataTable>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 					<p:commandButton value="Sim" type="button"
