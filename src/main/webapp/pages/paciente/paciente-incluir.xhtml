@@ -20,7 +20,7 @@
 					<p:inputText id="fone" value="#{pacienteManager.paciente.fonePaciente}" required="true" requiredMessage="#{message['span.obrigatorio.telefone']}"/>
 					<br/><br/>						
 					<p:outputLabel for="dtNascimento" value="#{message['label.data.nascimento']}" styleClass="label" title="#{message['label.paciente.dtNascimento']}"/>
-	        		<p:calendar id="dtNascimento" value="#{pacienteManager.paciente.dtNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="true"/>
+	        		<p:calendar id="dtNascimento" value="#{pacienteManager.paciente.dtNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false"/>
 	        		<br/><br/>	 
 	        		<p:outputLabel for="endereco" value="#{message['label.endereco']}" styleClass="label" />
 					<p:inputTextarea id="endereco" rows="6" cols="33" value="#{pacienteManager.paciente.endereco}" required="true" requiredMessage="#{message['span.obrigatorio.endereco']}"/>

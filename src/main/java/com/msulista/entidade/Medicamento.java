@@ -1,6 +1,7 @@
 package com.msulista.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +43,9 @@ public class Medicamento implements BaseEntity, Serializable {
 	
 	@Column(name = "medi_quanti_estoque")
 	private Integer estoque;
+	
+	@Column(name = "medi_dt_validade")
+	private Date dataValidade;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "paci_id")
@@ -85,12 +89,20 @@ public class Medicamento implements BaseEntity, Serializable {
 	public void setEstoque(Integer estoque) {
 		this.estoque = estoque;
 	}
+	
+	public Date getDataValidade() {
+		return dataValidade;
+	}
+	public void setDataValidade(Date dataValidade) {
+		this.dataValidade = dataValidade;
+	}
 	public Paciente getPaciente() {
 		return paciente;
 	}
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

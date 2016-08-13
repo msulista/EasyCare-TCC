@@ -12,31 +12,26 @@
 	        	<p:growl id="growl" life="4000" />
 				<p:panel header="#{message['title.medicamento.cadastrar']}" id="painel">			
 					<p:focus context="painel"/>
-					<p:outputLabel for="nome"  value="#{message['label.nome']}" styleClass="label" />
-					<p:inputText id="nome" value="#{medicamentoManager.medicamento.nome}" required="true" requiredMessage="#{message['span.obrigatorio.Nome']}"/>
+					<p:outputLabel for="nome"  value="#{message['label.medicamento.nome']}" styleClass="label" />
+					<p:inputText id="nome" value="#{medicamentoManager.medicamento.nome}" required="true" requiredMessage="#{message['span.obrigatorio.nomeMedicamento']}"/>
 					<br/><br/>	
-					<!--				
-					<p:outputLabel for="fone" value="#{message['label.fone']}" styleClass="label" />
-					<p:inputText id="fone" value="#{pacienteManager.paciente.fonePaciente}" required="true" requiredMessage="#{message['span.obrigatorio.valorInicial']}"/>
+								
+					<p:outputLabel for="posologia" value="#{message['label.medicamento.posologia']}" styleClass="label" />
+					<p:inputText id="posologia" value="#{medicamentoManager.medicamento.posologia}" required="false" />
 					<br/><br/>	
 					
-					<p:outputLabel for="dtNascimento" value="#{message['label.data.nascimento']}" styleClass="label" title="#{message['label.title.paciente.dtNascimento']}"/>
-	        		<p:calendar id="dtNascimento" value="#{pacienteManager.paciente.dtNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="true"/>
+					<p:outputLabel for="dosagem" value="#{message['label.medicamento.dosagem']}" styleClass="label" />
+					<p:inputText id="dosagem" value="#{medicamentoManager.medicamento.dosagem}" required="true" requiredMessage="#{message['span.obrigatorio.dosagem']}" />
+					<br/><br/>
+					
+					<p:outputLabel for="viaAdm" value="#{message['label.medicamento.via']}" styleClass="label" />
+	        		<p:inputText id="viaAdm" value="#{medicamentoManager.medicamento.viaAdministracao}" required="false"/>
 	        		<br/><br/>
 	        		
-	        		<p:outputLabel for="nomeParente" value="#{message['label.nome.responsavel']}" styleClass="label" />
-					<p:inputText id="nomeParente" value="#{pacienteManager.paciente.nomeFamiliar}" required="true" requiredMessage="#{message['span.obrigatorio.Nome']}"/>
-					<br/><br/>
-					<p:outputLabel for="foneFamiliar" value="#{message['label.fone.responsavel']}" styleClass="label" />
-					<p:inputText id="foneFamiliar" value="#{pacienteManager.paciente.foneFamiliar}" required="true" requiredMessage="#{message['span.obrigatorio.valorInicial']}"/>
-					<br/><br/>	
-					<p:outputLabel for="email" value="#{message['label.email.responsavel']}" styleClass="label" />
-					<p:inputText id="email" value="#{pacienteManager.paciente.emailFamiliar}" required="true" requiredMessage="#{message['span.obrigatorio.valorInicial']}"/>
-					<br/><br/>	
-					<p:outputLabel for="endereco" value="#{message['label.endereco']}" styleClass="label" />
-					<p:inputTextarea id="endereco" rows="6" cols="33" value="#{pacienteManager.paciente.endereco}" required="true" requiredMessage="#{message['span.obrigatorio.valorInicial']}"/>
-					<br/><br/>		
-					    -->    		       		
+	        		<p:outputLabel for="validade" value="#{message['label.medicamento.validade']}" styleClass="label" />
+	        		<p:calendar id="validade" value="#{medicamentoManager.medicamento.dataValidade}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false"/>
+	        		<br/><br/>
+					  		       		
 	        		<p:commandButton value="#{message['button.salvar']}" action="#{medicamentoManager.salvar}" update="growl" styleClass="btn"/>
 	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:paciente" styleClass="btn"/>
 				</p:panel> 
