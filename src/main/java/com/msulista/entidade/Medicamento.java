@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @Table(name = "medicamento")
 @NamedQueries({
 	@NamedQuery(name = "Medicamento.findAll", query = "SELECT m FROM Medicamento m ORDER BY m.nome ASC"),
+	@NamedQuery(name = "Medicamento.findPorId", query = "SELECT m FROM Medicamento m WHERE m.id = :id"),
 })
 public class Medicamento implements BaseEntity, Serializable {
 	

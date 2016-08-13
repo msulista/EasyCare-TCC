@@ -44,11 +44,13 @@ public class PacienteManager {
 	 * 
 	 */
 	public String salvar() {
-		return this.pacienteNegocio.salvar(paciente);
+		this.pacienteNegocio.salvar(paciente);
+		return "pretty:paciente";
 	}
 	
 	public String alterar() {
-		return this.pacienteNegocio.alterar(paciente);
+		this.pacienteNegocio.alterar(paciente);
+		return "pretty:paciente";
 	}
 	public Paciente obterPaciente(Long id) {
 		return this.pacienteNegocio.obterPaciente(id);

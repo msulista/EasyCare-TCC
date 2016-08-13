@@ -30,12 +30,22 @@ public class MedicamentoManager {
 		this.medicamentoNegocio = new MedicamentoNegocio();
 	}
 	
-	public void salvar() {
+	public String salvar() {
 		this.medicamentoNegocio.salvar(medicamento);
+		return "pretty:medicamento";
+	}
+	
+	public String alterar() {
+		
+		return "pretty:medicamento";
 	}
 	
 	public List<Medicamento> obterLista() {
 		return this.medicamentoNegocio.obterLista();
+	}
+	
+	public Medicamento obterMedicamento(Long id) {
+		return this.medicamentoNegocio.obterPorId(id);
 	}
 
 	

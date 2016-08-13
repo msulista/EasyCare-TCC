@@ -44,8 +44,15 @@ public class MedicamentoDao implements BaseDao<Medicamento>{
 
 	@Override
 	public Medicamento obterEvento(Long id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		EntityManager manager = JPAUtil.getEntityManager();
+		Query query = manager.createNamedQuery("Medicamento.findPorId");		
+		query.setParameter("id", id);
+		
+		Medicamento medicamento = (Medicamento) query.getSingleResult();
+		manager.close();
+		
+		return medicamento;
 	}
 
 	@Override

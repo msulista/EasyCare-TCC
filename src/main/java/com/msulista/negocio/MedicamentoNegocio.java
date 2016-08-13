@@ -49,8 +49,17 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento>{
 
 	@Override
 	public Medicamento obterPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Medicamento medicamento = null;
+		try {
+			medicamento = this.medicamentoDao.obterEvento(id);
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
+		}
+		
+		return medicamento;
 	}
 
 }

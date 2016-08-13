@@ -19,8 +19,15 @@
 					emptyMessage="#{message['alerta.listaVazia']}"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                 paginator="true" rows="10" rowsPerPageTemplate="10,20,30">
+	                 
 					<p:column headerText="#{message['label.medicamento.nome']}" >
 						<h:outputText value="#{medicamento.nome}" />
+					</p:column>
+					<p:column headerText="#{message['label.medicamento.posologia']}" >
+						<h:outputText value="#{medicamento.posologia}" />
+					</p:column>
+					<p:column headerText="#{message['label.medicamento.validade']}" >
+						<h:outputText value="#{medicamento.dataValidade}" />
 					</p:column>
 					<p:column headerText="#{message['label.medicamento.dosagem']}" >
 						<h:outputText value="#{medicamento.dosagem}" />
@@ -31,6 +38,9 @@
 					<p:column headerText="#{message['label.medicamento.estoque']}" >
 						<h:outputText value="#{medicamento.estoque}" />
 					</p:column>			
+					<p:column headerText="#{message['label.acoes']}">
+						<p:commandButton  id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{medicamentoManager.obterMedicamento(medicamento.id)}" outcome="pretty:medicamento-editar"/>
+					</p:column>
 				</p:dataTable>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 					<p:commandButton value="Sim" type="button"
