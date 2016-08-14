@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "cuidador")
@@ -56,6 +57,7 @@ public class Cuidador implements BaseEntity, Serializable{
 	@Column(name = "cuid_anuncio")
 	private String anuncio;
 	
+	@Transient
 	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "cuidador", cascade = CascadeType.REMOVE)
 	private Set<EventoAtendimento> agenda = new HashSet<>();
 
