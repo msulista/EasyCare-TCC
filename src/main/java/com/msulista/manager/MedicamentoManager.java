@@ -36,7 +36,7 @@ public class MedicamentoManager {
 	}
 	
 	public String alterar() {
-		
+		this.medicamentoNegocio.alterar(medicamento);
 		return "pretty:medicamento";
 	}
 	

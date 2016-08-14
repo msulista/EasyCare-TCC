@@ -27,7 +27,14 @@ public class MedicamentoDao implements BaseDao<Medicamento>{
 	@Override
 	public Boolean alterar(Medicamento bean) throws SQLException {
 
-		return null;
+		EntityManager manager = JPAUtil.getEntityManager();
+		manager.getTransaction().begin();
+		
+		manager.merge(bean);
+		manager.getTransaction().commit();
+		manager.close();
+		
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
