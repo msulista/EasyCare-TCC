@@ -12,11 +12,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "cuidador")
+@NamedQueries({
+	@NamedQuery(name = "Cuidador.findAll", query = "SELECT c FROM Cuidador c ORDER BY c.nome ASC"),
+	@NamedQuery(name = "Cuidador.findPorId", query = "SELECT c FROM Cuidador c WHERE c.id = :id"),
+})
 public class Cuidador implements BaseEntity, Serializable{
 	
 	private static final long serialVersionUID = 8989135807543251135L;
@@ -41,10 +47,16 @@ public class Cuidador implements BaseEntity, Serializable{
 	@Column(name = "cuid_descricao")
 	private String descricao;
 	
+	@Column(name = "cuid_formacao")
+	private String formacao;
+	
+	@Column(name = "cuid_localizacao")
+	private String localizacao;
+	
 	@Column(name = "cuid_anuncio")
 	private String anuncio;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cuidador", cascade = CascadeType.REMOVE)
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "cuidador", cascade = CascadeType.REMOVE)
 	private Set<EventoAtendimento> agenda = new HashSet<>();
 
 	public Long getId() {
@@ -109,6 +121,22 @@ public class Cuidador implements BaseEntity, Serializable{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public String getFormacao() {
+		return formacao;
+	}
+
+	public void setFormacao(String formacao) {
+		this.formacao = formacao;
+	}
+
+	public String getLocalizacao() {
+		return localizacao;
+	}
+
+	public void setLocalizacao(String localizacao) {
+		this.localizacao = localizacao;
 	}
 
 	@Override

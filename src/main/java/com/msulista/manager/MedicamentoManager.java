@@ -16,7 +16,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @URLMappings(mappings = {
 		@URLMapping(id = "medicamento", pattern = "/medicamento", viewId = "/pages/medicamento/medicamento-listar.xhtml"),
 		@URLMapping(id = "medicamento-incluir", pattern = "/incluir", viewId = "/pages/medicamento/medicamento-incluir.xhtml", parentId = "medicamento"),
-		@URLMapping(id = "medicamento-editar", pattern = "/#{medicamentoManager.medicamento.id}/editar", viewId = "/pages/medicamento/medicamento-editar.xhtml", parentId = "paciente")
+		@URLMapping(id = "medicamento-editar", pattern = "/#{medicamentoManager.medicamento.id}/editar", viewId = "/pages/medicamento/medicamento-editar.xhtml", parentId = "medicamento")
 })
 public class MedicamentoManager {
 	
@@ -44,8 +44,8 @@ public class MedicamentoManager {
 		return this.medicamentoNegocio.obterLista();
 	}
 	
-	public Medicamento obterMedicamento(Long id) {
-		return this.medicamentoNegocio.obterPorId(id);
+	public Medicamento obterMedicamento() {
+		return this.medicamentoNegocio.obterPorId(medicamento.getId());
 	}
 
 	
