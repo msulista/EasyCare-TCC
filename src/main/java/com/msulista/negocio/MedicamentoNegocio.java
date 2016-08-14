@@ -27,7 +27,14 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento>{
 
 	@Override
 	public String alterar(Medicamento bean) {
-		// TODO Auto-generated method stub
+
+		try {
+			this.medicamentoDao.alterar(bean);
+		} catch (SQLException e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
+		}
+		
 		return null;
 		
 	}

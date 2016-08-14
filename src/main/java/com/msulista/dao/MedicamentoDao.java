@@ -26,7 +26,7 @@ public class MedicamentoDao implements BaseDao<Medicamento>{
 
 	@Override
 	public Boolean alterar(Medicamento bean) throws SQLException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
