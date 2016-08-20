@@ -3,6 +3,7 @@ package com.msulista.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.management.Query;
 import javax.persistence.EntityManager;
 
 import com.msulista.entidade.Cuidador;
@@ -24,13 +25,25 @@ public class CuidadorDao implements BaseDao<Cuidador>{
 
 	@Override
 	public Boolean alterar(Cuidador bean) throws SQLException {
-		// TODO Auto-generated method stub
+		
+		EntityManager manager = JPAUtil.getEntityManager();
+		manager.getTransaction().begin();
+		
+		manager.merge(bean);
+		manager.getTransaction().commit();
+		manager.close();
+		
 		return null;
 	}
 
 	@Override
 	public List<Cuidador> obterLista() throws SQLException {
-		// TODO Auto-generated method stub
+
+		EntityManager manager = JPAUtil.getEntityManager();
+		
+//		Query query = manager.createNamedQuery("Cuidador.findAll");
+		
+		
 		return null;
 	}
 
