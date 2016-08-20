@@ -13,15 +13,7 @@
 				<p:panel header="#{message['title.cadastro']}" id="painel">			
 					
 					<p:focus context="painel"/>
-					
-					<p:outputLabel for="paci" value="#{message['label.paciente']}" styleClass="label"/>
-					<p:selectOneMenu id="paci" value="#{atendimentoManager.atendimento.paciente}" converter="simpleEntityConverter">
-						<f:selectItem noSelectionOption="true" itemLabel="Selecione um paciente" />
-						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemValue="#{paciente}" itemLabel="#{paciente.nome}" />
-						<p:ajax event="change" process="@this" />
-					</p:selectOneMenu>					
-					<br/><br/>		
-					
+		
 					<p:outputLabel for="dtIni" value="Data Inicio" />
 					<p:calendar id="dtIni"
 						value="#{atendimentoManager.atendimento.dataInicial}"

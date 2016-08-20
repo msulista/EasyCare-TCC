@@ -74,6 +74,10 @@ public class AtendimentoManager {
 		return "pretty:index";
 	}
 	
+	public List<Atendimento> obterLista() {
+		return this.atendimentoNegocio.obterLista();
+	}
+	
 	@URLActions(actions = { @URLAction(mappingId = "atendimento-editar", onPostback = false) })
 	public void load() throws IOException {
 		atendimento = atendimentoNegocio.obterPorId(atendimento.getId());

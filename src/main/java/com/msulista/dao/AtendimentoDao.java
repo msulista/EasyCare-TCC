@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.msulista.entidade.Atendimento;
-import com.msulista.entidade.Paciente;
 import com.msulista.util.JPAUtil;
 
 public class AtendimentoDao implements BaseDao<Atendimento>{

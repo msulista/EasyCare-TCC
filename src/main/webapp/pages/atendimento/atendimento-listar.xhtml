@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/template/default.xhtml"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="content">
+			<div class="panel-formulario">
+			<h2>#{message['title.paciente.listar']}</h2>
+			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
+			<h:form>
+			<br />
+				<p:button styleClass="btn-default" value="#{message['button.novo']}" outcome="pretty:paciente-incluir" />
+			<br />
+				<p:dataTable id="gridAtendimento" var="atendimento" value="#{atendimentoManager.obterLista()}" emptyMessage="#{message['alerta.listaVazia']}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                 paginator="true" rows="10" rowsPerPageTemplate="10,20,30">
+					<p:column headerText="#{message['label.nome.paciente']}" >
+						<h:outputText value="#{atendimento.localizacao}" />
+					</p:column>						
+							
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
