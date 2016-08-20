@@ -14,17 +14,6 @@ public class PacienteNegocio {
 
 	protected PacienteDao pacienteDao;
 	
-//	public void gravar(Paciente paciente) {
-//		
-//		if (paciente.getId() == null) {
-//				
-//			this.salvar(paciente);
-//		}else {
-//				
-//			this.alterar(paciente);
-//		}
-//	}
-	
 	public String salvar(Paciente paciente) {	
 		this.pacienteDao = new PacienteDao();
 		try {
