@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -57,13 +60,9 @@ public class Paciente implements BaseEntity, Serializable{
 	@Column(name = "paci_freq_hidra")
 	private Integer frequenciaHidratacao;
 	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
-	@Transient
-	private List<Medicamento> medicacoes = new ArrayList<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
+	private List<Atendimento> atendimentos = new ArrayList<>();
 	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
-	@Transient
-	private List<Dieta> dietas = new ArrayList<>();
 	
 	@Transient
 	private String transientDtNascimento;
@@ -128,19 +127,7 @@ public class Paciente implements BaseEntity, Serializable{
 	public void setFrequenciaHidratacao(Integer frequenciaHidratacao) {
 		this.frequenciaHidratacao = frequenciaHidratacao;
 	}	
-	public List<Medicamento> getMedicacoes() {
-		return medicacoes;
-	}
-	public void setMedicacoes(List<Medicamento> medicacoes) {
-		this.medicacoes = medicacoes;
-	}
 	
-	public List<Dieta> getDietas() {
-		return dietas;
-	}
-	public void setDietas(List<Dieta> dietas) {
-		this.dietas = dietas;
-	}
 		
 	public String getTransientDtNascimento() {
 		

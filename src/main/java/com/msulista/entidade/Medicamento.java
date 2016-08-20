@@ -1,7 +1,9 @@
 package com.msulista.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -48,9 +52,10 @@ public class Medicamento implements BaseEntity, Serializable {
 	@Column(name = "medi_dt_validade")
 	private Date dataValidade;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "paci_id")
-	private Paciente paciente;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
+	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
 	
 	
 	public Long getId() {
@@ -97,12 +102,7 @@ public class Medicamento implements BaseEntity, Serializable {
 	public void setDataValidade(Date dataValidade) {
 		this.dataValidade = dataValidade;
 	}
-	public Paciente getPaciente() {
-		return paciente;
-	}
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
-	}
+
 	
 	@Override
 	public int hashCode() {

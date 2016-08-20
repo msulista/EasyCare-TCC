@@ -1,6 +1,8 @@
 package com.msulista.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Dieta implements BaseEntity, Serializable{
 		
@@ -10,7 +12,9 @@ public class Dieta implements BaseEntity, Serializable{
 	
 	private String nome;
 	
-	private Paciente paciente;
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	@JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "diet_id") })
+	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
 	
 	public Long getId() {
 		return id;

@@ -1,8 +1,9 @@
 package com.msulista.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "cuidador")
@@ -54,13 +54,13 @@ public class Cuidador implements BaseEntity, Serializable{
 	@Column(name = "cuid_localizacao")
 	private String localizacao;
 	
-	@Column(name = "cuid_anuncio")
-	private String anuncio;
+	@Column(name = "cuid_status")
+	private Integer status;
 	
-	@Transient
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "cuidador", cascade = CascadeType.REMOVE)
-	private Set<EventoAtendimento> agenda = new HashSet<>();
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cuidador", cascade = CascadeType.REMOVE)
+	private List<Atendimento> atendimentos = new ArrayList<>();
+	
+	@Override
 	public Long getId() {
 		return id;
 	}
@@ -101,20 +101,12 @@ public class Cuidador implements BaseEntity, Serializable{
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getAnuncio() {
-		return anuncio;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setAnuncio(String anuncio) {
-		this.anuncio = anuncio;
-	}
-	
-	public Set<EventoAtendimento> getAgenda() {
-		return agenda;
-	}
-
-	public void setAgenda(Set<EventoAtendimento> agenda) {
-		this.agenda = agenda;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getDescricao() {
@@ -139,6 +131,14 @@ public class Cuidador implements BaseEntity, Serializable{
 
 	public void setLocalizacao(String localizacao) {
 		this.localizacao = localizacao;
+	}
+	
+	public List<Atendimento> getAtendimentos() {
+		return atendimentos;
+	}
+
+	public void setAtendimentos(List<Atendimento> atendimentos) {
+		this.atendimentos = atendimentos;
 	}
 
 	@Override
