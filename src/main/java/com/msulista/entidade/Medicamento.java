@@ -38,11 +38,11 @@ public class Medicamento implements BaseEntity, Serializable {
 	@Column(name = "medi_nome")
 	private String nome;
 	
-	@Column(name = "medi_posologia")
-	private String posologia;
+	@Column(name = "medi_material")
+	private String material;
 	
-	@Column(name = "medi_dosagem")
-	private String dosagem;
+	@Column(name = "medi_concentracao")
+	private String concentracao;
 	
 	@Column(name = "medi_via")
 	private String viaAdministracao;
@@ -53,6 +53,8 @@ public class Medicamento implements BaseEntity, Serializable {
 	@Column(name = "medi_dt_validade")
 	private Date dataValidade;
 	
+	@Column(name = "medi_tipo")
+	private Integer tipo;
 	
 //	@ManyToMany(fetch = FetchType.LAZY)
 //	@JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
@@ -72,18 +74,7 @@ public class Medicamento implements BaseEntity, Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getPosologia() {
-		return posologia;
-	}
-	public void setPosologia(String posologia) {
-		this.posologia = posologia;
-	}
-	public String getDosagem() {
-		return dosagem;
-	}
-	public void setDosagem(String dosagem) {
-		this.dosagem = dosagem;
-	}
+	
 	public String getViaAdministracao() {
 		return viaAdministracao;
 	}
@@ -104,7 +95,31 @@ public class Medicamento implements BaseEntity, Serializable {
 	public void setDataValidade(Date dataValidade) {
 		this.dataValidade = dataValidade;
 	}
-
+	
+	public String getMaterial() {
+		return material;
+	}
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+	public String getConcentracao() {
+		return concentracao;
+	}
+	public void setConcentracao(String concentracao) {
+		this.concentracao = concentracao;
+	}
+	public Integer getTipo() {
+		return tipo;
+	}
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
+	public List<EventoMedicacao> getEventoMedicacoes() {
+		return eventoMedicacoes;
+	}
+	public void setEventoMedicacoes(List<EventoMedicacao> eventoMedicacoes) {
+		this.eventoMedicacoes = eventoMedicacoes;
+	}
 	
 	@Override
 	public int hashCode() {
