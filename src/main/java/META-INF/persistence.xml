@@ -7,7 +7,14 @@
 	<persistence-unit name="easycare">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-
+		
+		<class>com.msulista.entidade.Atendimento</class>
+		<class>com.msulista.entidade.Cuidador</class>
+		<class>com.msulista.entidade.Dieta</class>
+		<class>com.msulista.entidade.EventoMedicacao</class>
+		<class>com.msulista.entidade.Medicamento</class>
+		<class>com.msulista.entidade.Paciente</class>
+		<class>com.msulista.entidade.Cargo</class>
 		
 
 		<properties>

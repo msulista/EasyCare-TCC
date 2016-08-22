@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "medicamento")
@@ -53,8 +54,9 @@ public class Medicamento implements BaseEntity, Serializable {
 	private Date dataValidade;
 	
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	@JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
+	@Transient
 	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
 	
 	

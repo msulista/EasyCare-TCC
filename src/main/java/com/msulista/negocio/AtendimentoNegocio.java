@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.msulista.dao.AtendimentoDao;
 import com.msulista.entidade.Atendimento;
+import com.msulista.entidade.Paciente;
 
 public class AtendimentoNegocio implements NegocioBase<Atendimento>{
 
@@ -12,6 +13,9 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento>{
 	
 	@Override
 	public String salvar(Atendimento bean) {
+		
+		Paciente paci = new Paciente();
+		bean.setPaciente(paci);
 		
 		try {
 			this.atendimentoDao.salvar(bean);

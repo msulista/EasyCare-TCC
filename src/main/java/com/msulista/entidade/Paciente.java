@@ -57,9 +57,6 @@ public class Paciente implements BaseEntity, Serializable{
 	@Column(name = "paci_endereco")
 	private String endereco;
 	
-	@Column(name = "paci_freq_hidra")
-	private Integer frequenciaHidratacao;
-	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
 	private List<Atendimento> atendimentos = new ArrayList<>();
 	
@@ -121,14 +118,15 @@ public class Paciente implements BaseEntity, Serializable{
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public Integer getFrequenciaHidratacao() {
-		return frequenciaHidratacao;
-	}
-	public void setFrequenciaHidratacao(Integer frequenciaHidratacao) {
-		this.frequenciaHidratacao = frequenciaHidratacao;
-	}	
+		
 	
 		
+	public List<Atendimento> getAtendimentos() {
+		return atendimentos;
+	}
+	public void setAtendimentos(List<Atendimento> atendimentos) {
+		this.atendimentos = atendimentos;
+	}
 	public String getTransientDtNascimento() {
 		
 		 if (this.getDtNascimento() != null) {

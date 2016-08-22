@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "atendimento")
 @NamedQueries({
 	@NamedQuery(name = "Atendimento.findAll", query = "SELECT a FROM Atendimento a"),
 	@NamedQuery(name = "Atendimento.findPorId", query = "SELECT a FROM Atendimento a WHERE a.id = :id"),
@@ -127,13 +127,13 @@ public class Atendimento implements BaseEntity, Serializable{
 		this.paciente = paciente;
 	}
 
-	public List<EventoMedicacao> getEventoMedicacoes() {
-		return eventoMedicacoes;
-	}
-
-	public void setEventoMedicacoes(List<EventoMedicacao> eventoMedicacoes) {
-		this.eventoMedicacoes = eventoMedicacoes;
-	}
+//	public List<EventoMedicacao> getEventoMedicacoes() {
+//		return eventoMedicacoes;
+//	}
+//
+//	public void setEventoMedicacoes(List<EventoMedicacao> eventoMedicacoes) {
+//		this.eventoMedicacoes = eventoMedicacoes;
+//	}
 
 
 }

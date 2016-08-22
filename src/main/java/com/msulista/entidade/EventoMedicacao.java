@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "evento_medicacao")
@@ -49,16 +50,18 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	@JoinColumn(name = "atend_id", nullable = false)
 	private Atendimento atendimento;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE,
-			CascadeType.DETACH })
-	@JoinTable(name = "dieta", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "medi_id") })
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE,
+//			CascadeType.DETACH })
+//	@JoinTable(name = "dieta", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
+//			@JoinColumn(name = "medi_id") })
+	@Transient
 	private List<Medicamento> medcamentos = new ArrayList<>();
 
 //	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE,
 //			CascadeType.DETACH })
 //	@JoinTable(name = "dieta", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 //			@JoinColumn(name = "diet_id") })
+	@Transient
 	private List<Dieta> refeicoes = new ArrayList<>();
 
 	@Override
