@@ -16,12 +16,12 @@
 					<p:inputText id="nome" value="#{medicamentoManager.medicamento.nome}" required="true" requiredMessage="#{message['span.obrigatorio.nomeMedicamento']}"/>
 					<br/><br/>	
 								
-					<p:outputLabel for="posologia" value="#{message['label.medicamento.posologia']}" styleClass="label" />
-					<p:inputText id="posologia" value="#{medicamentoManager.medicamento.posologia}" required="false" />
+					<p:outputLabel for="posologia" value="#{message['label.medicamento.material']}" styleClass="label" />
+					<p:inputText id="posologia" value="#{medicamentoManager.medicamento.material}" required="false" />
 					<br/><br/>	
 					
-					<p:outputLabel for="dosagem" value="#{message['label.medicamento.dosagem']}" styleClass="label" />
-					<p:inputText id="dosagem" value="#{medicamentoManager.medicamento.dosagem}" required="true" requiredMessage="#{message['span.obrigatorio.dosagem']}" />
+					<p:outputLabel for="dosagem" value="#{message['label.medicamento.concentracao']}" styleClass="label" />
+					<p:inputText id="dosagem" value="#{medicamentoManager.medicamento.concentracao}" required="true" requiredMessage="#{message['span.obrigatorio.dosagem']}" />
 					<br/><br/>
 					
 					<p:outputLabel for="viaAdm" value="#{message['label.medicamento.via']}" styleClass="label" />
@@ -33,7 +33,7 @@
 	        		<br/><br/>
 					  		       		
 	        		<p:commandButton value="#{message['button.salvar']}" action="#{medicamentoManager.salvar()}" update="growl" styleClass="btn"/>
-	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:paciente" styleClass="btn"/>
+	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:medicamento" styleClass="btn"/>
 				</p:panel> 
 			</h:form>
 		</div>

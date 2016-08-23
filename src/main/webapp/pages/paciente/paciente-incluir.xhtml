@@ -42,8 +42,8 @@
 					<br/><br/>
 					<br/><br/>
 					     		       		
-	        		<p:commandButton value="#{message['button.salvar']}" action="#{pacienteManager.salvar}" update="growl" />
-	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:paciente" />
+	        		<p:commandButton value="#{message['button.salvar']}" action="#{pacienteManager.salvar()}" update="growl" styleClass="btn"/>
+	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:medicamento" styleClass="btn"/>
 				</p:panel> 
 			</h:form>
 		</div>

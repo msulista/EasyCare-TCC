@@ -33,7 +33,6 @@ public class PacienteManager {
 	private PacienteNegocio pacienteNegocio;
 	
 	public PacienteManager() {
-		super();
 		this.paciente = new Paciente();
 		this.pacientes = new ArrayList<>();
 		this.pacienteNegocio = new PacienteNegocio();

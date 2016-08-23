@@ -36,7 +36,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento>{
 
 	@Override
 	public List<Atendimento> obterLista() {
-		
+		this.atendimentoDao = new AtendimentoDao();
 		try {
 			return this.atendimentoDao.obterLista();
 		} catch (SQLException e) {

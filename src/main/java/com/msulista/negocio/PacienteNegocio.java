@@ -18,8 +18,6 @@ public class PacienteNegocio {
 		this.pacienteDao = new PacienteDao();
 		try {
 			pacienteDao.salvar(paciente);
-			//Mensagem.add("Cadastro realizado com sucesso.");
-			return "pretty:paciente";
 		} catch (SQLException e) {
 			Mensagem.add("Ocorreu um erro ao salvar.");
 			e.printStackTrace();
