@@ -19,7 +19,6 @@
 						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
 					</p:selectOneMenu>
 					<br /><br />
-		
 					<p:outputLabel for="dtIni" value="Data Inicio" />
 					<p:calendar id="dtIni"
 						value="#{atendimentoManager.atendimento.dataInicial}"
