@@ -14,8 +14,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento>{
 	@Override
 	public String salvar(Atendimento bean) {
 		
-		Paciente paci = new Paciente();
-		bean.setPaciente(paci);
+		atendimentoDao = new AtendimentoDao();
 		
 		try {
 			this.atendimentoDao.salvar(bean);

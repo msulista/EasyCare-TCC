@@ -52,11 +52,11 @@ public class Atendimento implements BaseEntity, Serializable{
 	private String localAtendimento;
 	
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cuid_id", nullable = false)
+    @JoinColumn(name = "cuid_id", nullable = true)
 	private Cuidador cuidador;
 	
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paci_id", nullable = false)
+    @JoinColumn(name = "paci_id", nullable = true)
 	private Paciente paciente;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "atendimento", cascade = CascadeType.REMOVE)

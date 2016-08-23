@@ -11,6 +11,7 @@ import com.msulista.util.JPAUtil;
 
 public class PacienteDao implements BaseDao<Paciente>{
 
+	@Override
 	public Boolean salvar(Paciente paciente) throws SQLException {
 
 		EntityManager manager = JPAUtil.getEntityManager();
@@ -24,12 +25,14 @@ public class PacienteDao implements BaseDao<Paciente>{
 		
 	}
 
+	@Override
 	public Boolean alterar(Paciente paciente) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<Paciente> obterLista() throws SQLException {
 
 		EntityManager manager = JPAUtil.getEntityManager();
@@ -40,6 +43,7 @@ public class PacienteDao implements BaseDao<Paciente>{
 		return retorno;
 	}
 
+	@Override
 	public Paciente obterEvento(Long id) throws SQLException {
 		
 		EntityManager manager = JPAUtil.getEntityManager();
@@ -51,6 +55,7 @@ public class PacienteDao implements BaseDao<Paciente>{
 		return paciente;
 	}
 
+	@Override
 	public void excluir(Long id) {
 		// TODO Auto-generated method stub
 		

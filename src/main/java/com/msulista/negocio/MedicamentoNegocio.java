@@ -18,7 +18,6 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento>{
 		this.medicamentoDao = new MedicamentoDao();
 		try {
 			this.medicamentoDao.salvar(medicamento);
-			return "pretty:medicamento";
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

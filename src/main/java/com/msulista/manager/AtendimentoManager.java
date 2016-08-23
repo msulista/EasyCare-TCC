@@ -28,13 +28,23 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 public class AtendimentoManager {
 	
 	private Atendimento atendimento;
-	private AtendimentoNegocio atendimentoNegocio = new AtendimentoNegocio();
+	private AtendimentoNegocio atendimentoNegocio;
 	private List<Atendimento> atendimentos;
 	private Paciente paciente;
 
 	public AtendimentoManager() {		
 		atendimento = new Atendimento();
 		atendimentos = new ArrayList<>();
+		atendimentoNegocio = new AtendimentoNegocio();
+	}
+	
+	public String salvar() {
+		this.atendimentoNegocio.salvar(atendimento);
+		return "pretty:index";
+	}
+	
+	public List<Atendimento> obterLista() {
+		return this.atendimentoNegocio.obterLista();
 	}
 
 	public Atendimento getAtendimento() {
@@ -67,15 +77,6 @@ public class AtendimentoManager {
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
-	}
-
-	public String salvar() {
-		this.atendimentoNegocio.salvar(atendimento);
-		return "pretty:index";
-	}
-	
-	public List<Atendimento> obterLista() {
-		return this.atendimentoNegocio.obterLista();
 	}
 	
 	@URLActions(actions = { @URLAction(mappingId = "atendimento-editar", onPostback = false) })

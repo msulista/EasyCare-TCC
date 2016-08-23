@@ -32,19 +32,19 @@ public class CuidadorManager {
 	
 	public String salvar() {
 		this.cuidadorNegocio.salvar(cuidador);
-		return "pretty:index";
+		return "pretty:cuidador";
 	}
 	
-	private String alterar() {
+	public String alterar() {
 		this.cuidadorNegocio.alterar(cuidador);
 		return "pretty:cuidador";
 	}
 	
-	private List<Cuidador> listar() {
+	public List<Cuidador> obterLista() {
 		return this.cuidadorNegocio.obterLista();
 	}
 	
-	private Cuidador obterCuidador() {
+	public Cuidador obterCuidador() {
 		return this.cuidadorNegocio.obterPorId(cuidador.getId());
 	}
 	

@@ -10,9 +10,15 @@
 	    	<h2>#{message['title.atendimento']}</h2>
 	        <h:form>
 	        	<p:growl id="growl" life="4000" />
-				<p:panel header="#{message['title.cadastro']}" id="painel">			
-					
+				<p:panel header="#{message['title.cadastro']}" id="painel">	
 					<p:focus context="painel"/>
+					
+					<p:outputLabel for="equipe" value="#{message['label.nome.paciente']}" styleClass="label" />
+					<p:selectOneMenu id="equipe" value="#{atendimentoManager.atendimento.paciente}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
+						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
+						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
+					</p:selectOneMenu>
+					<br /><br />
 		
 					<p:outputLabel for="dtIni" value="Data Inicio" />
 					<p:calendar id="dtIni"
@@ -36,7 +42,7 @@
 					
 					<br/><br/>					  
 					<br/><br/>	     		
-	        		<p:outputLabel for="local" value="#{message['label.endereco.atendimento']}" styleClass="label" />
+	        		<p:outputLabel for="local" value="#{message['label.edereco.atendimento']}" styleClass="label" />
 					<p:inputText id="local" value="#{atendimentoManager.atendimento.localAtendimento}" required="false" />
 					<br/><br/>
 					     		       		

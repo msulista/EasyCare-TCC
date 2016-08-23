@@ -12,7 +12,7 @@
 			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
 			<h:form>
 			<br />
-				<p:button styleClass="btn-default" value="#{message['button.novo']}" outcome="pretty:paciente-incluir" />
+				<p:button styleClass="btn-default" value="#{message['button.novo']}" outcome="pretty:atendimento-incluir" />
 			<br />
 				<p:dataTable id="gridAtendimento" var="atendimento" value="#{atendimentoManager.obterLista()}" emptyMessage="#{message['alerta.listaVazia']}"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
