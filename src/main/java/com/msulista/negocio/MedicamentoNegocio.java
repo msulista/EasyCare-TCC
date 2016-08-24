@@ -9,43 +9,43 @@ import javax.faces.context.FacesContext;
 import com.msulista.dao.MedicamentoDao;
 import com.msulista.entidade.Medicamento;
 
-public class MedicamentoNegocio implements NegocioBase<Medicamento>{
+public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 
 	private MedicamentoDao medicamentoDao;
-	
+
 	@Override
-	public String salvar(Medicamento medicamento) {
+	public String salvar(final Medicamento medicamento) {
 		this.medicamentoDao = new MedicamentoDao();
 		try {
 			this.medicamentoDao.salvar(medicamento);
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public String alterar(Medicamento bean) {
+	public String alterar(final Medicamento bean) {
 
 		try {
 			this.medicamentoDao.alterar(bean);
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
 		}
-		
+
 		return null;
-		
+
 	}
 
 	@Override
 	public List<Medicamento> obterLista() {
-		
+
 		this.medicamentoDao = new MedicamentoDao();
 		List<Medicamento> retorno = null;
 		try {
 			retorno = this.medicamentoDao.obterLista();
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
@@ -54,17 +54,17 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento>{
 	}
 
 	@Override
-	public Medicamento obterPorId(Long id) {
+	public Medicamento obterPorId(final Long id) {
 
 		Medicamento medicamento = null;
 		try {
 			medicamento = this.medicamentoDao.obterEvento(id);
-		} catch (SQLException e) {
-//			e.printStackTrace();
+		} catch (final SQLException e) {
+			// e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
 		}
-		
+
 		return medicamento;
 	}
 

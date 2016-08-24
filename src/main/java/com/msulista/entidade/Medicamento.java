@@ -7,14 +7,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,129 +17,145 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "medicamento")
-@NamedQueries({
-	@NamedQuery(name = "Medicamento.findAll", query = "SELECT m FROM Medicamento m ORDER BY m.nome ASC"),
-	@NamedQuery(name = "Medicamento.findPorId", query = "SELECT m FROM Medicamento m WHERE m.id = :id"),
-})
+@NamedQueries({ @NamedQuery(name = "Medicamento.findAll", query = "SELECT m FROM Medicamento m ORDER BY m.nome ASC"),
+		@NamedQuery(name = "Medicamento.findPorId", query = "SELECT m FROM Medicamento m WHERE m.id = :id"), })
 public class Medicamento implements BaseEntity, Serializable {
-	
+
 	private static final long serialVersionUID = -1660999301423330553L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "medi_id")
 	private Long id;
-	
+
 	@Column(name = "medi_nome")
 	private String nome;
-	
+
 	@Column(name = "medi_material")
 	private String material;
-	
+
 	@Column(name = "medi_concentracao")
 	private String concentracao;
-	
+
 	@Column(name = "medi_via")
 	private String viaAdministracao;
-	
+
 	@Column(name = "medi_quanti_estoque")
 	private Integer estoque;
-	
+
 	@Column(name = "medi_dt_validade")
 	private Date dataValidade;
-	
+
 	@Column(name = "medi_tipo")
 	private Integer tipo;
-	
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
+
+	// @ManyToMany(fetch = FetchType.LAZY)
+	// @JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name
+	// = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
 	@Transient
 	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
-	
-	
+
+	@Override
 	public Long getId() {
-		return id;
+		return this.id;
 	}
-	public void setId(Long id) {
+
+	public void setId(final Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
-	public void setNome(String nome) {
+
+	public void setNome(final String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getViaAdministracao() {
-		return viaAdministracao;
+		return this.viaAdministracao;
 	}
-	public void setViaAdministracao(String viaAdministracao) {
+
+	public void setViaAdministracao(final String viaAdministracao) {
 		this.viaAdministracao = viaAdministracao;
 	}
-	
+
 	public Integer getEstoque() {
-		return estoque;
+		return this.estoque;
 	}
-	public void setEstoque(Integer estoque) {
+
+	public void setEstoque(final Integer estoque) {
 		this.estoque = estoque;
 	}
-	
+
 	public Date getDataValidade() {
-		return dataValidade;
+		return this.dataValidade;
 	}
-	public void setDataValidade(Date dataValidade) {
+
+	public void setDataValidade(final Date dataValidade) {
 		this.dataValidade = dataValidade;
 	}
-	
+
 	public String getMaterial() {
-		return material;
+		return this.material;
 	}
-	public void setMaterial(String material) {
+
+	public void setMaterial(final String material) {
 		this.material = material;
 	}
+
 	public String getConcentracao() {
-		return concentracao;
+		return this.concentracao;
 	}
-	public void setConcentracao(String concentracao) {
+
+	public void setConcentracao(final String concentracao) {
 		this.concentracao = concentracao;
 	}
+
 	public Integer getTipo() {
-		return tipo;
+		return this.tipo;
 	}
-	public void setTipo(Integer tipo) {
+
+	public void setTipo(final Integer tipo) {
 		this.tipo = tipo;
 	}
+
 	public List<EventoMedicacao> getEventoMedicacoes() {
-		return eventoMedicacoes;
+		return this.eventoMedicacoes;
 	}
-	public void setEventoMedicacoes(List<EventoMedicacao> eventoMedicacoes) {
+
+	public void setEventoMedicacoes(final List<EventoMedicacao> eventoMedicacoes) {
 		this.eventoMedicacoes = eventoMedicacoes;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		return result;
 	}
+
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Medicamento other = (Medicamento) obj;
-		if (id == null) {
-			if (other.id != null)
+		}
+		final Medicamento other = (Medicamento) obj;
+		if (this.id == null) {
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
-
-   
 
 }

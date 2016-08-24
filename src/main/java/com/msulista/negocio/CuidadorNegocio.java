@@ -6,15 +6,15 @@ import java.util.List;
 import com.msulista.dao.CuidadorDao;
 import com.msulista.entidade.Cuidador;
 
-public class CuidadorNegocio implements NegocioBase<Cuidador>{
+public class CuidadorNegocio implements NegocioBase<Cuidador> {
 
-	private CuidadorDao cuidadorDao = new CuidadorDao();
-	
+	private final CuidadorDao cuidadorDao = new CuidadorDao();
+
 	@Override
-	public String salvar(Cuidador cuidador) {
+	public String salvar(final Cuidador cuidador) {
 		try {
 			this.cuidadorDao.salvar(cuidador);
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -22,7 +22,7 @@ public class CuidadorNegocio implements NegocioBase<Cuidador>{
 	}
 
 	@Override
-	public String alterar(Cuidador bean) {
+	public String alterar(final Cuidador bean) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -34,7 +34,7 @@ public class CuidadorNegocio implements NegocioBase<Cuidador>{
 	}
 
 	@Override
-	public Cuidador obterPorId(Long id) {
+	public Cuidador obterPorId(final Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

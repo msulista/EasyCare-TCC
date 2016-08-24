@@ -16,58 +16,59 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @URLMappings(mappings = {
 		@URLMapping(id = "medicamento", pattern = "/medicamento", viewId = "/pages/medicamento/medicamento-listar.xhtml"),
 		@URLMapping(id = "medicamento-incluir", pattern = "/incluir", viewId = "/pages/medicamento/medicamento-incluir.xhtml", parentId = "medicamento"),
-		@URLMapping(id = "medicamento-editar", pattern = "/#{medicamentoManager.medicamento.id}/editar", viewId = "/pages/medicamento/medicamento-editar.xhtml", parentId = "medicamento")
-})
+		@URLMapping(id = "medicamento-editar", pattern = "/#{medicamentoManager.medicamento.id}/editar", viewId = "/pages/medicamento/medicamento-editar.xhtml", parentId = "medicamento") })
 public class MedicamentoManager {
-	
+
 	private Medicamento medicamento;
 	private List<Medicamento> medicamentos;
 	private MedicamentoNegocio medicamentoNegocio;
-	
+
 	public MedicamentoManager() {
 		this.medicamento = new Medicamento();
 		this.medicamentos = new ArrayList<>();
 		this.medicamentoNegocio = new MedicamentoNegocio();
 	}
-	
+
 	public String salvar() {
-		this.medicamentoNegocio.salvar(medicamento);
+		this.medicamentoNegocio.salvar(this.medicamento);
 		return "pretty:medicamento";
 	}
-	
+
 	public String alterar() {
-		this.medicamentoNegocio.alterar(medicamento);
+		this.medicamentoNegocio.alterar(this.medicamento);
 		return "pretty:medicamento";
 	}
-	
+
 	public List<Medicamento> obterLista() {
 		return this.medicamentoNegocio.obterLista();
 	}
-	
+
 	public Medicamento obterMedicamento() {
-		return this.medicamentoNegocio.obterPorId(medicamento.getId());
+		return this.medicamentoNegocio.obterPorId(this.medicamento.getId());
 	}
 
-	
-	
-	//Getter e SEtter
+	// Getter e SEtter
 	public Medicamento getMedicamento() {
-		return medicamento;
+		return this.medicamento;
 	}
-	public void setMedicamento(Medicamento medicamento) {
+
+	public void setMedicamento(final Medicamento medicamento) {
 		this.medicamento = medicamento;
 	}
 
 	public List<Medicamento> getMedicamentos() {
-		return medicamentos;
+		return this.medicamentos;
 	}
-	public void setMedicamentos(List<Medicamento> medicamentos) {
+
+	public void setMedicamentos(final List<Medicamento> medicamentos) {
 		this.medicamentos = medicamentos;
 	}
+
 	public MedicamentoNegocio getMedicamentoNegocio() {
-		return medicamentoNegocio;
+		return this.medicamentoNegocio;
 	}
-	public void setMedicamentoNegocio(MedicamentoNegocio medicamentoNegocio) {
+
+	public void setMedicamentoNegocio(final MedicamentoNegocio medicamentoNegocio) {
 		this.medicamentoNegocio = medicamentoNegocio;
 	}
 

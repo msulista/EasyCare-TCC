@@ -17,13 +17,11 @@ import com.msulista.util.DateUtil;
 
 @Entity
 @Table(name = "SGR_CARGO")
-@NamedQueries({
-	@NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c ORDER BY c.nome ASC"),
-	@NamedQuery(name = "Cargo.findAtivos", query = "SELECT c FROM Cargo c WHERE c.registroValidadeFim IS NULL OR c.registroValidadeFim > CURRENT_DATE ORDER BY c.nome ASC"),
-	@NamedQuery(name = "Cargo.findNome", query = "SELECT c FROM Cargo c WHERE c.nome = :nome"),
-	@NamedQuery(name = "Cargo.findId", query = "SELECT c FROM Cargo c WHERE c.id = :id")
-})
-public class Cargo implements BaseEntity, Serializable{
+@NamedQueries({ @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c ORDER BY c.nome ASC"),
+		@NamedQuery(name = "Cargo.findAtivos", query = "SELECT c FROM Cargo c WHERE c.registroValidadeFim IS NULL OR c.registroValidadeFim > CURRENT_DATE ORDER BY c.nome ASC"),
+		@NamedQuery(name = "Cargo.findNome", query = "SELECT c FROM Cargo c WHERE c.nome = :nome"),
+		@NamedQuery(name = "Cargo.findId", query = "SELECT c FROM Cargo c WHERE c.id = :id") })
+public class Cargo implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,52 +38,53 @@ public class Cargo implements BaseEntity, Serializable{
 
 	@Column(name = "REGISTRO_VALIDADE_FIM", nullable = true)
 	private Date registroValidadeFim;
-	
+
 	@Transient
 	private Date dataManipulacao;
-	
+
 	public Cargo() {
 		this.registroValidadeInicio = DateUtil.getProximoDiaUtil();
 		this.dataManipulacao = DateUtil.getProximoDiaUtil();
 	}
 
-	public Long getId() { 
-		return id;
+	@Override
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(final String nome) {
 		this.nome = nome;
 	}
 
 	public Date getRegistroValidadeInicio() {
-		return registroValidadeInicio;
+		return this.registroValidadeInicio;
 	}
 
-	public void setRegistroValidadeInicio(Date registroValidadeInicio) {
+	public void setRegistroValidadeInicio(final Date registroValidadeInicio) {
 		this.registroValidadeInicio = registroValidadeInicio;
 	}
 
 	public Date getRegistroValidadeFim() {
-		return registroValidadeFim;
+		return this.registroValidadeFim;
 	}
 
-	public void setRegistroValidadeFim(Date registroValidade) {
+	public void setRegistroValidadeFim(final Date registroValidade) {
 		this.registroValidadeFim = registroValidade;
-	}	
+	}
 
 	public Date getDataManipulacao() {
-		return dataManipulacao;
+		return this.dataManipulacao;
 	}
 
-	public void setDataManipulacao(Date dataManipulacao) {
+	public void setDataManipulacao(final Date dataManipulacao) {
 		this.dataManipulacao = dataManipulacao;
 	}
 
@@ -93,42 +92,53 @@ public class Cargo implements BaseEntity, Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((registroValidadeFim == null) ? 0 : registroValidadeFim.hashCode());
-		result = prime * result + ((registroValidadeInicio == null) ? 0 : registroValidadeInicio.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		result = prime * result + ((this.nome == null) ? 0 : this.nome.hashCode());
+		result = prime * result + ((this.registroValidadeFim == null) ? 0 : this.registroValidadeFim.hashCode());
+		result = prime * result + ((this.registroValidadeInicio == null) ? 0 : this.registroValidadeInicio.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Cargo other = (Cargo) obj;
-		if (id == null) {
-			if (other.id != null)
+		}
+		final Cargo other = (Cargo) obj;
+		if (this.id == null) {
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
+		}
+		if (this.nome == null) {
+			if (other.nome != null) {
 				return false;
-		} else if (!nome.equals(other.nome))
+			}
+		} else if (!this.nome.equals(other.nome)) {
 			return false;
-		if (registroValidadeFim == null) {
-			if (other.registroValidadeFim != null)
+		}
+		if (this.registroValidadeFim == null) {
+			if (other.registroValidadeFim != null) {
 				return false;
-		} else if (!registroValidadeFim.equals(other.registroValidadeFim))
+			}
+		} else if (!this.registroValidadeFim.equals(other.registroValidadeFim)) {
 			return false;
-		if (registroValidadeInicio == null) {
-			if (other.registroValidadeInicio != null)
+		}
+		if (this.registroValidadeInicio == null) {
+			if (other.registroValidadeInicio != null) {
 				return false;
-		} else if (!registroValidadeInicio.equals(other.registroValidadeInicio))
+			}
+		} else if (!this.registroValidadeInicio.equals(other.registroValidadeInicio)) {
 			return false;
+		}
 		return true;
 	}
 }

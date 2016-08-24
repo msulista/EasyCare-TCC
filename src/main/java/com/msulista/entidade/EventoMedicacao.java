@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,8 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -50,83 +47,87 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	@JoinColumn(name = "atend_id", nullable = false)
 	private Atendimento atendimento;
 
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE,
-//			CascadeType.DETACH })
-//	@JoinTable(name = "dieta", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
-//			@JoinColumn(name = "medi_id") })
+	// @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+	// CascadeType.REFRESH, CascadeType.MERGE,
+	// CascadeType.DETACH })
+	// @JoinTable(name = "dieta", joinColumns = { @JoinColumn(name = "event_id")
+	// }, inverseJoinColumns = {
+	// @JoinColumn(name = "medi_id") })
 	@Transient
 	private List<Medicamento> medcamentos = new ArrayList<>();
 
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE,
-//			CascadeType.DETACH })
-//	@JoinTable(name = "dieta", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
-//			@JoinColumn(name = "diet_id") })
+	// @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+	// CascadeType.REFRESH, CascadeType.MERGE,
+	// CascadeType.DETACH })
+	// @JoinTable(name = "dieta", joinColumns = { @JoinColumn(name = "event_id")
+	// }, inverseJoinColumns = {
+	// @JoinColumn(name = "diet_id") })
 	@Transient
 	private List<Dieta> refeicoes = new ArrayList<>();
 
 	@Override
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public Date getDataHora() {
-		return dataHora;
+		return this.dataHora;
 	}
 
-	public void setDataHora(Date dataHora) {
+	public void setDataHora(final Date dataHora) {
 		this.dataHora = dataHora;
 	}
 
 	public String getTitulo() {
-		return titulo;
+		return this.titulo;
 	}
 
-	public void setTitulo(String titulo) {
+	public void setTitulo(final String titulo) {
 		this.titulo = titulo;
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(final String descricao) {
 		this.descricao = descricao;
 	}
 
 	public Integer getStattus() {
-		return stattus;
+		return this.stattus;
 	}
 
-	public void setStattus(Integer stattus) {
+	public void setStattus(final Integer stattus) {
 		this.stattus = stattus;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
 	public Atendimento getAtendimento() {
-		return atendimento;
+		return this.atendimento;
 	}
 
-	public void setAtendimento(Atendimento atendimento) {
+	public void setAtendimento(final Atendimento atendimento) {
 		this.atendimento = atendimento;
 	}
 
 	public List<Medicamento> getMedcamentos() {
-		return medcamentos;
+		return this.medcamentos;
 	}
 
-	public void setMedcamentos(List<Medicamento> medcamentos) {
+	public void setMedcamentos(final List<Medicamento> medcamentos) {
 		this.medcamentos = medcamentos;
 	}
 
 	public List<Dieta> getRefeicoes() {
-		return refeicoes;
+		return this.refeicoes;
 	}
 
-	public void setRefeicoes(List<Dieta> refeicoes) {
+	public void setRefeicoes(final List<Dieta> refeicoes) {
 		this.refeicoes = refeicoes;
 	}
-	
+
 }

@@ -14,44 +14,45 @@ import com.msulista.util.Mensagem;
 
 public class CargoService {
 
-	public boolean save(Cargo cargo) {
-		EntityManager manager = JPAUtil.getEntityManager();
+	public boolean save(final Cargo cargo) {
+		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
-		if (DateUtil.verificaDiaUtil(cargo.getRegistroValidadeInicio())&&DateUtil.verificaDiaUtil(cargo.getRegistroValidadeFim())) {
-			if(DateUtil.verificaDataValida(cargo.getRegistroValidadeInicio(), cargo.getRegistroValidadeFim())){
-			manager.persist(cargo);
-			manager.getTransaction().commit();
-			manager.close();
-			return true;
-		}else{
-			Mensagem.add("Data final do registro anterior a data inicial!");
+		if (DateUtil.verificaDiaUtil(cargo.getRegistroValidadeInicio())
+				&& DateUtil.verificaDiaUtil(cargo.getRegistroValidadeFim())) {
+			if (DateUtil.verificaDataValida(cargo.getRegistroValidadeInicio(), cargo.getRegistroValidadeFim())) {
+				manager.persist(cargo);
+				manager.getTransaction().commit();
+				manager.close();
+				return true;
+			} else {
+				Mensagem.add("Data final do registro anterior a data inicial!");
+				manager.close();
+				return false;
+			}
+		} else {
+			Mensagem.add("Data informada não é um dia util!");
 			manager.close();
 			return false;
 		}
-		}else{
-		Mensagem.add("Data informada não é um dia util!");
-		manager.close();
-		return false;
-		}
 	}
 
-	public boolean update(Cargo cargo) {
-		EntityManager manager = JPAUtil.getEntityManager();
+	public boolean update(final Cargo cargo) {
+		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
 		if (DateUtil.verificaDiaUtil(cargo.getRegistroValidadeInicio())) {
-			Cargo cargoMerge = (Cargo) getCargoById(cargo.getId());
+			final Cargo cargoMerge = this.getCargoById(cargo.getId());
 			if (DateUtil.verificaDataValida(cargo.getRegistroValidadeInicio(), cargo.getRegistroValidadeFim())) {
 				cargoMerge.setRegistroValidadeFim(new Date());
 				manager.merge(cargoMerge);
 				manager.getTransaction().commit();
 				manager.close();
 
-				Cargo cargoPersist = new Cargo();
+				final Cargo cargoPersist = new Cargo();
 				cargoPersist.setNome(cargo.getNome());
 				cargoPersist.setRegistroValidadeInicio(cargo.getRegistroValidadeInicio());
 				cargoPersist.setRegistroValidadeFim(cargo.getRegistroValidadeFim());
-				save(cargoPersist);
+				this.save(cargoPersist);
 				return true;
 			} else {
 				Mensagem.add("Erro, data final menor que a inicial!");
@@ -67,34 +68,34 @@ public class CargoService {
 
 	@SuppressWarnings("unchecked")
 	public List<Cargo> listarAtivos() {
-		EntityManager manager = JPAUtil.getEntityManager();
-		Query q = manager.createNamedQuery("Cargo.findAtivos");
-		List<Cargo> cargos = q.getResultList();
+		final EntityManager manager = JPAUtil.getEntityManager();
+		final Query q = manager.createNamedQuery("Cargo.findAtivos");
+		final List<Cargo> cargos = q.getResultList();
 		manager.close();
 		return cargos;
 	}
 
-	public Cargo getCargoById(Long id) {
-		EntityManager manager = JPAUtil.getEntityManager();
-		Query q = manager.createNamedQuery("Cargo.findId");
+	public Cargo getCargoById(final Long id) {
+		final EntityManager manager = JPAUtil.getEntityManager();
+		final Query q = manager.createNamedQuery("Cargo.findId");
 		q.setParameter("id", id);
-		Cargo cargo = (Cargo) q.getSingleResult();
+		final Cargo cargo = (Cargo) q.getSingleResult();
 		manager.close();
 		return cargo;
 	}
 
-	public void desativar(Long id) throws ConverterException {
-		EntityManager manager = JPAUtil.getEntityManager();
-		Query q = manager.createNamedQuery("Profissional.findProfissionalByCargo");
+	public void desativar(final Long id) throws ConverterException {
+		final EntityManager manager = JPAUtil.getEntityManager();
+		final Query q = manager.createNamedQuery("Profissional.findProfissionalByCargo");
 		q.setParameter("id", id);
-		if(q.getResultList().isEmpty()){
-			Cargo cargoMerge = (Cargo) getCargoById(id);
+		if (q.getResultList().isEmpty()) {
+			final Cargo cargoMerge = this.getCargoById(id);
 			cargoMerge.setRegistroValidadeFim(new Date());
 			manager.getTransaction().begin();
 			manager.merge(cargoMerge);
 			manager.getTransaction().commit();
 			manager.close();
-		}else {
+		} else {
 			Mensagem.add("Existem profissionais ativos vinculados a este Cargo, não pode ser excluída.");
 			manager.close();
 		}

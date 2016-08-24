@@ -21,119 +21,114 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "atendimento")
-@NamedQueries({
-	@NamedQuery(name = "Atendimento.findAll", query = "SELECT a FROM Atendimento a"),
-	@NamedQuery(name = "Atendimento.findPorId", query = "SELECT a FROM Atendimento a WHERE a.id = :id"),
-})
-public class Atendimento implements BaseEntity, Serializable{
-	
+@NamedQueries({ @NamedQuery(name = "Atendimento.findAll", query = "SELECT a FROM Atendimento a"),
+		@NamedQuery(name = "Atendimento.findPorId", query = "SELECT a FROM Atendimento a WHERE a.id = :id"), })
+public class Atendimento implements BaseEntity, Serializable {
+
 	private static final long serialVersionUID = -8458837793631601906L;
-	
-	private static final String DATA_FORMATO = "dd/MM/yyyy";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "atend_id")
 	private Long id;
-	
+
 	@Column(name = "atend_dt_inicial")
 	private Date dataInicial;
-	
+
 	@Column(name = "atend_dt_final")
 	private Date dataFinal;
-	
+
 	@Column(name = "atend_hr_inicial")
 	private Date horaInicial;
-	
+
 	@Column(name = "atend_hr_final")
 	private Date horaFinal;
-	
+
 	@Column(name = "atend_local")
 	private String localAtendimento;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cuid_id", nullable = true)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cuid_id", nullable = true)
 	private Cuidador cuidador;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paci_id", nullable = true)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "paci_id", nullable = true)
 	private Paciente paciente;
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atendimento", cascade = CascadeType.REMOVE)
-    private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "atendimento", cascade = CascadeType.REMOVE)
+	private final List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
+
 	@Override
 	public Long getId() {
-		return id;
+		return this.id;
 	}
-	
-	public void setId(Long id) {
+
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
 	public Date getDataInicial() {
-		return dataInicial;
+		return this.dataInicial;
 	}
 
-	public void setDataInicial(Date dataInicial) {
+	public void setDataInicial(final Date dataInicial) {
 		this.dataInicial = dataInicial;
 	}
 
 	public Date getDataFinal() {
-		return dataFinal;
+		return this.dataFinal;
 	}
 
-	public void setDataFinal(Date dataFinal) {
+	public void setDataFinal(final Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 
 	public Date getHoraInicial() {
-		return horaInicial;
+		return this.horaInicial;
 	}
 
-	public void setHoraInicial(Date horaInicial) {
+	public void setHoraInicial(final Date horaInicial) {
 		this.horaInicial = horaInicial;
 	}
 
 	public Date getHoraFinal() {
-		return horaFinal;
+		return this.horaFinal;
 	}
 
-	public void setHoraFinal(Date horaFinal) {
+	public void setHoraFinal(final Date horaFinal) {
 		this.horaFinal = horaFinal;
 	}
 
 	public String getLocalAtendimento() {
-		return localAtendimento;
+		return this.localAtendimento;
 	}
 
-	public void setLocalAtendimento(String localAtendimento) {
+	public void setLocalAtendimento(final String localAtendimento) {
 		this.localAtendimento = localAtendimento;
 	}
 
 	public Cuidador getCuidador() {
-		return cuidador;
+		return this.cuidador;
 	}
 
-	public void setCuidador(Cuidador cuidador) {
+	public void setCuidador(final Cuidador cuidador) {
 		this.cuidador = cuidador;
 	}
 
 	public Paciente getPaciente() {
-		return paciente;
+		return this.paciente;
 	}
 
-	public void setPaciente(Paciente paciente) {
+	public void setPaciente(final Paciente paciente) {
 		this.paciente = paciente;
 	}
 
-//	public List<EventoMedicacao> getEventoMedicacoes() {
-//		return eventoMedicacoes;
-//	}
-//
-//	public void setEventoMedicacoes(List<EventoMedicacao> eventoMedicacoes) {
-//		this.eventoMedicacoes = eventoMedicacoes;
-//	}
-
+	// public List<EventoMedicacao> getEventoMedicacoes() {
+	// return eventoMedicacoes;
+	// }
+	//
+	// public void setEventoMedicacoes(List<EventoMedicacao> eventoMedicacoes) {
+	// this.eventoMedicacoes = eventoMedicacoes;
+	// }
 
 }

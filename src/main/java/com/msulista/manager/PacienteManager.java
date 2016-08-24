@@ -1,19 +1,11 @@
 package com.msulista.manager;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
-import com.msulista.entidade.Dieta;
-import com.msulista.entidade.Medicamento;
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.PacienteNegocio;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
@@ -24,81 +16,79 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @URLMappings(mappings = {
 		@URLMapping(id = "paciente", pattern = "/paciente", viewId = "/pages/paciente/paciente-listar.xhtml"),
 		@URLMapping(id = "paciente-incluir", pattern = "/incluir", viewId = "/pages/paciente/paciente-incluir.xhtml", parentId = "paciente"),
-		@URLMapping(id = "paciente-editar", pattern = "/#{pacienteManager.paciente.id}/editar", viewId = "/pages/paciente/paciente-editar.xhtml", parentId = "paciente")
-})
+		@URLMapping(id = "paciente-editar", pattern = "/#{pacienteManager.paciente.id}/editar", viewId = "/pages/paciente/paciente-editar.xhtml", parentId = "paciente") })
 public class PacienteManager {
-	
+
 	private Paciente paciente;
 	private List<Paciente> pacientes;
 	private PacienteNegocio pacienteNegocio;
-	
+
 	public PacienteManager() {
 		this.paciente = new Paciente();
 		this.pacientes = new ArrayList<>();
 		this.pacienteNegocio = new PacienteNegocio();
 	}
-	
+
 	/**
 	 * Cadastra paciente
-	 * 
+	 *
 	 */
 	public String salvar() {
-		this.pacienteNegocio.salvar(paciente);
+		this.pacienteNegocio.salvar(this.paciente);
 		return "pretty:paciente";
 	}
-	
+
 	public String alterar() {
-		this.pacienteNegocio.alterar(paciente);
+		this.pacienteNegocio.alterar(this.paciente);
 		return "pretty:paciente";
 	}
-	public Paciente obterPaciente(Long id) {
+
+	public Paciente obterPaciente(final Long id) {
 		return this.pacienteNegocio.obterPaciente(id);
 	}
-	
+
 	/**
 	 * Obtem lista de pacientes
-	 * 
+	 *
 	 * @return lista de {@link Paciente}
 	 */
 	public List<Paciente> obterLista() {
 		return this.pacienteNegocio.obterLista();
 	}
 
-	//Serviços
-//	public Paciente findPacientebyNome(String nome) {
-//		for (Paciente paciente : pacientes) {
-//			if (paciente.getNomePaciente().equalsIgnoreCase(nome)) {
-//				return paciente;
-//			}
-//		}
-//		return null;
-//	}
-	
-	//Getters Setters
+	// Serviços
+	// public Paciente findPacientebyNome(String nome) {
+	// for (Paciente paciente : pacientes) {
+	// if (paciente.getNomePaciente().equalsIgnoreCase(nome)) {
+	// return paciente;
+	// }
+	// }
+	// return null;
+	// }
+
+	// Getters Setters
 	public List<Paciente> getPacientes() {
-		return pacientes;
+		return this.pacientes;
 	}
-	public void setPacientes(List<Paciente> pacientes) {
+
+	public void setPacientes(final List<Paciente> pacientes) {
 		this.pacientes = pacientes;
 	}
 
 	public Paciente getPaciente() {
-		return paciente;
+		return this.paciente;
 	}
 
-	public void setPaciente(Paciente paciente) {
+	public void setPaciente(final Paciente paciente) {
 		this.paciente = paciente;
 	}
 
 	public PacienteNegocio getPacienteNegocio() {
-		return pacienteNegocio;
+		return this.pacienteNegocio;
 	}
 
-	public void setPacienteNegocio(PacienteNegocio pacienteNegocio) {
+	public void setPacienteNegocio(final PacienteNegocio pacienteNegocio) {
 		this.pacienteNegocio = pacienteNegocio;
 	}
-	
-	
 
-	
 }

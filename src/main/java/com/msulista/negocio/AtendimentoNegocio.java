@@ -5,30 +5,29 @@ import java.util.List;
 
 import com.msulista.dao.AtendimentoDao;
 import com.msulista.entidade.Atendimento;
-import com.msulista.entidade.Paciente;
 
-public class AtendimentoNegocio implements NegocioBase<Atendimento>{
+public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	private AtendimentoDao atendimentoDao;
-	
+
 	@Override
-	public String salvar(Atendimento bean) {
-		
-		atendimentoDao = new AtendimentoDao();
-		
+	public String salvar(final Atendimento bean) {
+
+		this.atendimentoDao = new AtendimentoDao();
+
 		try {
 			this.atendimentoDao.salvar(bean);
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String alterar(Atendimento bean) {
+	public String alterar(final Atendimento bean) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -38,7 +37,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento>{
 		this.atendimentoDao = new AtendimentoDao();
 		try {
 			return this.atendimentoDao.obterLista();
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -46,7 +45,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento>{
 	}
 
 	@Override
-	public Atendimento obterPorId(Long id) {
+	public Atendimento obterPorId(final Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -13,41 +13,41 @@ import com.msulista.util.Mensagem;
 public class PacienteNegocio {
 
 	protected PacienteDao pacienteDao;
-	
-	public String salvar(Paciente paciente) {	
+
+	public String salvar(final Paciente paciente) {
 		this.pacienteDao = new PacienteDao();
 		try {
-			pacienteDao.salvar(paciente);
-		} catch (SQLException e) {
+			this.pacienteDao.salvar(paciente);
+		} catch (final SQLException e) {
 			Mensagem.add("Ocorreu um erro ao salvar.");
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	public String alterar(Paciente paciente) {
+
+	public String alterar(final Paciente paciente) {
 		this.pacienteDao = new PacienteDao();
 		try {
 			this.pacienteDao.alterar(paciente);
 			return "pretty:paciente";
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Mensagem.add("Ocorreu um erro ao alterar o evento.");
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public Paciente obterPaciente(Long id) {
-		
+	public Paciente obterPaciente(final Long id) {
+
 		try {
 			return this.pacienteDao.obterEvento(id);
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Mensagem.add("Ocorreu um erro ao alterar o evento.");
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public List<Paciente> obterLista() {
 
 		this.pacienteDao = new PacienteDao();
@@ -55,14 +55,12 @@ public class PacienteNegocio {
 		List<Paciente> retorno = null;
 		try {
 			retorno = this.pacienteDao.obterLista();
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
 		}
 		return retorno;
 	}
-	
-
 
 }

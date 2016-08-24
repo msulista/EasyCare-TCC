@@ -16,61 +16,60 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @URLMappings(mappings = {
 		@URLMapping(id = "cuidador", pattern = "/cuidador", viewId = "/pages/cuidador/cuidador-listar.xhtml"),
 		@URLMapping(id = "cuidador-incluir", pattern = "/incluir", viewId = "/pages/cuidador/cuidador-incluir.xhtml", parentId = "cuidador"),
-		@URLMapping(id = "cuidador-editar", pattern = "/#{cuidadorManager.cuidador.id}/editar", viewId = "/pages/cuidador/cuidador-editar.xhtml", parentId = "cuidador")
-})
+		@URLMapping(id = "cuidador-editar", pattern = "/#{cuidadorManager.cuidador.id}/editar", viewId = "/pages/cuidador/cuidador-editar.xhtml", parentId = "cuidador") })
 public class CuidadorManager {
 
 	private Cuidador cuidador;
 	private CuidadorNegocio cuidadorNegocio;
 	private List<Cuidador> lista;
-	
+
 	public CuidadorManager() {
 		this.cuidador = new Cuidador();
 		this.cuidadorNegocio = new CuidadorNegocio();
 		this.lista = new ArrayList<>();
 	}
-	
+
 	public String salvar() {
-		this.cuidadorNegocio.salvar(cuidador);
+		this.cuidadorNegocio.salvar(this.cuidador);
 		return "pretty:cuidador";
 	}
-	
+
 	public String alterar() {
-		this.cuidadorNegocio.alterar(cuidador);
+		this.cuidadorNegocio.alterar(this.cuidador);
 		return "pretty:cuidador";
 	}
-	
+
 	public List<Cuidador> obterLista() {
 		return this.cuidadorNegocio.obterLista();
 	}
-	
+
 	public Cuidador obterCuidador() {
-		return this.cuidadorNegocio.obterPorId(cuidador.getId());
-	}
-	
-	//Getters & Setters
-	
-	public Cuidador getCuidador() {
-		return cuidador;
+		return this.cuidadorNegocio.obterPorId(this.cuidador.getId());
 	}
 
-	public void setCuidador(Cuidador cuidador) {
+	// Getters & Setters
+
+	public Cuidador getCuidador() {
+		return this.cuidador;
+	}
+
+	public void setCuidador(final Cuidador cuidador) {
 		this.cuidador = cuidador;
 	}
 
 	public CuidadorNegocio getCuidadorNegocio() {
-		return cuidadorNegocio;
+		return this.cuidadorNegocio;
 	}
 
-	public void setCuidadorNegocio(CuidadorNegocio cuidadorNegocio) {
+	public void setCuidadorNegocio(final CuidadorNegocio cuidadorNegocio) {
 		this.cuidadorNegocio = cuidadorNegocio;
 	}
 
 	public List<Cuidador> getLista() {
-		return lista;
+		return this.lista;
 	}
 
-	public void setLista(List<Cuidador> lista) {
+	public void setLista(final List<Cuidador> lista) {
 		this.lista = lista;
 	}
 }
