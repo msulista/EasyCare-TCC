@@ -19,22 +19,22 @@
 						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
 					</p:selectOneMenu>
 					<br /><br />
-					<p:outputLabel for="dtIni" value="Data Inicio" />
+					<p:outputLabel for="dtIni" value="Data Inicio" styleClass="label"/>
 					<p:calendar id="dtIni"
 						value="#{atendimentoManager.atendimento.dataInicial}"
 						pattern="dd/MM/yyyy" timeOnly="false" />
 					<br/><br/>
-					<p:outputLabel for="dtFim" value="Data Final" />
+					<p:outputLabel for="dtFim" value="Data Final" styleClass="label"/>
 					<p:calendar id="dtFim"
 						value="#{atendimentoManager.atendimento.dataFinal}"
 						pattern="dd/MM/yyyy" timeOnly="false" />
 					<br/><br/>
-					<p:outputLabel for="hrIni" value="Hora Inicial" />
+					<p:outputLabel for="hrIni" value="Hora Inicial" styleClass="label"/>
 					<p:calendar id="hrIni"
 						value="#{atendimentoManager.atendimento.horaInicial}"
 						pattern="HH:mm" timeOnly="true" />
 					<br/><br/>
-					<p:outputLabel for="hrFim" value="Hora Final" />
+					<p:outputLabel for="hrFim" value="Hora Final" styleClass="label"/>
 					<p:calendar id="hrFim"
 						value="#{atendimentoManager.atendimento.horaFinal}"
 						pattern="HH:mm" timeOnly="true" />
