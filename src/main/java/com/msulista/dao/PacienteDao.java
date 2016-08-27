@@ -54,10 +54,12 @@ public class PacienteDao implements BaseDao<Paciente> {
 		return paciente;
 	}
 
-	@Override
-	public void excluir(final Long id) {
-		// TODO Auto-generated method stub
 
+
+	@Override
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

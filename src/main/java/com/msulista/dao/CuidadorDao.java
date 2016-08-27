@@ -50,11 +50,12 @@ public class CuidadorDao implements BaseDao<Cuidador> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
 	@Override
-	public void excluir(final Long id) {
+	public void excluir(Long id) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

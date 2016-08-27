@@ -39,4 +39,10 @@ public class CuidadorNegocio implements NegocioBase<Cuidador> {
 		return null;
 	}
 
+	@Override
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

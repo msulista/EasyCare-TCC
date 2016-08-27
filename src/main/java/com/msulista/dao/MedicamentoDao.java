@@ -62,10 +62,11 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 		return medicamento;
 	}
 
-	@Override
-	public void excluir(final Long id) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

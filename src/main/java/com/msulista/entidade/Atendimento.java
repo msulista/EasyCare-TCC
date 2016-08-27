@@ -51,7 +51,7 @@ public class Atendimento implements BaseEntity, Serializable {
 	@JoinColumn(name = "cuid_id", nullable = true)
 	private Cuidador cuidador;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "paci_id", nullable = true)
 	private Paciente paciente;
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.msulista.dao.AtendimentoDao;
 import com.msulista.entidade.Atendimento;
+import com.msulista.util.Mensagem;
 
 public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
@@ -18,17 +19,19 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		try {
 			this.atendimentoDao.salvar(bean);
 		} catch (final SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Mensagem.add("Erro ao acessar o banco de dados.");
 		}
-
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String alterar(final Atendimento bean) {
-		// TODO Auto-generated method stub
+	public String alterar(final Atendimento atendimento) {
+		
+		try {
+			this.atendimentoDao.alterar(atendimento);
+		} catch (SQLException e) {
+			Mensagem.add("Erro ao acessar o banco de dados.");
+		}
 		return null;
 	}
 
@@ -38,16 +41,27 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		try {
 			return this.atendimentoDao.obterLista();
 		} catch (final SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Mensagem.add("Erro ao acessar o banco de dados.");
 		}
 		return null;
 	}
 
 	@Override
 	public Atendimento obterPorId(final Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Atendimento atendimento = null;
+		try {
+			atendimento = this.atendimentoDao.obterEvento(id);
+		} catch (SQLException e) {
+			Mensagem.add("Erro ao acessar o banco de dados.");
+		}
+		return atendimento;
+	}
+
+	@Override
+	public void excluir(Long id) {
+		
+		this.atendimentoDao.excluir(id);
 	}
 
 }

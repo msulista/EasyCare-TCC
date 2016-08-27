@@ -68,4 +68,10 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 		return medicamento;
 	}
 
+	@Override
+	public void excluir(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -59,7 +59,20 @@ public class AtendimentoDao implements BaseDao<Atendimento> {
 
 	@Override
 	public void excluir(final Long id) {
-		// TODO Auto-generated method stub
+		final EntityManager manager = JPAUtil.getEntityManager();
+		manager.getTransaction().begin();
+		
+		Atendimento atendiExcluir = null;
+		try {
+			atendiExcluir = this.obterEvento(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		manager.remove(atendiExcluir);
+		manager.getTransaction().commit();
+		manager.close();
+		
 
 	}
 

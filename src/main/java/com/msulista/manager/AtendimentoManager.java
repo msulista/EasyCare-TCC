@@ -34,13 +34,36 @@ public class AtendimentoManager {
 		this.atendimentoNegocio = new AtendimentoNegocio();
 	}
 
+	/**
+	 * Salva novo {@link Atendimento}
+	 * @return
+	 */
 	public String salvar() {
 		this.atendimentoNegocio.salvar(this.atendimento);
-		return "pretty:index";
+		return "pretty:atendimento-listar";
+	}
+	
+	/**
+	 * Altera os dados de um {@link Atendimento}
+	 */
+	public void aterar() {
+		this.atendimentoNegocio.alterar(this.atendimento);
 	}
 
+	/**
+	 * Obtem lista de todos os {@link Atendimento}
+	 * @return {@link List} {@link Atendimento}
+	 */
 	public List<Atendimento> obterLista() {
+		
 		return this.atendimentoNegocio.obterLista();
+	}
+	
+	/**
+	 * Remove o {@link Atendimento} do banco
+	 */
+	public void excluirAtendimento(Long id) {
+		this.atendimentoNegocio.excluir(id);
 	}
 
 	public Atendimento getAtendimento() {
@@ -73,7 +96,7 @@ public class AtendimentoManager {
 
 	public void setPaciente(final Paciente paciente) {
 		this.paciente = paciente;
-	}
+	}	
 
 	@URLActions(actions = { @URLAction(mappingId = "atendimento-editar", onPostback = false) })
 	public void load() throws IOException {
