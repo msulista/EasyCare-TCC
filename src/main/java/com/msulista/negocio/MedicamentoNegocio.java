@@ -26,7 +26,7 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 
 	@Override
 	public String alterar(final Medicamento bean) {
-
+		this.medicamentoDao = new MedicamentoDao();
 		try {
 			this.medicamentoDao.alterar(bean);
 		} catch (final SQLException e) {
@@ -55,12 +55,11 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 
 	@Override
 	public Medicamento obterPorId(final Long id) {
-
+		this.medicamentoDao = new MedicamentoDao();
 		Medicamento medicamento = null;
 		try {
 			medicamento = this.medicamentoDao.obterEvento(id);
 		} catch (final SQLException e) {
-			// e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
 		}
@@ -70,8 +69,8 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 
 	@Override
 	public void excluir(Long id) {
-		// TODO Auto-generated method stub
-		
+		this.medicamentoDao = new MedicamentoDao();
+		this.medicamentoDao.excluir(id);		
 	}
 
 }

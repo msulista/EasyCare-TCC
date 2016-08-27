@@ -31,7 +31,6 @@ public class TelefoneMasckConverter implements Converter {
 
 	@Override
 	public String getAsString(final FacesContext arg0, final UIComponent arg1, final Object value) {
-		// TODO Auto-generated method stub
 		String fone = value.toString();
 		if (fone != null && fone.length() == 10) {
 			fone = "(" + fone.substring(0, 2) + ") " + fone.substring(2, 6) + "." + fone.substring(5, 9);

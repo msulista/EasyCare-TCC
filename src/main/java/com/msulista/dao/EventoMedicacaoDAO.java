@@ -6,19 +6,18 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.msulista.entidade.Medicamento;
+import com.msulista.entidade.EventoMedicacao;
 import com.msulista.util.JPAUtil;
 import com.msulista.util.Mensagem;
 
-public class MedicamentoDao implements BaseDao<Medicamento> {
+public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 
 	@Override
-	public Boolean salvar(final Medicamento medicamento) throws SQLException {
-
+	public Boolean salvar(EventoMedicacao evento) throws SQLException {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		manager.persist(medicamento);
+		manager.persist(evento);
 		manager.getTransaction().commit();
 		manager.close();
 
@@ -26,12 +25,11 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 	}
 
 	@Override
-	public Boolean alterar(final Medicamento bean) throws SQLException {
-
+	public Boolean alterar(EventoMedicacao evento) throws SQLException {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		manager.merge(bean);
+		manager.merge(evento);
 		manager.getTransaction().commit();
 		manager.close();
 
@@ -40,45 +38,41 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Medicamento> obterLista() throws SQLException {
-
+	public List<EventoMedicacao> obterLista() throws SQLException {
 		final EntityManager manager = JPAUtil.getEntityManager();
 
-		final Query query = manager.createNamedQuery("Medicamento.findAll");
-		final List<Medicamento> retorno = query.getResultList();
+		final Query query = manager.createNamedQuery("EventoMedicacao.findAll");
+		final List<EventoMedicacao> retorno = query.getResultList();
 		manager.close();
 		return retorno;
 	}
 
 	@Override
-	public Medicamento obterEvento(final Long id) throws SQLException {
-
+	public EventoMedicacao obterEvento(Long id) throws SQLException {
 		final EntityManager manager = JPAUtil.getEntityManager();
-		final Query query = manager.createNamedQuery("Medicamento.findPorId");
+		final Query query = manager.createNamedQuery("EventoMedicacao.findId");
 		query.setParameter("id", id);
 
-		final Medicamento medicamento = (Medicamento) query.getSingleResult();
+		final EventoMedicacao eventoMedicacao= (EventoMedicacao) query.getSingleResult();
 		manager.close();
 
-		return medicamento;
+		return eventoMedicacao;
 	}
-
 
 	@Override
 	public void excluir(Long id) {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		Medicamento medicamento = null;
+		EventoMedicacao eventoMedicacao = null;
 		try {
-			medicamento = this.obterEvento(id);
+			eventoMedicacao = this.obterEvento(id);
 		} catch (SQLException e) {
 			Mensagem.add("Erro ao conectar com o banco de dados.");
 		}
-		manager.remove(medicamento);
+		manager.remove(eventoMedicacao);
 		manager.getTransaction().commit();
 		manager.close();
-		
 	}
 
 }
