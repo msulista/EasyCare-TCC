@@ -3,8 +3,15 @@ package com.msulista.manager;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
 
 import com.msulista.entidade.EventoMedicacao;
 import com.msulista.negocio.EventoMedicacaoNegocio;
@@ -19,18 +26,40 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 		@URLMapping(id = "eventoMedicacao-editar", pattern = "/#{eventoMedicacaoManager.eventoMedicacao.id}/editar", viewId = "/pages/eventoMedicacao/eventoMedicacao-editar.xhtml", parentId = "eventoMedicacao") })
 public class EventoMedicacaoManager {
 
+	private ScheduleModel scheduleModel;
 	private EventoMedicacao eventoMedicacao;
 	private List<EventoMedicacao> eventoMedicacoes;
 	private EventoMedicacaoNegocio eventMedicacaoNegocio;
 	
-	public EventoMedicacaoManager() {
+	@PostConstruct
+	public void inicializar() {
 		this.eventoMedicacao = new EventoMedicacao();
 		this.eventoMedicacoes = new ArrayList<>();
 		this.eventMedicacaoNegocio = new EventoMedicacaoNegocio();
+		this.scheduleModel = new DefaultScheduleModel();
+		
+		this.eventoMedicacoes = this.eventMedicacaoNegocio.obterLista();
+		
+		for (EventoMedicacao eventoMedicacao : eventoMedicacoes) {
+			DefaultScheduleEvent evt = new DefaultScheduleEvent();
+			evt.setData(eventoMedicacao.getId());
+			//TODO Como utilizar scom LAZY??
+//			evt.setTitle(eventoMedicacao.getAtendimento().getPaciente().getNomePaciente());
+			evt.setTitle(eventoMedicacao.getTitulo());
+			evt.setStartDate(eventoMedicacao.getDataHora());
+			evt.setEndDate(eventoMedicacao.getDataHora());
+			evt.setDescription(eventoMedicacao.getDescricao());
+			evt.setAllDay(false);
+			evt.setEditable(true);
+			evt.setStyleClass("event-green");			
+			
+			scheduleModel.addEvent(evt);
+		}
 	}
-	
+		
 	public String salvar() {
 		this.eventMedicacaoNegocio.salvar(this.eventoMedicacao);
+		this.inicializar();
 		return "pretty:eventoMedicacao";
 	}
 
@@ -93,6 +122,14 @@ public class EventoMedicacaoManager {
 	 */
 	public void setEventMedicacaoNegocio(EventoMedicacaoNegocio eventMedicacaoNegocio) {
 		this.eventMedicacaoNegocio = eventMedicacaoNegocio;
+	}
+
+	public ScheduleModel getScheduleModel() {
+		return scheduleModel;
+	}
+
+	public void setScheduleModel(ScheduleModel scheduleModel) {
+		this.scheduleModel = scheduleModel;
 	}
 	
 	

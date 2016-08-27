@@ -5,6 +5,10 @@
     xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:define name="content">
+    
+    	<div class="calendario-mini">
+						<p:schedule id="schedule" value="#{eventoMedicacaoManager.scheduleModel}" timeZone="America/Sao_Paulo" locale="pt" />
+		</div>
     	<div class="incluir-editar">
 	    	
 	    	<h2>#{message['title.evento.medicacao']}</h2>
@@ -13,6 +17,13 @@
 				<p:panel header="#{message['title.cadastro']}" id="painel">	
 					<p:focus context="painel"/>
 					
+					<p:outputLabel for="atendimento" value="#{message['label.nome.paciente']}" styleClass="label" />
+					<p:selectOneMenu id="atendimento" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
+						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
+						<f:selectItems value="#{atendimentoManager.obterLista()}" var="atendimento" itemLabel="#{atendimento.paciente.nomePaciente}" itemValue="#{atendimento}"/>
+					</p:selectOneMenu>
+					<br /><br />
+					
 					<!-- 
 					<p:outputLabel for="equipe" value="#{message['label.nome.paciente']}" styleClass="label" />
 					<p:selectOneMenu id="equipe" value="#{atendimentoManager.atendimento.paciente}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
@@ -20,15 +31,12 @@
 						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
 					</p:selectOneMenu>
 					
-					<p:outputLabel for="equipe" value="#{message['label.nome.paciente']}" styleClass="label" />
-					<p:selectOneMenu id="equipe" value="#{atendimentoManager.atendimento.paciente}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
-						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
-						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
-					</p:selectOneMenu>
-					
 					 -->
+					
+			
+					 
 					<p:outputLabel for="inline" value="#{message['label.evento.dataHora']}" styleClass="label"/>
-        			<p:calendar id="inline" value="#{eventoMedicacaoManager.eventoMedicacao.dataHora}" mode="inline" pattern="dd/MM/yyyy HH:mm"/>
+        				<p:calendar id="inline" value="#{eventoMedicacaoManager.eventoMedicacao.dataHora}" pattern="dd/MM/yyyy HH:mm" mask="true" showOn="button" disabledWeekends="false"/>
 					<br /><br />
 					<p:outputLabel for="descricao" value="#{message['label.evento.descricao']}" styleClass="label" />
 					<p:inputTextarea id="descricao" rows="6" cols="33" value="#{eventoMedicacaoManager.eventoMedicacao.descricao}" required="true" requiredMessage="#{message['span.obrigatorio.endereco']}"/>
@@ -40,8 +48,8 @@
                 	</p:inputNumber>  
 					<br/><br/>
 					     		       		
-	        		<p:commandButton value="#{message['button.salvar']}" action="#{atendimentoManager.salvar()}" update="growl" />
-	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:atendimento" />
+	        		<p:commandButton value="#{message['button.salvar']}" action="#{eventoMedicacaoManager.salvar()}" update="growl" />
+	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:eventoMedicacao" />
 				</p:panel> 
 			</h:form>
 		</div>

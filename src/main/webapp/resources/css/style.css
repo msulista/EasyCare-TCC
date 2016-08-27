@@ -488,6 +488,10 @@ input[type=text] {
  	color: black !important;
  }
 
+.calendario-mini{
+	height: 500px !important;
+	width: 500px !important;
+}
 
  /*--- .ui-state-highlight, .ui-widget-header .ui-state-highlight 
  
