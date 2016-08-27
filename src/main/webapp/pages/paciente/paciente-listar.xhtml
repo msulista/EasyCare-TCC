@@ -22,17 +22,24 @@
 					<p:column headerText="#{message['label.nome.paciente']}" >
 						<h:outputText value="#{paciente.nomePaciente}" />
 					</p:column>
+					<p:column headerText="#{message['label.idade']}" >
+						<h:outputText value="#{paciente.transientIdade}" />
+					</p:column>
 					<p:column headerText="#{message['label.fone.paciente']}" >
 						<h:outputText value="#{paciente.fonePaciente}" />
 					</p:column>
 					<p:column headerText="#{message['label.data.nascimento']}" >
 						<h:outputText value="#{paciente.transientDtNascimento}" />
 					</p:column>
+					
 					<p:column headerText="#{message['label.nome.responsavel']}" >
 						<h:outputText value="#{paciente.nomeFamiliar}" />
 					</p:column>
 					<p:column headerText="#{message['label.fone.responsavel']}" >
 						<h:outputText value="#{paciente.foneFamiliar}" />
+					</p:column>
+					<p:column headerText="#{message['label.email.responsavel']}" >
+						<h:outputText value="#{paciente.emailFamiliar}" />
 					</p:column>		
 					<p:column headerText="#{message['label.acoes']}" >
 						

@@ -196,10 +196,15 @@ public class DateUtil {
 		data = calendar.getTime();
 		return data;
 	}
-	// public static Date DataDoSistemaMySql(){
-	// SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-	// Date dataAtual = new Date();
-	// //Date dataMySql = java.sql.Date.valueOf();
-	// return data;
-	// }
+		
+	public static int getIdade(Date data) {
+		Calendar cData = Calendar.getInstance();
+		Calendar cHoje= Calendar.getInstance();
+		cData.setTime(data);
+		cData.set(Calendar.YEAR, cHoje.get(Calendar.YEAR));
+		int idade = cData.after(cHoje) ? -1 : 0;
+		cData.setTime(data);
+		idade += cHoje.get(Calendar.YEAR) - cData.get(Calendar.YEAR);
+		return idade;
+	}
 }

@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.PacienteNegocio;
+import com.msulista.util.DateUtil;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
@@ -46,6 +47,10 @@ public class PacienteManager {
 	public Paciente obterPaciente(final Long id) {
 		return this.pacienteNegocio.obterPaciente(id);
 	}
+	
+	public void excluirPaciente(Long id) {
+//		this.pacienteNegocio.
+	}
 
 	/**
 	 * Obtem lista de pacientes
@@ -53,18 +58,29 @@ public class PacienteManager {
 	 * @return lista de {@link Paciente}
 	 */
 	public List<Paciente> obterLista() {
-		return this.pacienteNegocio.obterLista();
+		
+		List<Paciente> pacientes = this.pacienteNegocio.obterLista();
+		this.adicionaIdadePaciente(pacientes);
+		return pacientes;
+	}
+	
+
+	/**
+	 * Percorre lista de {@link Paciente} e adiciona idade no Transiente
+	 * 
+	 * @param pacientes
+	 */
+	private void adicionaIdadePaciente(List<Paciente> pacientes) {
+		for (Paciente paciente : pacientes) {
+			if (paciente.getDtNascimento() != null) {
+				
+				int idade = DateUtil.getIdade(paciente.getDtNascimento());
+				paciente.setTransientIdade(idade);
+			}
+		}
 	}
 
-	// Serviços
-	// public Paciente findPacientebyNome(String nome) {
-	// for (Paciente paciente : pacientes) {
-	// if (paciente.getNomePaciente().equalsIgnoreCase(nome)) {
-	// return paciente;
-	// }
-	// }
-	// return null;
-	// }
+	
 
 	// Getters Setters
 	public List<Paciente> getPacientes() {
