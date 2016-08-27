@@ -66,6 +66,9 @@ public class Paciente implements BaseEntity, Serializable {
 
 	@Transient
 	private Boolean transientResponsavel;
+	
+	@Transient
+	private Boolean googleAgenda;
 
 	@Override
 	public Long getId() {
@@ -167,6 +170,14 @@ public class Paciente implements BaseEntity, Serializable {
 
 	public void setTransientResponsavel(final Boolean transientResponsavel) {
 		this.transientResponsavel = transientResponsavel;
+	}
+
+	public Boolean getGoogleAgenda() {
+		return googleAgenda;
+	}
+
+	public void setGoogleAgenda(Boolean googleAgenda) {
+		this.googleAgenda = googleAgenda;
 	}
 
 	@Override

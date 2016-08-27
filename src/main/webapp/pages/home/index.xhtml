@@ -4,7 +4,29 @@
 
     <ui:define name="content">
     
-   	   <div id="agenda" class="painel">
+    	<div id="agenda" class="painel">
+        	<h:link outcome="pretty:atendimento-incluir">
+        		<div class="img-painel">
+        			<h:graphicImage styleClass="img-relatorio" value="/resources/img/profissional.png" />
+        		</div>
+        		<div class="text-painel">
+        			Atendimento
+        		</div>        		
+       		</h:link>
+        </div>
+ 
+         <div id="paciente" class="painel">
+        	<h:link outcome="pretty:paciente">
+        		<div class="img-painel">
+        			<h:graphicImage styleClass="img-relatorio" value="/resources/img/profissional.png" />
+        		</div>
+        		<div class="text-painel">
+        			Paciente
+        		</div>        		
+       		</h:link>
+        </div>
+    
+   	   <div id="medicamento" class="painel">   	   	
         	<h:link outcome="pretty:medicamento">
         		<div class="img-painel">
         			<h:graphicImage styleClass="img-relatorio" value="/resources/img/profissional.png" />
@@ -14,7 +36,8 @@
         		</div>        		
        		</h:link>
         </div>  
-                 	
+        
+            	
     </ui:define>
 
 </ui:composition>
