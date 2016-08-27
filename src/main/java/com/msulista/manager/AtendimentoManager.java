@@ -40,14 +40,15 @@ public class AtendimentoManager {
 	 */
 	public String salvar() {
 		this.atendimentoNegocio.salvar(this.atendimento);
-		return "pretty:atendimento-listar";
+		return "pretty:atendimento";
 	}
 	
 	/**
 	 * Altera os dados de um {@link Atendimento}
 	 */
-	public void aterar() {
+	public String aterar() {
 		this.atendimentoNegocio.alterar(this.atendimento);
+		return "pretty:atendimento";
 	}
 
 	/**

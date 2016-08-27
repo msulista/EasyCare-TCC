@@ -149,6 +149,25 @@ public class DateUtil {
 			return true;
 		}
 	}
+	
+	/**
+	 * Retorna true para dataFinal apos data inicial ou dataInicial igual DataFinal
+	 * 
+	 * @param dataInicial Data inicial
+	 * @param dataFinal Data Final
+	 * @return boolean
+	 */
+	public static boolean verificaDataFinalAposDataInicial(final Date dataInicial, final Date dataFinal) {
+		if (dataFinal != null ) {
+			if (dataInicial.before(dataFinal) || dataInicial.compareTo(dataFinal) == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
 
 	public static Date retornaDataFimAposInicio(Date data) {
 		final GregorianCalendar calendar = new GregorianCalendar();

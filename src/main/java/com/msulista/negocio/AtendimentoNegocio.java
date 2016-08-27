@@ -1,10 +1,12 @@
 package com.msulista.negocio;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.msulista.dao.AtendimentoDao;
 import com.msulista.entidade.Atendimento;
+import com.msulista.util.DateUtil;
 import com.msulista.util.Mensagem;
 
 public class AtendimentoNegocio implements NegocioBase<Atendimento> {
@@ -12,14 +14,19 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	private AtendimentoDao atendimentoDao;
 
 	@Override
-	public String salvar(final Atendimento bean) {
+	public String salvar(final Atendimento atendimento) {
 
-		this.atendimentoDao = new AtendimentoDao();
-
-		try {
-			this.atendimentoDao.salvar(bean);
-		} catch (final SQLException e) {
-			Mensagem.add("Erro ao acessar o banco de dados.");
+		boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(), atendimento.getDataFinal());
+		
+		if (datas) {
+			this.atendimentoDao = new AtendimentoDao();
+			try {
+				this.atendimentoDao.salvar(atendimento);
+			} catch (final SQLException e) {
+				Mensagem.add("Erro ao acessar o banco de dados.");
+			}
+		}else {
+			Mensagem.add("Data final não pode ser anterior a data inicial.");
 		}
 		return null;
 	}
@@ -27,10 +34,15 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	@Override
 	public String alterar(final Atendimento atendimento) {
 		
-		try {
-			this.atendimentoDao.alterar(atendimento);
-		} catch (SQLException e) {
-			Mensagem.add("Erro ao acessar o banco de dados.");
+		boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(), atendimento.getDataFinal());
+		if (datas) {
+			try {
+				this.atendimentoDao.alterar(atendimento);
+			} catch (SQLException e) {
+				Mensagem.add("Erro ao acessar o banco de dados.");
+			}
+		}else {
+			Mensagem.add("Data final não pode ser anterior a data inicial.");
 		}
 		return null;
 	}
@@ -63,5 +75,6 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		
 		this.atendimentoDao.excluir(id);
 	}
+	
 
 }
