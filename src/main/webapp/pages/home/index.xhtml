@@ -1,8 +1,22 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:h="http://java.sun.com/jsf/html" 
+    xmlns:p="http://primefaces.org/ui"
     template="/pages/template/default.xhtml">
 
     <ui:define name="content">
+    
+    	<div id="evento" class="painel">
+        	<h:link outcome="pretty:eventoMedicacao-incluir">
+        		<div class="img-painel">
+        			<h:graphicImage styleClass="img-relatorio" value="/resources/img/profissional.png" />
+        		</div>
+        		<div class="text-painel">
+        			Evento
+        		</div>        		
+       		</h:link>
+        </div>
     
     	<div id="agenda" class="painel">
         	<h:link outcome="pretty:atendimento-incluir">
@@ -10,7 +24,7 @@
         			<h:graphicImage styleClass="img-relatorio" value="/resources/img/profissional.png" />
         		</div>
         		<div class="text-painel">
-        			Atendimento
+        			Reserva
         		</div>        		
        		</h:link>
         </div>
@@ -37,6 +51,44 @@
        		</h:link>
         </div>  
         
+        
+        
+        <div class="">
+			<h2>#{message['title.evento.listar']}</h2>
+			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
+			<h:form>
+			<br />
+				<p:button styleClass="btn-default" value="#{message['button.novo']}" outcome="pretty:eventoMedicacao-incluir" />
+			<br />
+				<p:dataTable id="gridevento" var="evento" value="#{eventoMedicacaoManager.obterLista()}" emptyMessage="#{message['alerta.listaVazia']}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                 paginator="true" rows="10" rowsPerPageTemplate="10,20,30">
+	                 
+					<p:column headerText="#{message['label.evento.titulo']}" >
+						<h:outputText value="#{evento.titulo}" />
+					</p:column>	
+					<p:column headerText="#{message['label.evento.dataHora']}" >
+						<h:outputText value="#{evento.dataHora}" >
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>	
+					<p:column headerText="#{message['label.evento.descricao']}" >
+						<h:outputText value="#{evento.descricao}" />
+					</p:column>
+					<p:column headerText="#{message['label.acoes']}" >
+						<p:commandButton value="#{message['button.cancelar']}" action="#{eventoMedicacaoManager.excluir(evento.id)}" update="growl" icon="ui-icon-close" />
+					</p:column>						
+							
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</h:form>
+		</div>
             	
     </ui:define>
 

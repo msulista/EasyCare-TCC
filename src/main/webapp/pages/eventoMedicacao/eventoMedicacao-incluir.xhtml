@@ -19,10 +19,28 @@
 					
 					<p:outputLabel for="atendimento" value="#{message['label.nome.paciente']}" styleClass="label" />
 					<p:selectOneMenu id="atendimento" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
+						<p:ajax  update="dtInicial" /><p:ajax  update="dtFinal" /><p:ajax  update="hrInicial" /><p:ajax  update="hrFinal" />
 						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
 						<f:selectItems value="#{atendimentoManager.obterLista()}" var="atendimento" itemLabel="#{atendimento.paciente.nomePaciente}" itemValue="#{atendimento}"/>
 					</p:selectOneMenu>
 					<br /><br />
+					<div id="reserva">
+						<h4>Periodo reservado</h4>
+						<br />
+						<p:outputLabel for="dtInicial" value="Data Inicial" styleClass="label" />
+						<h:outputText id="dtInicial" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.dataInicial}" />
+						<br /><br />
+						<p:outputLabel for="dtFinal" value="Data Final" styleClass="label" />
+						<h:outputText id="dtFinal" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.dataFinal}" />
+						<br /><br />
+						<p:outputLabel for="hrInicial" value="Hora inicial" styleClass="label" />
+						<h:outputText id="hrInicial" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.horaInicial}" />
+						<br /><br />
+						<p:outputLabel for="hrFinal" value="Hora Final" styleClass="label" />
+						<h:outputText id="hrFinal" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.horaFinal}" />
+						<br /><br />
+					</div>
+					
 					
 					<!-- 
 					<p:outputLabel for="equipe" value="#{message['label.nome.paciente']}" styleClass="label" />
