@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -47,14 +50,9 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	@JoinColumn(name = "atend_id", nullable = false)
 	private Atendimento atendimento;
 
-	// @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
-	// CascadeType.REFRESH, CascadeType.MERGE,
-	// CascadeType.DETACH })
-	// @JoinTable(name = "dieta", joinColumns = { @JoinColumn(name = "event_id")
-	// }, inverseJoinColumns = {
-	// @JoinColumn(name = "medi_id") })
-	@Transient
-	private List<Medicamento> medcamentos = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH })
+    @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
+	private List<Medicamento> medicamentos = new ArrayList<>();
 
 	// @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
 	// CascadeType.REFRESH, CascadeType.MERGE,
@@ -118,11 +116,11 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	}
 
 	public List<Medicamento> getMedcamentos() {
-		return this.medcamentos;
+		return this.medicamentos;
 	}
 
 	public void setMedcamentos(final List<Medicamento> medcamentos) {
-		this.medcamentos = medcamentos;
+		this.medicamentos = medcamentos;
 	}
 
 	public List<Dieta> getRefeicoes() {

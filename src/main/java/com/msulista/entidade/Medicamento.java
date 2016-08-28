@@ -7,9 +7,13 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -49,10 +53,8 @@ public class Medicamento implements BaseEntity, Serializable {
 	@Column(name = "medi_tipo")
 	private Integer tipo;
 
-	// @ManyToMany(fetch = FetchType.LAZY)
-	// @JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name
-	// = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
-	@Transient
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "medi_id") }, inverseJoinColumns = { @JoinColumn(name = "event_id") })
 	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
 
 	@Override

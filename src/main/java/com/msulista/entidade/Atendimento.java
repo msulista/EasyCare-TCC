@@ -1,6 +1,7 @@
 package com.msulista.entidade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "atendimento")
@@ -26,6 +28,10 @@ import javax.persistence.Table;
 public class Atendimento implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = -8458837793631601906L;
+	
+	private static final String DATA_FORMATO = "dd/MM/yyyy";
+	
+	private static final String HORA_FORMATO = "HH:mm";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,7 +63,25 @@ public class Atendimento implements BaseEntity, Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "atendimento", cascade = CascadeType.REMOVE)
 	private final List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
+	
+	@Transient
+	private String transientDtIni;
 
+	@Transient
+	private String transientDtFim;
+	
+	@Transient
+	private String transientHrIni;
+	
+	@Transient
+	private String transientHrFim;
+	
+	@Transient
+	private String dtPeriodo;
+	
+	@Transient
+	private String hrIntervalo;
+	
 	@Override
 	public Long getId() {
 		return this.id;
@@ -128,6 +152,70 @@ public class Atendimento implements BaseEntity, Serializable {
 	 */
 	public List<EventoMedicacao> getEventoMedicacoes() {
 		return eventoMedicacoes;
+	}
+	
+	
+
+	/**
+	 * @return the transientDtIni
+	 */
+	public String getTransientDtIni() {
+		 if (this.getDataInicial() != null) {
+	            SimpleDateFormat sdf = new SimpleDateFormat(DATA_FORMATO);
+	            this.transientDtIni = sdf.format(this.getDataInicial());
+	        }
+		return transientDtIni;
+	}	
+
+	/**
+	 * @return the transientDtFim
+	 */
+	public String getTransientDtFim() {
+		 if (this.getDataFinal() != null) {
+	            SimpleDateFormat sdf = new SimpleDateFormat(DATA_FORMATO);
+	            this.transientDtFim = sdf.format(this.getDataFinal());
+	        }
+		return transientDtFim;
+	}
+
+	/**
+	 * @return the transientHrIni
+	 */
+	public String getTransientHrIni() {
+		 if (this.getHoraInicial() != null) {
+	            SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
+	            this.transientHrIni = sdf.format(this.getHoraInicial());
+	        }
+		return transientHrIni;
+	}
+
+	/**
+	 * @return the transientHrFim
+	 */
+	public String getTransientHrFim() {
+		 if (this.getHoraFinal() != null) {
+	            SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
+	            this.transientHrFim = sdf.format(this.getHoraFinal());
+	        }
+		return transientHrFim;
+	}
+
+	
+	
+	/**
+	 * @return the dtPeriodo
+	 */
+	public String getDtPeriodo() {
+		this.dtPeriodo = this.getTransientDtIni() + " até " + this.getTransientDtFim();
+		return dtPeriodo;
+	}
+
+	/**
+	 * @return the hrIntervalo
+	 */
+	public String getHrIntervalo() {
+		this.hrIntervalo = this.getTransientHrIni() + " até " + this.getTransientHrFim();
+		return hrIntervalo;
 	}
 
 	/* (non-Javadoc)
