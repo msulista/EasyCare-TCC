@@ -13,7 +13,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	private AtendimentoDao atendimentoDao;
 
 	@Override
-	public String salvar(final Atendimento atendimento) {
+	public boolean salvar(final Atendimento atendimento) {
 
 		boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(), atendimento.getDataFinal());
 		
@@ -24,14 +24,15 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 			} catch (final SQLException e) {
 				Mensagem.add("Erro ao acessar o banco de dados.");
 			}
+			return true;
 		}else {
 			Mensagem.add("Data final não pode ser anterior a data inicial.");
 		}
-		return null;
+		return false;
 	}
 
 	@Override
-	public String alterar(final Atendimento atendimento) {
+	public boolean alterar(final Atendimento atendimento) {
 		
 		boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(), atendimento.getDataFinal());
 		if (datas) {
@@ -40,10 +41,11 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 			} catch (SQLException e) {
 				Mensagem.add("Erro ao acessar o banco de dados.");
 			}
+			return true;
 		}else {
 			Mensagem.add("Data final não pode ser anterior a data inicial.");
 		}
-		return null;
+		return false;
 	}
 
 	@Override

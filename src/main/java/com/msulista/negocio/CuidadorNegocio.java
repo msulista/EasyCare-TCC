@@ -11,20 +11,20 @@ public class CuidadorNegocio implements NegocioBase<Cuidador> {
 	private final CuidadorDao cuidadorDao = new CuidadorDao();
 
 	@Override
-	public String salvar(final Cuidador cuidador) {
+	public boolean salvar(final Cuidador cuidador) {
 		try {
 			this.cuidadorDao.salvar(cuidador);
 		} catch (final SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 
 	@Override
-	public String alterar(final Cuidador bean) {
+	public boolean alterar(final Cuidador bean) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override

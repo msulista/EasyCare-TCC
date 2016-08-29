@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,7 +49,7 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	@JoinColumn(name = "atend_id", nullable = false)
 	private Atendimento atendimento;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH })
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
 	private List<Medicamento> medicamentos = new ArrayList<>();
 
@@ -115,12 +114,12 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 		this.atendimento = atendimento;
 	}
 
-	public List<Medicamento> getMedcamentos() {
+	public List<Medicamento> getMedicamentos() {
 		return this.medicamentos;
 	}
 
-	public void setMedcamentos(final List<Medicamento> medcamentos) {
-		this.medicamentos = medcamentos;
+	public void setMedicamentos(final List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
 	}
 
 	public List<Dieta> getRefeicoes() {

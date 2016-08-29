@@ -53,7 +53,7 @@ public class Medicamento implements BaseEntity, Serializable {
 	@Column(name = "medi_tipo")
 	private Integer tipo;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "medi_id") }, inverseJoinColumns = { @JoinColumn(name = "event_id") })
 	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
 

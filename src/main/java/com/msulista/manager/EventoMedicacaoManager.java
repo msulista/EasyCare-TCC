@@ -7,13 +7,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
 import com.msulista.entidade.EventoMedicacao;
+import com.msulista.entidade.Medicamento;
 import com.msulista.negocio.EventoMedicacaoNegocio;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
@@ -30,6 +29,7 @@ public class EventoMedicacaoManager {
 	private EventoMedicacao eventoMedicacao;
 	private List<EventoMedicacao> eventoMedicacoes;
 	private EventoMedicacaoNegocio eventMedicacaoNegocio;
+	private Medicamento medicademento;
 	
 	@PostConstruct
 	public void inicializar() {
@@ -58,14 +58,21 @@ public class EventoMedicacaoManager {
 	}
 		
 	public String salvar() {
-		this.eventMedicacaoNegocio.salvar(this.eventoMedicacao);
-		this.inicializar();
-		return "pretty:eventoMedicacao";
+		this.eventoMedicacao.getMedicamentos().add(this.medicademento);
+		if (this.eventMedicacaoNegocio.salvar(this.eventoMedicacao)) {
+			this.inicializar();
+			return "pretty:eventoMedicacao";
+		}
+		return null;
 	}
 
 	public String alterar() {
-		this.eventMedicacaoNegocio.alterar(this.eventoMedicacao);
-		return "pretty:eventoMedicacao";
+		this.eventoMedicacao.getMedicamentos().add(this.medicademento);
+		if (this.eventMedicacaoNegocio.alterar(this.eventoMedicacao)) {
+			this.inicializar();
+			return "pretty:eventoMedicacao";
+		}
+		return null;
 	}
 	
 	public List<EventoMedicacao> obterLista() {
@@ -131,6 +138,21 @@ public class EventoMedicacaoManager {
 	public void setScheduleModel(ScheduleModel scheduleModel) {
 		this.scheduleModel = scheduleModel;
 	}
+
+	/**
+	 * @return the medicademento
+	 */
+	public Medicamento getMedicademento() {
+		return medicademento;
+	}
+
+	/**
+	 * @param medicademento the medicademento to set
+	 */
+	public void setMedicademento(Medicamento medicademento) {
+		this.medicademento = medicademento;
+	}
+	
 	
 	
 }

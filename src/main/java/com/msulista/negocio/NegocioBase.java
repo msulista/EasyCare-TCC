@@ -10,9 +10,9 @@ public interface NegocioBase<T> {
 	 * @param bean é a entidade que representa
 	 * @return
 	 */
-	public String salvar(T bean);
+	public boolean salvar(T bean);
 
-	public String alterar(T bean);
+	public boolean alterar(T bean);
 
 	public List<T> obterLista();
 

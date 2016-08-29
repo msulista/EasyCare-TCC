@@ -39,16 +39,21 @@ public class AtendimentoManager {
 	 * @return
 	 */
 	public String salvar() {
-		this.atendimentoNegocio.salvar(this.atendimento);
-		return "pretty:atendimento";
+		
+		if (this.atendimentoNegocio.salvar(this.atendimento)) {
+			return "pretty:atendimento";
+		}
+		return null;
 	}
 	
 	/**
 	 * Altera os dados de um {@link Atendimento}
 	 */
 	public String aterar() {
-		this.atendimentoNegocio.alterar(this.atendimento);
-		return "pretty:atendimento";
+		if (this.atendimentoNegocio.alterar(this.atendimento)) {
+			return "pretty:atendimento";
+		}
+		return null;
 	}
 
 	/**

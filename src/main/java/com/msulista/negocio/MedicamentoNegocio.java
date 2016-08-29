@@ -14,18 +14,18 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 	private MedicamentoDao medicamentoDao;
 
 	@Override
-	public String salvar(final Medicamento medicamento) {
+	public boolean salvar(final Medicamento medicamento) {
 		this.medicamentoDao = new MedicamentoDao();
 		try {
 			this.medicamentoDao.salvar(medicamento);
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return true;
 	}
 
 	@Override
-	public String alterar(final Medicamento bean) {
+	public boolean alterar(final Medicamento bean) {
 		this.medicamentoDao = new MedicamentoDao();
 		try {
 			this.medicamentoDao.alterar(bean);
@@ -34,7 +34,7 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
 		}
 
-		return null;
+		return true;
 
 	}
 

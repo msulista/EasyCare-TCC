@@ -19,7 +19,7 @@
 					
 					<p:outputLabel for="atendimento" value="#{message['label.nome.paciente']}" styleClass="label" />
 					<p:selectOneMenu id="atendimento" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
-						<p:ajax  update="dtInicial" /><p:ajax  update="dtFinal" /><p:ajax  update="hrInicial" /><p:ajax  update="hrFinal" />
+						<p:ajax  update="dt" /><p:ajax  update="hr" />
 						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
 						<f:selectItems value="#{atendimentoManager.obterLista()}" var="atendimento" itemLabel="#{atendimento.paciente.nomePaciente}" itemValue="#{atendimento}"/>
 					</p:selectOneMenu>
@@ -27,34 +27,22 @@
 					<div id="reserva">
 						<h4>Periodo reservado</h4>
 						<br />
-						<p:outputLabel for="dtInicial" value="Data Inicial" styleClass="label" />
-						<h:outputText id="dtInicial" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.dataInicial}" />
+						<p:outputLabel for="dt" value="Data" styleClass="label" />
+						<h:outputText id="dt" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.dtPeriodo}" />
 						<br /><br />
-						<p:outputLabel for="dtFinal" value="Data Final" styleClass="label" />
-						<h:outputText id="dtFinal" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.dataFinal}" />
-						<br /><br />
-						<p:outputLabel for="hrInicial" value="Hora inicial" styleClass="label" />
-						<h:outputText id="hrInicial" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.horaInicial}" />
-						<br /><br />
-						<p:outputLabel for="hrFinal" value="Hora Final" styleClass="label" />
-						<h:outputText id="hrFinal" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.horaFinal}" />
-						<br /><br />
+						<p:outputLabel for="hr" value="Horário" styleClass="label" />
+						<h:outputText id="hr" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento.hrIntervalo}" />						
 					</div>
-					
-					
-					<!-- 
-					<p:outputLabel for="equipe" value="#{message['label.nome.paciente']}" styleClass="label" />
-					<p:selectOneMenu id="equipe" value="#{atendimentoManager.atendimento.paciente}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
+					<br /><br />
+					<p:outputLabel for="remedio" value="#{message['label.medicamento.nome']}" styleClass="label" />
+					<p:selectOneMenu id="remedio" value="#{eventoMedicacaoManager.medicademento}" converter="simpleEntityConverter" >
 						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
-						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
+						<f:selectItems value="#{medicamentoManager.obterLista()}" var="medicamento" itemLabel="#{medicamento.nome}" itemValue="#{medicamento}"/>
 					</p:selectOneMenu>
-					
-					 -->
-					
-			
-					 
-					<p:outputLabel for="inline" value="#{message['label.evento.dataHora']}" styleClass="label"/>
-        				<p:calendar id="inline" value="#{eventoMedicacaoManager.eventoMedicacao.dataHora}" pattern="dd/MM/yyyy HH:mm" mask="true" showOn="button" disabledWeekends="false"/>
+					<br /><br />
+										 
+					<p:outputLabel for="diahora" value="#{message['label.evento.dataHora']}" styleClass="label"/>
+        				<p:calendar id="diahora" value="#{eventoMedicacaoManager.eventoMedicacao.dataHora}" pattern="dd/MM/yyyy HH:mm" mask="true" showOn="button" disabledWeekends="false"/>
 					<br /><br />
 					<p:outputLabel for="descricao" value="#{message['label.evento.descricao']}" styleClass="label" />
 					<p:inputTextarea id="descricao" rows="6" cols="33" value="#{eventoMedicacaoManager.eventoMedicacao.descricao}" required="true" requiredMessage="#{message['span.obrigatorio.endereco']}"/>
@@ -68,6 +56,7 @@
 					     		       		
 	        		<p:commandButton value="#{message['button.salvar']}" action="#{eventoMedicacaoManager.salvar()}" update="growl" />
 	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:eventoMedicacao" />
+	        		<br /><br />
 				</p:panel> 
 			</h:form>
 		</div>
