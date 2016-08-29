@@ -20,10 +20,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.msulista.util.DateUtil;
+
 @Entity
 @Table(name = "evento_medicacao")
 @NamedQueries({ @NamedQuery(name = "EventoMedicacao.findAll", query = "SELECT em FROM EventoMedicacao em"),
-		@NamedQuery(name = "EventoMedicacao.findId", query = "SELECT em FROM EventoMedicacao em WHERE em.id = :id"), })
+		@NamedQuery(name = "EventoMedicacao.findId", query = "SELECT em FROM EventoMedicacao em WHERE em.id = :id"),
+		@NamedQuery(name = "EventoMedicacao.findDiaCorrente", query = "SELECT em FROM EventoMedicacao em WHERE em.dataHora >= CURRENT_DATE ORDER BY em.dataHora"),})
 public class EventoMedicacao implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = -7077632222540575070L;
@@ -67,6 +70,12 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	
 	@Transient
 	private boolean transientRepetirDiariamente;
+	
+	@Transient
+	private String transientHora;
+	
+	@Transient
+	private String transientNomeMedicacao;
 
 	@Override
 	public Long getId() {
@@ -142,11 +151,30 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	}
 	
 	public boolean getTransientRepetirDiariamente() {
+		
 		return transientRepetirDiariamente;
 	}
-
+	
 	public void setTransientRepetirDiariamente(boolean transientRepetirDiariamente) {
 		this.transientRepetirDiariamente = transientRepetirDiariamente;
+	}
+
+	public String getTransientHora() {
+		
+		return DateUtil.hourToStringHour(this.getDataHora());
+	}
+
+	public void setTransientHora(String transientHora) {
+		this.transientHora = transientHora;
+	}
+	
+	public String getTransientNomeMedicacao() {
+		transientNomeMedicacao = this.getMedicamentos().get(0).getNome();
+		return transientNomeMedicacao;
+	}
+
+	public void setTransientNomeMedicacao(String transientNomeMedicacao) {
+		this.transientNomeMedicacao = transientNomeMedicacao;
 	}
 
 	/* (non-Javadoc)

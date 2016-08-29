@@ -43,15 +43,13 @@ public class EventoMedicacaoManager {
 		for (EventoMedicacao eventoMedicacao : eventoMedicacoes) {
 			DefaultScheduleEvent evt = new DefaultScheduleEvent();
 			evt.setData(eventoMedicacao.getId());
-			//TODO Como utilizar scom LAZY??
-//			evt.setTitle(eventoMedicacao.getAtendimento().getPaciente().getNomePaciente());
 			evt.setTitle(eventoMedicacao.getTitulo());
 			evt.setStartDate(eventoMedicacao.getDataHora());
 			evt.setEndDate(eventoMedicacao.getDataHora());
 			evt.setDescription(eventoMedicacao.getDescricao());
 			evt.setAllDay(false);
 			evt.setEditable(true);
-			evt.setStyleClass("event-green");			
+//			evt.setStyleClass("event-green");			
 			
 			scheduleModel.addEvent(evt);
 		}
@@ -77,6 +75,10 @@ public class EventoMedicacaoManager {
 	
 	public List<EventoMedicacao> obterLista() {
 		return this.eventMedicacaoNegocio.obterLista();
+	}
+	
+	public List<EventoMedicacao> obterListaDiaCorrente() {
+		return this.eventMedicacaoNegocio.obterListaDiaCorrente();
 	}
 	
 	public EventoMedicacao obterEventoMedicacao() {

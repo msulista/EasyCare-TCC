@@ -60,17 +60,18 @@
 			<br />
 				<p:button styleClass="btn-default" value="#{message['button.novo']}" outcome="pretty:eventoMedicacao-incluir" />
 			<br />
-				<p:dataTable id="gridevento" var="evento" value="#{eventoMedicacaoManager.obterLista()}" emptyMessage="#{message['alerta.listaVazia']}"
+				<p:dataTable id="gridevento" var="evento" value="#{eventoMedicacaoManager.obterListaDiaCorrente()}" emptyMessage="#{message['alerta.listaVazia']}"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                 paginator="true" rows="10" rowsPerPageTemplate="10,20,30">
 	                 
-					<p:column headerText="#{message['label.evento.titulo']}" >
-						<h:outputText value="#{evento.titulo}" />
+					<p:column headerText="#{message['label.evento.hora']}" >
+						<h:outputText value="#{evento.transientHora}" />
 					</p:column>	
-					<p:column headerText="#{message['label.evento.dataHora']}" >
-						<h:outputText value="#{evento.dataHora}" >
-							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-						</h:outputText>
+					<p:column headerText="#{message['label.evento.cliente']}" >
+						<h:outputText value="#{evento.titulo}" />
+					</p:column>
+					<p:column headerText="#{message['label.evento.medicacao']}" >
+						<h:outputText value="#{evento.transientNomeMedicacao}" />
 					</p:column>	
 					<p:column headerText="#{message['label.evento.descricao']}" >
 						<h:outputText value="#{evento.descricao}" />

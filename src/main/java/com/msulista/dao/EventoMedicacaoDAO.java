@@ -46,6 +46,15 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 		manager.close();
 		return retorno;
 	}
+	
+	public List<EventoMedicacao> obterListaDiaCorrente() throws SQLException {
+		final EntityManager manager = JPAUtil.getEntityManager();
+
+		final Query query = manager.createNamedQuery("EventoMedicacao.findDiaCorrente");
+		final List<EventoMedicacao> retorno = query.getResultList();
+		manager.close();
+		return retorno;
+	}
 
 	@Override
 	public EventoMedicacao obterEvento(Long id) throws SQLException {

@@ -1,7 +1,6 @@
 package com.msulista.negocio;
 
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +29,7 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			return false;
 		} else {
 			this.eventMedicacaoDAO = new EventoMedicacaoDAO();
+			eventoMedicacao.setTitulo(eventoMedicacao.getAtendimento().getPaciente().getNomePaciente());
 			this.salvaEvento(eventoMedicacao);
 			this.replicaEvento(eventoMedicacao);
 		}
@@ -63,6 +63,16 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		}
 		return null;
 	}
+	
+	public List<EventoMedicacao> obterListaDiaCorrente() {
+		this.eventMedicacaoDAO = new EventoMedicacaoDAO();
+		try {
+			return this.eventMedicacaoDAO.obterListaDiaCorrente();
+		} catch (SQLException e) {
+			Mensagem.add("Erro ao executar Sql.");
+		}
+		return null;
+	}
 
 	@Override
 	public EventoMedicacao obterPorId(Long id) {
@@ -81,6 +91,13 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		this.eventMedicacaoDAO.excluir(id);		
 	}
 
+	/**
+	 * Verifica se Data do evento esta dentro do periodo de atendimento
+	 * 
+	 * @param atendimento
+	 * @param dataHora
+	 * @return
+	 */
 	protected boolean validaDataDoEventoForaDoPeriodoAtendimento(Atendimento atendimento, Date dataHora){
 		
 		if (atendimento.getDataInicial().after(dataHora) || atendimento.getDataFinal().before(dataHora)) {
@@ -89,6 +106,13 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		return false;
 	}
 	
+	/**
+	 * Verifica se Horario do evento esta dentro do periodo de atendimento
+	 * 
+	 * @param atendimento
+	 * @param dataHora
+	 * @return
+	 */
 	protected boolean validaHorarioDoEventoForaDoIntervaloAtendimento(Atendimento atendimento, Date dataHora) {
 		boolean dt1 = DateUtil.comparaHr1MaiorHr2(atendimento.getHoraInicial(), dataHora);
 		boolean dt2 = DateUtil.comparaHr1MaiorHr2(dataHora, atendimento.getHoraFinal());
@@ -98,6 +122,11 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		return false;
 	}
 	
+	/**
+	 * Replica evento original com novas datas
+	 * 
+	 * @param evento
+	 */
 	protected void replicaEvento(EventoMedicacao evento) {
 		if (evento.getTransientRepetirDiariamente()) {
 			int repet = DateUtil.calculaNumeroDeDias(evento.getDataHora(), evento.getAtendimento().getDataFinal());
@@ -110,6 +139,12 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		}
 	}
 	
+	/**
+	 * Cria novo evento com os dados do evento original para ser replicado com data difetente
+	 * 
+	 * @param ev
+	 * @return
+	 */
 	protected EventoMedicacao criaNovoEvento(EventoMedicacao ev) {
 		
 		EventoMedicacao evento = new EventoMedicacao();
@@ -122,6 +157,11 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		return evento;
 	}
 	
+	/**
+	 * Salva evento no banco
+	 * 
+	 * @param eventoMedicacao
+	 */
 	protected void salvaEvento(EventoMedicacao eventoMedicacao) {
 		try {
 			this.eventMedicacaoDAO.salvar(eventoMedicacao);
@@ -129,13 +169,14 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			Mensagem.add("Erro ao executar Sql.");
 		}
 	}
+	/**
+	 * Incrementa a data do evento em dias
+	 * 
+	 * @param dataEvento
+	 * @param dia numero de incremento
+	 * @return Date
+	 */
 	protected Date adicionaDias(Date dataEvento, int dia) {
-//		Calendar data = Calendar.getInstance();
-//		data.setTime(dataEvento);
-//		data.set(Calendar.DAY_OF_MONTH, +dia);
-//		
-//		return data.getTime();
-		
 		DateTime data = new DateTime(dataEvento);
 		data = data.plusDays(dia);
 		

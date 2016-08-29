@@ -37,17 +37,17 @@
 					<br /><br />
 					<p:separator />
 					<p:outputLabel for="remedio" value="#{message['label.medicamento.nome']}" styleClass="label" />
-					<p:selectOneMenu id="remedio" value="#{eventoMedicacaoManager.medicademento}" converter="simpleEntityConverter" >
+					<p:selectOneMenu id="remedio" value="#{eventoMedicacaoManager.medicademento}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomeMedicamento']}">
 						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
 						<f:selectItems value="#{medicamentoManager.obterLista()}" var="medicamento" itemLabel="#{medicamento.nome}" itemValue="#{medicamento}"/>
 					</p:selectOneMenu>
 					<br /><br />
 										 
 					<p:outputLabel for="diahora" value="#{message['label.evento.dataHora']}" styleClass="label"/>
-        				<p:calendar id="diahora" value="#{eventoMedicacaoManager.eventoMedicacao.dataHora}" pattern="dd/MM/yyyy HH:mm" mask="true" showOn="button" disabledWeekends="false"/>
+        				<p:calendar id="diahora" value="#{eventoMedicacaoManager.eventoMedicacao.dataHora}" pattern="dd/MM/yyyy HH:mm" mask="true" showOn="button" disabledWeekends="false" required="true" requiredMessage="#{message['span.obrigatorio.data']}"/>
 					<br /><br />
 					<p:outputLabel for="descricao" value="#{message['label.evento.descricao']}" styleClass="label" />
-					<p:inputTextarea id="descricao" rows="6" cols="33" value="#{eventoMedicacaoManager.eventoMedicacao.descricao}" required="true" requiredMessage="#{message['span.obrigatorio.endereco']}"/>
+					<p:inputTextarea id="descricao" rows="6" cols="33" value="#{eventoMedicacaoManager.eventoMedicacao.descricao}" required="true" requiredMessage="#{message['span.obrigatorio.descricao']}"/>
 					<br/><br/>	
 					<p:separator />
 					<h4>Repetir evento</h4>
