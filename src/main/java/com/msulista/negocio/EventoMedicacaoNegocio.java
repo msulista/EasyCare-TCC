@@ -1,8 +1,11 @@
 package com.msulista.negocio;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 import com.msulista.dao.EventoMedicacaoDAO;
 import com.msulista.entidade.Atendimento;
@@ -23,15 +26,12 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			Mensagem.add("Data informada está fora do periodo de atendimento.");
 			return false;
 		} else if (hora) {
-			Mensagem.add("Horario informado está fora do intervalo de atendimento.");
+			Mensagem.add("Horário informado está fora do intervalo de atendimento.");
 			return false;
 		} else {
 			this.eventMedicacaoDAO = new EventoMedicacaoDAO();
-			try {
-				this.eventMedicacaoDAO.salvar(eventoMedicacao);
-			} catch (SQLException e) {
-				Mensagem.add("Erro ao executar Sql.");
-			}
+			this.salvaEvento(eventoMedicacao);
+			this.replicaEvento(eventoMedicacao);
 		}
 		return true;
 	}
@@ -45,15 +45,10 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			Mensagem.add("Data informada está fora do periodo de atendimento.");
 			return false;
 		} else if (hora) {
-			Mensagem.add("Horario informado está fora do intervalo de atendimento.");
+			Mensagem.add("Horário informado está fora do intervalo de atendimento.");
 			return false;
 		} else {
-			this.eventMedicacaoDAO = new EventoMedicacaoDAO();
-			try {
-				this.eventMedicacaoDAO.alterar(eventoMedicacao);
-			} catch (SQLException e) {
-				Mensagem.add("Erro ao executar Sql.");
-			}
+//			this.salvaEvento(eventoMedicacao);
 		}
 		return true;
 	}
@@ -101,5 +96,49 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			return true;
 		}		
 		return false;
+	}
+	
+	protected void replicaEvento(EventoMedicacao evento) {
+		if (evento.getTransientRepetirDiariamente()) {
+			int repet = DateUtil.calculaNumeroDeDias(evento.getDataHora(), evento.getAtendimento().getDataFinal());
+			for (int i = 0; i < repet; i++) {
+				Date novoDia = this.adicionaDias(evento.getDataHora(), 1+i);
+				EventoMedicacao novoEvento = this.criaNovoEvento(evento);
+				novoEvento.setDataHora(novoDia);
+				this.salvaEvento(novoEvento);
+			}
+		}
+	}
+	
+	protected EventoMedicacao criaNovoEvento(EventoMedicacao ev) {
+		
+		EventoMedicacao evento = new EventoMedicacao();
+		evento.setAtendimento(ev.getAtendimento());
+		evento.setDescricao(ev.getDescricao());
+		evento.getMedicamentos().addAll(ev.getMedicamentos());
+		evento.getRefeicoes().addAll(ev.getRefeicoes());
+		evento.setTitulo(ev.getTitulo());
+		
+		return evento;
+	}
+	
+	protected void salvaEvento(EventoMedicacao eventoMedicacao) {
+		try {
+			this.eventMedicacaoDAO.salvar(eventoMedicacao);
+		} catch (SQLException e) {
+			Mensagem.add("Erro ao executar Sql.");
+		}
+	}
+	protected Date adicionaDias(Date dataEvento, int dia) {
+//		Calendar data = Calendar.getInstance();
+//		data.setTime(dataEvento);
+//		data.set(Calendar.DAY_OF_MONTH, +dia);
+//		
+//		return data.getTime();
+		
+		DateTime data = new DateTime(dataEvento);
+		data = data.plusDays(dia);
+		
+		return data.toDate();
 	}
 }

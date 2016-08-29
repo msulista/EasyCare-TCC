@@ -63,7 +63,10 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	private List<Dieta> refeicoes = new ArrayList<>();
 	
 	@Transient
-	private Integer transientFrequenciaEvento;
+	private Integer transientFrequenciaEvento = 0;
+	
+	@Transient
+	private boolean transientRepetirDiariamente;
 
 	@Override
 	public Long getId() {
@@ -136,6 +139,14 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 
 	public void setTransientFrequenciaEvento(Integer transientFrequenciaEvento) {
 		this.transientFrequenciaEvento = transientFrequenciaEvento;
+	}
+	
+	public boolean getTransientRepetirDiariamente() {
+		return transientRepetirDiariamente;
+	}
+
+	public void setTransientRepetirDiariamente(boolean transientRepetirDiariamente) {
+		this.transientRepetirDiariamente = transientRepetirDiariamente;
 	}
 
 	/* (non-Javadoc)

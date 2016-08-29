@@ -2,9 +2,13 @@ package com.msulista.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 public class DateUtil {
 	
@@ -239,4 +243,16 @@ public class DateUtil {
 		
 		return dt1.after(dt2);
 	}
+	
+	public static int calculaNumeroDeDias(Date dataInicial, Date dataFinal) {
+	   
+		DateTime dtInicial = new DateTime(dataInicial);
+	    DateTime dtFinal = new DateTime(dataFinal);
+
+	    Days dias = Days.daysBetween(dtInicial, dtFinal);
+	    int dia = dias.getDays();
+	    return dia+1;
+	}
+	
+	
 }
