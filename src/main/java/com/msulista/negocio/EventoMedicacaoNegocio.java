@@ -7,6 +7,7 @@ import java.util.List;
 import com.msulista.dao.EventoMedicacaoDAO;
 import com.msulista.entidade.Atendimento;
 import com.msulista.entidade.EventoMedicacao;
+import com.msulista.util.DateUtil;
 import com.msulista.util.Mensagem;
 
 public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
@@ -44,7 +45,7 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			Mensagem.add("Data informada está fora do periodo de atendimento.");
 			return false;
 		} else if (hora) {
-//			Mensagem.add("Horario informado está fora do intervalo de atendimento.");
+			Mensagem.add("Horario informado está fora do intervalo de atendimento.");
 			return false;
 		} else {
 			this.eventMedicacaoDAO = new EventoMedicacaoDAO();
@@ -94,7 +95,9 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 	}
 	
 	protected boolean validaHorarioDoEventoForaDoIntervaloAtendimento(Atendimento atendimento, Date dataHora) {
-		if (atendimento.getHoraInicial().getTime() > dataHora.getTime() || atendimento.getHoraFinal().getTime() < dataHora.getTime()) {
+		boolean dt1 = DateUtil.comparaHr1MaiorHr2(atendimento.getHoraInicial(), dataHora);
+		boolean dt2 = DateUtil.comparaHr1MaiorHr2(dataHora, atendimento.getHoraFinal());
+		if (dt1 || dt2) {
 			return true;
 		}		
 		return false;

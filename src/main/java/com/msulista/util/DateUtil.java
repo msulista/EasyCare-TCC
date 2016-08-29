@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DateUtil {
+	
+	private static final String DATA_FORMATO = "dd/MM/yyyy";
+	private static final String HORA_FORMATO = "HH:mm";
 
 	public static boolean verificaData(final String data) {
 		return (data.matches("\\d{2}/\\d{2}/\\d{4}"));
@@ -17,11 +20,11 @@ public class DateUtil {
 	}
 
 	public static Date stringToDate(final String data) throws ParseException {
-		return (new SimpleDateFormat("dd/MM/yyyy").parse(data));
+		return (new SimpleDateFormat(DATA_FORMATO).parse(data));
 	}
 
 	public static Date stringToDatePostgre(String data) {
-		final SimpleDateFormat f = new SimpleDateFormat("dd/mm/yyyy");
+		final SimpleDateFormat f = new SimpleDateFormat(DATA_FORMATO);
 		Date d1 = null;
 		try {
 			d1 = f.parse(data);
@@ -36,11 +39,11 @@ public class DateUtil {
 
 	public static Date stringToHour(final String data) throws ParseException {
 
-		return (new SimpleDateFormat("HH:mm").parse(data));
+		return (new SimpleDateFormat(HORA_FORMATO).parse(data));
 	}
 
 	public static Date stringToHourPostgre(String hora) throws ParseException {
-		final SimpleDateFormat h = new SimpleDateFormat("HH:mm");
+		final SimpleDateFormat h = new SimpleDateFormat(HORA_FORMATO);
 		Date h1 = null;
 		h1 = h.parse(hora);
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
@@ -56,11 +59,11 @@ public class DateUtil {
 	}
 
 	public static String dateToStringDate(final Date data) {
-		return (new SimpleDateFormat("dd/MM/yyyy").format(data));
+		return (new SimpleDateFormat(DATA_FORMATO).format(data));
 	}
 
 	public static String hourToStringHour(final Date data) {
-		return (new SimpleDateFormat("HH:mm").format(data));
+		return (new SimpleDateFormat(HORA_FORMATO).format(data));
 	}
 
 	public static String dateHourToString(final Date data) {
@@ -70,7 +73,7 @@ public class DateUtil {
 	}
 
 	public static String hourToString(final Date data) {
-		final SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
+		final SimpleDateFormat formatador = new SimpleDateFormat(HORA_FORMATO);
 		final String dataString = formatador.format(data);
 		return (dataString);
 	}
@@ -100,7 +103,7 @@ public class DateUtil {
 	public static String pegaDataDoSistema() {
 
 		final Calendar calendar = new GregorianCalendar();
-		final SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+		final SimpleDateFormat out = new SimpleDateFormat(DATA_FORMATO);
 		final Date date = new Date();
 		calendar.setTime(date);
 		final String data = out.format(calendar.getTime());
@@ -206,5 +209,34 @@ public class DateUtil {
 		cData.setTime(data);
 		idade += cHoje.get(Calendar.YEAR) - cData.get(Calendar.YEAR);
 		return idade;
+	}
+	
+	public static Calendar dateToCalendarTimeZeroTrueOrFalse(Date date, boolean setTimeToZero){ 
+	    Calendar calendario = Calendar.getInstance();
+	    calendario.setTime(date);
+	    if(setTimeToZero){
+	        calendario.set(Calendar.HOUR_OF_DAY, 0);
+	        calendario.set(Calendar.MINUTE, 0);
+	        calendario.set(Calendar.SECOND, 0);
+	        calendario.set(Calendar.MILLISECOND, 0);
+	    }
+	    return calendario;
+	} 
+	
+	public static boolean comparaHr1MaiorHr2(Date hr1, Date hr2) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
+		String hora1 = sdf.format(hr1);
+		String hora2 = sdf.format(hr2);
+		Date dt1 = null;
+		Date dt2 = null;
+		try {
+			dt1 = sdf.parse(hora1);
+			dt2 = sdf.parse(hora2);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return dt1.after(dt2);
 	}
 }
