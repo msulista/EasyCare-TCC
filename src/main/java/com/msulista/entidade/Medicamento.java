@@ -19,6 +19,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.msulista.util.DateUtil;
+
 @Entity
 @Table(name = "medicamento")
 @NamedQueries({ @NamedQuery(name = "Medicamento.findAll", query = "SELECT m FROM Medicamento m ORDER BY m.nome ASC"),
@@ -56,6 +58,9 @@ public class Medicamento implements BaseEntity, Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "medi_id") }, inverseJoinColumns = { @JoinColumn(name = "event_id") })
 	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
+	
+	@Transient
+	private String transientDtValidade;
 
 	@Override
 	public Long getId() {
@@ -128,6 +133,15 @@ public class Medicamento implements BaseEntity, Serializable {
 
 	public void setEventoMedicacoes(final List<EventoMedicacao> eventoMedicacoes) {
 		this.eventoMedicacoes = eventoMedicacoes;
+	}
+
+	public String getTransientDtValidade() {
+		transientDtValidade = DateUtil.dateToStringDate(this.getDataValidade());
+		return transientDtValidade;
+	}
+
+	public void setTransientDtValidade(String transientDtValidade) {
+		this.transientDtValidade = transientDtValidade;
 	}
 
 	@Override

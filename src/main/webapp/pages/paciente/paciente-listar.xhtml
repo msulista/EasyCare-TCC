@@ -43,7 +43,8 @@
 					</p:column>		
 					<p:column headerText="#{message['label.acoes']}" >
 						
-						<p:commandButton id="editar" styleClass="btn-acao" icon="ui-icon-closethick" action="#{pacienteManager.obterPaciente(paciente.id)}" outcome="pretty:paciente" />
+						<p:commandButton id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{pacienteManager.alterar()}" outcome="pretty:paciente" />
+						<p:commandButton id="deletar" styleClass="btn-acao" icon="ui-icon-trash" action="#{pacienteManager.excluirPaciente()}" outcome="pretty:paciente" />
 						
 					</p:column>			
 				</p:dataTable>

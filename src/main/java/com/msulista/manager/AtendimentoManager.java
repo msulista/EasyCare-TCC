@@ -68,12 +68,20 @@ public class AtendimentoManager {
 	/**
 	 * Remove o {@link Atendimento} do banco
 	 */
-	public void excluirAtendimento(Long id) {
-		this.atendimentoNegocio.excluir(id);
+	public void excluirAtendimento() {
+		this.atendimentoNegocio.excluir(this.atendimento.getId());
 	}
 
 	public Atendimento getAtendimento() {
 		return this.atendimento;
+	}
+	
+	/**
+	 * Obtem atendimento por Id
+	 * @return
+	 */
+	public Atendimento obtemAtendimento() {
+		return this.atendimentoNegocio.obterPorId(this.atendimento.getId());
 	}
 
 	public void setAtendimento(final Atendimento atendimento) {

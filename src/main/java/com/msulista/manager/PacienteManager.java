@@ -48,7 +48,7 @@ public class PacienteManager {
 		return this.pacienteNegocio.obterPaciente(id);
 	}
 	
-	public void excluirPaciente(Long id) {
+	public void excluirPaciente() {
 //		this.pacienteNegocio.
 	}
 

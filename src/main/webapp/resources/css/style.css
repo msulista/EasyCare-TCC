@@ -196,7 +196,7 @@ html, body {
 
 .ui-panel-titlebar {
 	color: #FFF;
-	background-image: linear-gradient(to right,#85B65A, #00AFCC ,#005189);
+	background: #056501 !important;
 }
 
 .ui-growl {
@@ -204,8 +204,7 @@ html, body {
 }
 
 .ui-growl-item-container.ui-state-highlight {
-	background-color: #5F9EA0;
-	background-image: linear-gradient(to bottom, #5F9EA0, #5F9EA0);
+	background: #056501 !important;
 }
 
 /* CONTENT */
@@ -229,9 +228,6 @@ html, body {
 }
 
 /* FORM */
-#painel-3-Colunas {
-	width:450px;
-}
 
 .label {
 	padding-top: 5px;
@@ -313,13 +309,6 @@ input[type=text] {
 	width: 70px;
 }
 
-.panel-formulario{
-	width: 35%;
-}
-.panel-agenda{
-	width: 85%;
-}
-
 .ui-button-text-only .ui-button-text {
     padding: 3px;
 }
@@ -341,22 +330,8 @@ input[type=text] {
 	font-size: 12px;
 }
 
-.painel{
-	border: 3px solid #0f4d40;
-	height: 140px;
-	width: 300px;
-	position: relative;	
-}
 
-#relatorio{
-	left: 140px;
-	float: right;
-}
 
-#profissionais{
-	left: 100px;
-	float: left;
-}
 
 .text-painel{
 	font-size: 25px;
@@ -489,8 +464,9 @@ input[type=text] {
  }
 
 .calendario-mini{
-	height: 500px !important;
-	width: 500px !important;
+	height: 50% !important;
+	width: 40% !important;
+	float: right;
 }
 
  /*--- .ui-state-highlight, .ui-widget-header .ui-state-highlight 
@@ -498,5 +474,44 @@ input[type=text] {
  verde escuro #056501
  verde claro #57ae00
   ---*/
+  
+  /*-----------------Index-----------------*/
+  
+  #index-geral{
+  		width: 100%;
+  }
+  #index-medicacao {
+  	width: 60% !important;
+  	float: left;
+  }
+  .index-paineis{
+  	
+  }
+  .index-painel{
+	border: 3px solid #0f4d40;
+	margin-top: 5px;
+	height: 60px;
+	width: 70%;
+	position: relative;	
+}
+.index-text-painel{
+	font-size: 20px;
+	margin-top: 7%;
+	margin-left: 10%;
+	float: inherit;
+	top: 50%;
+}
+
+/*----------Cadastro Evento--------*/
+ 
+ .evento-geral{
+ 	width: 100%;
+ }
+ 
+ .incluir-editar {
+ 	width: 50%;
+ 	margin-right: 10%;
+ 	float: right;
+ }
  
 }

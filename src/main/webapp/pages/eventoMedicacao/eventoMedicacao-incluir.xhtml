@@ -5,11 +5,8 @@
     xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:define name="content">
-    
-    	<div class="calendario-mini">
-						<p:schedule id="schedule" value="#{eventoMedicacaoManager.scheduleModel}" timeZone="America/Sao_Paulo" locale="pt" />
-		</div>
-    	<div class="incluir-editar">
+    <div class="evento-geral ui-g">
+    	<div class="incluir-editar ui-g-8">
 	    	
 	    	<h2>#{message['title.evento.medicacao']}</h2>
 	        <h:form>
@@ -66,6 +63,12 @@
 	        		<br /><br />
 				</p:panel> 
 			</h:form>
+		</div><!-- formulario -->
+		
+		<div class="calendario-mini ui-g-4">
+						<p:schedule id="schedule" value="#{eventoMedicacaoManager.scheduleModel}" timeZone="America/Sao_Paulo" locale="pt" />
 		</div>
+		
+		</div><!-- geral -->
     </ui:define>
 </ui:composition>

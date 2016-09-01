@@ -7,7 +7,7 @@
 	xmlns:pretty="http://ocpsoft.com/prettyfaces">
 
 	<ui:define name="content">
-			<div class="">
+			<div class="panel-lista">
 			<h2>#{message['title.atendimento.lista']}</h2>
 			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
 			<h:form>
@@ -30,8 +30,9 @@
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>	 
-					<p:column headerText="#{message['label.acoes']}" >
-						<p:commandButton value="#{message['button.cancelar']}" action="#{atendimentoManager.excluirAtendimento(atendimento.id)}" update="growl" icon="ui-icon-close" />
+					<p:column headerText="#{message['label.acoes']}">
+						<p:commandButton  id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{atendimentoManager.obtemAtendimento()}" outcome="pretty:medicamento-editar"/>
+						<p:commandButton  id="editar" styleClass="btn-acao" icon="ui-icon-trash" action="#{atendimentoManager.excluirAtendimento}" outcome="pretty:medicamento-editar"/>
 					</p:column>						
 							
 				</p:dataTable>
