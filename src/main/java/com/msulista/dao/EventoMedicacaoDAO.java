@@ -28,7 +28,7 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		manager.merge(manager.merge(evento));
+		manager.merge(evento);
 		manager.getTransaction().commit();
 		manager.close();
 
@@ -73,7 +73,7 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		manager.remove(eventoMedicacao);
+		manager.remove(manager.merge(eventoMedicacao));
 		manager.getTransaction().commit();
 		manager.close();
 	}

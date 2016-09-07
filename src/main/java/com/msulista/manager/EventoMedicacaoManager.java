@@ -95,8 +95,9 @@ public class EventoMedicacaoManager {
 		return this.eventMedicacaoNegocio.obterPorId(this.eventoMedicacao.getId());
 	}
 	
-	public void excluir() {
-		this.eventMedicacaoNegocio.excluir(this.eventoMedicacao);
+	public String excluir(EventoMedicacao evento) {
+		this.eventMedicacaoNegocio.excluir(evento);
+		return "pretty:eventoMedicacao";
 	}
 	
 	public String eventoRealizado(EventoMedicacao evento) {
