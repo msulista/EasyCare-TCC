@@ -62,7 +62,7 @@
 						<p:commandButton icon="ui-icon-check"  action="#{eventoMedicacaoManager.excluir()}" update="growl"/>
 						<p:commandButton icon="ui-icon-closethick"  action="#{eventoMedicacaoManager.excluir()}" update="growl"/>
 					</p:column>						
-					<p:poll interval="1" autoStart="true"  listener="#{eventoMedicacaoManager.verificaAlertaHorario()}" update="growl"/>		
+					<p:poll interval="1" autoStart="true"  listener="#{eventoMedicacaoManager.verificaAlertaHorario()}" update="growl gridevento"/>		
 				</p:dataTable>
 			</h:form>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

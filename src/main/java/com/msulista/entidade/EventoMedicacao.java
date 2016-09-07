@@ -26,7 +26,7 @@ import com.msulista.util.DateUtil;
 @Table(name = "evento_medicacao")
 @NamedQueries({ @NamedQuery(name = "EventoMedicacao.findAll", query = "SELECT em FROM EventoMedicacao em"),
 		@NamedQuery(name = "EventoMedicacao.findId", query = "SELECT em FROM EventoMedicacao em WHERE em.id = :id"),
-		@NamedQuery(name = "EventoMedicacao.findDiaCorrente", query = "SELECT em FROM EventoMedicacao em WHERE em.dataHora >= CURRENT_DATE ORDER BY em.dataHora"),})
+		@NamedQuery(name = "EventoMedicacao.findDiaCorrente", query = "SELECT em FROM EventoMedicacao em WHERE em.dataHora >= CURRENT_TIMESTAMP ORDER BY em.dataHora"),})
 public class EventoMedicacao implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = -7077632222540575070L;
