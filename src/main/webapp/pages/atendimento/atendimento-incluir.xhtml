@@ -41,11 +41,14 @@
 						pattern="HH:mm" timeOnly="true" showOn="button"/>
 					
 					<br/><br/>					  
-					<br/><br/>	     		
+					<br/><br/>	
+					<h:outputText value="#{message['label.endereco']}" styleClass="label"/>
+        			<p:selectBooleanCheckbox value="#{atendimentoManager.atendimento.enderecoPaciente}" />
+					<br/><br/>  	
 	        		<p:outputLabel for="local" value="#{message['label.edereco.atendimento']}" styleClass="label" />
 					<p:inputText id="local" value="#{atendimentoManager.atendimento.localAtendimento}" required="false" />
-					<br/><br/>
-					     		       		
+					<br/><br/>  	
+					<br/><br/> 	       		
 	        		<p:commandButton value="#{message['button.salvar']}" action="#{atendimentoManager.salvar()}" update="growl" />
 	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:atendimento" />
 				</p:panel> 

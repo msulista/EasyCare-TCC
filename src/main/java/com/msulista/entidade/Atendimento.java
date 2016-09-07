@@ -82,6 +82,9 @@ public class Atendimento implements BaseEntity, Serializable {
 	@Transient
 	private String hrIntervalo;
 	
+	@Transient
+	private boolean enderecoPaciente;
+	
 	@Override
 	public Long getId() {
 		return this.id;
@@ -153,8 +156,14 @@ public class Atendimento implements BaseEntity, Serializable {
 	public List<EventoMedicacao> getEventoMedicacoes() {
 		return eventoMedicacoes;
 	}
-	
-	
+
+	public boolean getEnderecoPaciente() {
+		return enderecoPaciente;
+	}
+
+	public void setEnderecoPaciente(boolean enderecoPaciente) {
+		this.enderecoPaciente = enderecoPaciente;
+	}
 
 	/**
 	 * @return the transientDtIni

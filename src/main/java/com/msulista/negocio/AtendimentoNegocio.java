@@ -16,7 +16,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	public boolean salvar(final Atendimento atendimento) {
 
 		boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(), atendimento.getDataFinal());
-		
+		this.verificaEnderecoAtendimento(atendimento);
 		if (datas) {
 			this.atendimentoDao = new AtendimentoDao();
 			try {
@@ -77,5 +77,15 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		this.atendimentoDao.excluir(atendimento);
 	}
 	
+	/**
+	 * Seta endereço do paciente em local de atendimento
+	 * 
+	 * @param atendimento
+	 */
+	protected void verificaEnderecoAtendimento(Atendimento atendimento) {
+		if (atendimento.getEnderecoPaciente()) {
+			atendimento.setLocalAtendimento(atendimento.getPaciente().getEndereco());
+		}
+	}
 
 }
