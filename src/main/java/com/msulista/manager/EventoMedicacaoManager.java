@@ -90,7 +90,7 @@ public class EventoMedicacaoManager {
 	}
 	
 	public void excluir() {
-		this.eventMedicacaoNegocio.excluir(this.eventoMedicacao.getId());
+		this.eventMedicacaoNegocio.excluir(this.eventoMedicacao);
 	}
 	
 	public void verificaAlertaHorario() {

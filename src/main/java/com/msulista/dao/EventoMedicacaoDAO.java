@@ -69,16 +69,10 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 	}
 
 	@Override
-	public void excluir(Long id) {
+	public void excluir(EventoMedicacao eventoMedicacao) {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		EventoMedicacao eventoMedicacao = null;
-		try {
-			eventoMedicacao = this.obterEvento(id);
-		} catch (SQLException e) {
-			Mensagem.add("Erro ao conectar com o banco de dados.");
-		}
 		manager.remove(eventoMedicacao);
 		manager.getTransaction().commit();
 		manager.close();

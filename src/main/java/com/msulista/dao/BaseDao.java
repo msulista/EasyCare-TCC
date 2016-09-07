@@ -13,6 +13,6 @@ public interface BaseDao<T> {
 
 	public T obterEvento(Long id) throws SQLException;
 
-	public void excluir(Long id);
+	public void excluir(T bean) throws SQLException;
 
 }

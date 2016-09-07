@@ -72,9 +72,9 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	}
 
 	@Override
-	public void excluir(Long id) {
-		
-		this.atendimentoDao.excluir(id);
+	public void excluir(Atendimento atendimento) {
+		this.atendimentoDao = new AtendimentoDao();
+		this.atendimentoDao.excluir(atendimento);
 	}
 	
 

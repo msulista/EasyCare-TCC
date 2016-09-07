@@ -86,9 +86,9 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 	}
 
 	@Override
-	public void excluir(Long id) {
+	public void excluir(EventoMedicacao eventoMedicacao) {
 		this.eventMedicacaoDAO = new EventoMedicacaoDAO();
-		this.eventMedicacaoDAO.excluir(id);		
+		this.eventMedicacaoDAO.excluir(eventoMedicacao);		
 	}
 
 	/**

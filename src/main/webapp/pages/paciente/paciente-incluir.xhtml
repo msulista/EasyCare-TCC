@@ -18,7 +18,7 @@
 					<p:inputText id="nome" value="#{pacienteManager.paciente.nomePaciente}" required="true" requiredMessage="#{message['span.obrigatorio.nomePaci']}"/>
 					<br/><br/>										
 					<p:outputLabel for="fone" value="#{message['label.fone']}" styleClass="label" />
-					<p:inputText id="fone" value="#{pacienteManager.paciente.fonePaciente}" required="true" requiredMessage="#{message['span.obrigatorio.telefone']}"/>
+					<p:inputMask id="fone" value="#{pacienteManager.paciente.fonePaciente}" mask="(99) 9999.9999" required="true" requiredMessage="#{message['span.obrigatorio.telefone']}"/>
 					<br/><br/>						
 					<p:outputLabel for="dtNascimento" value="#{message['label.data.nascimento']}" styleClass="label" title="#{message['label.paciente.dtNascimento']}"/>
 	        		<p:calendar id="dtNascimento" value="#{pacienteManager.paciente.dtNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false"/>
@@ -33,7 +33,7 @@
 					<p:inputText id="nomeParente" value="#{pacienteManager.paciente.nomeFamiliar}" required="false" />
 					<br/><br/>
  					<p:outputLabel for="foneFamiliar" value="#{message['label.fone.responsavel']}" styleClass="label" />
-					<p:inputText id="foneFamiliar" value="#{pacienteManager.paciente.foneFamiliar}" required="false" />
+					<p:inputMask id="foneFamiliar" value="#{pacienteManager.paciente.foneFamiliar}" mask="(99) 9999.9999" required="false" />
 					<br/><br/>	
 					<p:outputLabel for="email" value="#{message['label.email.responsavel']}" styleClass="label" />
 					<p:inputText id="email" value="#{pacienteManager.paciente.emailFamiliar}" required="false"/>					

@@ -53,7 +53,7 @@ public class CuidadorDao implements BaseDao<Cuidador> {
 	
 
 	@Override
-	public void excluir(Long id) {
+	public void excluir(Cuidador cuidador) {
 		// TODO Auto-generated method stub
 		
 	}

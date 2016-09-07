@@ -69,7 +69,7 @@ public class AtendimentoManager {
 	 * Remove o {@link Atendimento} do banco
 	 */
 	public void excluirAtendimento() {
-		this.atendimentoNegocio.excluir(this.atendimento.getId());
+		this.atendimentoNegocio.excluir(this.atendimento);
 	}
 
 	public Atendimento getAtendimento() {

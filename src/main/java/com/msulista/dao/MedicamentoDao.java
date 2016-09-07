@@ -65,16 +65,10 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 
 
 	@Override
-	public void excluir(Long id) {
+	public void excluir(Medicamento medicamento) {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		Medicamento medicamento = null;
-		try {
-			medicamento = this.obterEvento(id);
-		} catch (SQLException e) {
-			Mensagem.add("Erro ao conectar com o banco de dados.");
-		}
 		manager.remove(medicamento);
 		manager.getTransaction().commit();
 		manager.close();

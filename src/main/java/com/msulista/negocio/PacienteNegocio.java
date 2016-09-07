@@ -29,7 +29,6 @@ public class PacienteNegocio {
 		this.pacienteDao = new PacienteDao();
 		try {
 			this.pacienteDao.alterar(paciente);
-			return "pretty:paciente";
 		} catch (final SQLException e) {
 			Mensagem.add("Ocorreu um erro ao alterar o evento.");
 			e.printStackTrace();
@@ -61,6 +60,11 @@ public class PacienteNegocio {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
 		}
 		return retorno;
+	}
+	
+	public void excluirPaciente(Paciente paciente) throws SQLException {
+		this.pacienteDao = new PacienteDao();
+		this.pacienteDao.excluir(paciente);
 	}
 
 }

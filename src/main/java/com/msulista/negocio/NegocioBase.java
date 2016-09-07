@@ -18,6 +18,6 @@ public interface NegocioBase<T> {
 
 	public T obterPorId(Long id);
 	
-	public void excluir(Long id);
+	public void excluir(T bean);
 
 }

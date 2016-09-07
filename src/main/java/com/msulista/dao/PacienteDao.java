@@ -26,8 +26,15 @@ public class PacienteDao implements BaseDao<Paciente> {
 
 	@Override
 	public Boolean alterar(final Paciente paciente) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+
+		final EntityManager manager = JPAUtil.getEntityManager();
+		manager.getTransaction().begin();
+
+		manager.merge(paciente);
+		manager.getTransaction().commit();
+		manager.close();
+
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -57,9 +64,13 @@ public class PacienteDao implements BaseDao<Paciente> {
 
 
 	@Override
-	public void excluir(Long id) {
-		// TODO Auto-generated method stub
+	public void excluir(Paciente paciente) throws SQLException {
+		final EntityManager manager = JPAUtil.getEntityManager();
+		manager.getTransaction().begin();
 		
+		manager.remove(manager.merge(paciente));
+		manager.getTransaction().commit();
+		manager.close();
 	}
 
 }

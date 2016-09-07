@@ -1,19 +1,21 @@
 package com.msulista.manager;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.PacienteNegocio;
 import com.msulista.util.DateUtil;
+import com.msulista.util.Mensagem;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@ViewScoped
+@ApplicationScoped
 @URLMappings(mappings = {
 		@URLMapping(id = "paciente", pattern = "/paciente", viewId = "/pages/paciente/paciente-listar.xhtml"),
 		@URLMapping(id = "paciente-incluir", pattern = "/incluir", viewId = "/pages/paciente/paciente-incluir.xhtml", parentId = "paciente"),
@@ -39,17 +41,32 @@ public class PacienteManager {
 		return "pretty:paciente";
 	}
 
+	/**
+	 * Editar
+	 */
+	
 	public String alterar() {
 		this.pacienteNegocio.alterar(this.paciente);
 		return "pretty:paciente";
 	}
+	
+	public String editar(Paciente editaPaciente) {
+		this.paciente = editaPaciente;
+		return "pretty:paciente-editar";
+	}
+	
 
 	public Paciente obterPaciente(final Long id) {
 		return this.pacienteNegocio.obterPaciente(id);
 	}
 	
-	public void excluirPaciente() {
-//		this.pacienteNegocio.
+	public String excluirPaciente(Paciente paciente) {
+		try {
+			this.pacienteNegocio.excluirPaciente(paciente);
+		} catch (SQLException e) {
+			Mensagem.add("Erro ao conectar com o banco de dados!!!");
+		}
+		return "pretty:paciente";
 	}
 
 	/**
@@ -80,8 +97,6 @@ public class PacienteManager {
 		}
 	}
 
-	
-
 	// Getters Setters
 	public List<Paciente> getPacientes() {
 		return this.pacientes;
@@ -106,5 +121,10 @@ public class PacienteManager {
 	public void setPacienteNegocio(final PacienteNegocio pacienteNegocio) {
 		this.pacienteNegocio = pacienteNegocio;
 	}
+	
+//	@URLActions(actions = { @URLAction(mappingId = "paciente-editar", onPostback = false) })
+//	public void loadEditar() throws IOException {
+//		pacientes = pacienteNegocio.obterLista();
+//	}
 
 }

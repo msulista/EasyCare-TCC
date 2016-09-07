@@ -5,22 +5,23 @@
     xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:define name="content">
-    	<div class="incluir-editar">
+    <div class="evento-geral ui-g">
+    	<div class="ui-g-12">
 	    	
 	    	<h2>#{message['title.paciente.cadastrar']}</h2>
 	        <h:form>
 	        	<p:growl id="growl" life="4000" />
 				<p:panel header="#{message['title.paciente']}" id="painel">			
-					
 					<p:focus context="painel"/>
+					
 					<p:outputLabel for="nome"  value="#{message['label.nome']}" styleClass="label" />
 					<p:inputText id="nome" value="#{pacienteManager.paciente.nomePaciente}" required="true" requiredMessage="#{message['span.obrigatorio.nomePaci']}"/>
 					<br/><br/>										
 					<p:outputLabel for="fone" value="#{message['label.fone']}" styleClass="label" />
-					<p:inputText id="fone" value="#{pacienteManager.paciente.fonePaciente}" required="true" requiredMessage="#{message['span.obrigatorio.telefone']}"/>
+					<p:inputMask id="fone" value="#{pacienteManager.paciente.fonePaciente}" mask="(99) 9999.9999" required="true" requiredMessage="#{message['span.obrigatorio.telefone']}"/>
 					<br/><br/>						
 					<p:outputLabel for="dtNascimento" value="#{message['label.data.nascimento']}" styleClass="label" title="#{message['label.paciente.dtNascimento']}"/>
-	        		<p:calendar id="dtNascimento" value="#{pacienteManager.paciente.dtNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="true"/>
+	        		<p:calendar id="dtNascimento" value="#{pacienteManager.paciente.dtNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false"/>
 	        		<br/><br/>	 
 	        		<p:outputLabel for="endereco" value="#{message['label.endereco']}" styleClass="label" />
 					<p:inputTextarea id="endereco" rows="6" cols="33" value="#{pacienteManager.paciente.endereco}" required="true" requiredMessage="#{message['span.obrigatorio.endereco']}"/>
@@ -31,20 +32,22 @@
 	        		<p:outputLabel for="nomeParente" value="#{message['label.nome.responsavel']}" styleClass="label" />
 					<p:inputText id="nomeParente" value="#{pacienteManager.paciente.nomeFamiliar}" required="false" />
 					<br/><br/>
-					<p:outputLabel for="foneFamiliar" value="#{message['label.fone.responsavel']}" styleClass="label" />
-					<p:inputText id="foneFamiliar" value="#{pacienteManager.paciente.foneFamiliar}" required="false" />
+ 					<p:outputLabel for="foneFamiliar" value="#{message['label.fone.responsavel']}" styleClass="label" />
+					<p:inputMask id="foneFamiliar" value="#{pacienteManager.paciente.foneFamiliar}" mask="(99) 9999.9999" required="false" />
 					<br/><br/>	
 					<p:outputLabel for="email" value="#{message['label.email.responsavel']}" styleClass="label" />
 					<p:inputText id="email" value="#{pacienteManager.paciente.emailFamiliar}" required="false"/>					
 					<br/><br/>						
 			        <h:outputText value="#{message['label.google.calendar']}" styleClass="label" />
-        			<p:selectBooleanCheckbox value="#{selectBooleanView.value1}" />
+        			<p:selectBooleanCheckbox value="#{pacienteManager.paciente.googleAgenda}" />
 					<br/><br/>
-					     		       		
-	        		<p:commandButton value="#{message['button.salvar']}" action="#{pacienteManager.alterar}" update="growl" />
-	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:paciente" />
+					<br/><br/>
+					            		
+	        		<p:commandButton value="#{message['button.salvar']}" action="#{pacienteManager.alterar()}" update="growl" />
+	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:paciente" styleClass="btn"/>
 				</p:panel> 
 			</h:form>
-		</div>
+			</div><!-- formulario -->
+		</div><!-- geral -->
     </ui:define>
 </ui:composition>
