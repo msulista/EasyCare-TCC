@@ -1,6 +1,7 @@
 package com.msulista.manager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,8 @@ import org.primefaces.model.ScheduleModel;
 import com.msulista.entidade.EventoMedicacao;
 import com.msulista.entidade.Medicamento;
 import com.msulista.negocio.EventoMedicacaoNegocio;
+import com.msulista.util.DateUtil;
+import com.msulista.util.Mensagem;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
@@ -30,6 +33,7 @@ public class EventoMedicacaoManager {
 	private List<EventoMedicacao> eventoMedicacoes;
 	private EventoMedicacaoNegocio eventMedicacaoNegocio;
 	private Medicamento medicademento;
+	private Date horaAtual = new Date();
 	
 	@PostConstruct
 	public void inicializar() {
@@ -89,7 +93,15 @@ public class EventoMedicacaoManager {
 		this.eventMedicacaoNegocio.excluir(this.eventoMedicacao.getId());
 	}
 	
-	
+	public void verificaAlertaHorario() {
+		List<EventoMedicacao> eventos = this.obterListaDiaCorrente();
+		for (EventoMedicacao eventoMedicacao : eventos) {
+			Long minuto = DateUtil.verificaHoraAlareme(eventoMedicacao.getDataHora()); 
+			if (minuto.intValue() <= 1) {
+				Mensagem.add("Você possui um evento agendado agora!!!");
+			}			
+		}		
+	}
 	
 	/**
 	 * @return the eventoMedicacao

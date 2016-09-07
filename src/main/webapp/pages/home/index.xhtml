@@ -43,6 +43,7 @@
 			<h2>#{message['title.atendimento.diario']}</h2>
 			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
 			
+			<h:form>
 				<p:dataTable id="gridevento" var="evento" value="#{eventoMedicacaoManager.obterListaDiaCorrente()}">
 	                 
 					<p:column headerText="#{message['label.evento.hora']}" >
@@ -61,8 +62,9 @@
 						<p:commandButton icon="ui-icon-check"  action="#{eventoMedicacaoManager.excluir()}" update="growl"/>
 						<p:commandButton icon="ui-icon-closethick"  action="#{eventoMedicacaoManager.excluir()}" update="growl"/>
 					</p:column>						
-							
+					<p:poll interval="1" autoStart="true"  listener="#{eventoMedicacaoManager.verificaAlertaHorario()}" update="growl"/>		
 				</p:dataTable>
+			</h:form>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 					<p:commandButton value="Sim" type="button"
 						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />

@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Duration;
+import org.joda.time.Interval;
 
 public class DateUtil {
 	
@@ -253,5 +255,15 @@ public class DateUtil {
 	    return dia+1;
 	}
 	
+	public static Long verificaHoraAlareme(Date dataHora) {
+		
+		DateTime horaAtual = new DateTime();
+		DateTime horaEvento = new DateTime(dataHora);
+		
+		Interval intervalo = new Interval(horaEvento, horaAtual);
+		Duration duracao = intervalo.toDuration();
+		
+		return duracao.getStandardMinutes();
+	}
 	
 }
