@@ -1,7 +1,6 @@
 package com.msulista.manager;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -33,7 +32,6 @@ public class EventoMedicacaoManager {
 	private List<EventoMedicacao> eventoMedicacoes;
 	private EventoMedicacaoNegocio eventMedicacaoNegocio;
 	private Medicamento medicademento;
-	private Date horaAtual = new Date();
 	
 	@PostConstruct
 	public void inicializar() {

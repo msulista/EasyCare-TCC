@@ -4,12 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
+
 import com.msulista.entidade.Atendimento;
+import com.msulista.entidade.EventoMedicacao;
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.AtendimentoNegocio;
+import com.msulista.negocio.EventoMedicacaoNegocio;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
@@ -23,17 +30,36 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 		@URLMapping(id = "atendimento-editar", pattern = "/#{atendimentoManager.atendimento.id}/editar", viewId = "/pages/atendimento/atendimento-editar.xhtml", parentId = "atendimento") })
 public class AtendimentoManager {
 
+	private ScheduleModel scheduleModel;
 	private Atendimento atendimento;
 	private AtendimentoNegocio atendimentoNegocio;
 	private List<Atendimento> atendimentos;
 	private Paciente paciente;
-
-	public AtendimentoManager() {
+	
+	@PostConstruct
+	public void inicializar() {
 		this.atendimento = new Atendimento();
 		this.atendimentos = new ArrayList<>();
 		this.atendimentoNegocio = new AtendimentoNegocio();
+		this.scheduleModel = new DefaultScheduleModel();
+		
+		this.atendimentos = this.atendimentoNegocio.obterLista();
+		
+		for (Atendimento atendimento : atendimentos) {
+			DefaultScheduleEvent evt = new DefaultScheduleEvent();
+			evt.setData(atendimento.getId());
+			evt.setTitle(atendimento.getPaciente().getNomePaciente());
+			evt.setStartDate(atendimento.getDataInicial());
+			evt.setEndDate(atendimento.getDataFinal());
+			evt.setAllDay(false);
+			evt.setEditable(true);
+//			evt.setStyleClass("event-green");			
+			
+			scheduleModel.addEvent(evt);
+		}
 	}
-
+		
+	
 	/**
 	 * Salva novo {@link Atendimento}
 	 * @return
@@ -117,6 +143,15 @@ public class AtendimentoManager {
 	public void setPaciente(final Paciente paciente) {
 		this.paciente = paciente;
 	}	
+
+	public ScheduleModel getScheduleModel() {
+		return scheduleModel;
+	}
+
+	public void setScheduleModel(ScheduleModel scheduleModel) {
+		this.scheduleModel = scheduleModel;
+	}
+
 
 	@URLActions(actions = { @URLAction(mappingId = "atendimento-editar", onPostback = false) })
 	public void load() throws IOException {
