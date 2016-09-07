@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import com.msulista.entidade.EventoMedicacao;
 import com.msulista.util.JPAUtil;
-import com.msulista.util.Mensagem;
 
 public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 
@@ -29,7 +28,7 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		manager.merge(evento);
+		manager.merge(manager.merge(evento));
 		manager.getTransaction().commit();
 		manager.close();
 
@@ -47,6 +46,7 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 		return retorno;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<EventoMedicacao> obterListaDiaCorrente() throws SQLException {
 		final EntityManager manager = JPAUtil.getEntityManager();
 

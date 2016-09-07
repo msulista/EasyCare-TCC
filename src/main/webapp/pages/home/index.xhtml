@@ -59,8 +59,8 @@
 						<h:outputText value="#{evento.descricao}" />
 					</p:column>
 					<p:column headerText="#{message['label.acoes']}" >
-						<p:commandButton icon="ui-icon-check"  action="#{eventoMedicacaoManager.excluir()}" update="growl"/>
-						<p:commandButton icon="ui-icon-closethick"  action="#{eventoMedicacaoManager.excluir()}" update="growl"/>
+						<p:commandButton icon="ui-icon-check"  action="#{eventoMedicacaoManager.eventoRealizado(evento)}" update="growl"/>
+						<p:commandButton icon="ui-icon-closethick"  action="#{eventoMedicacaoManager.eventoNaoRealizado(evento)}" update="growl"/>
 					</p:column>						
 					<p:poll interval="1" autoStart="true"  listener="#{eventoMedicacaoManager.verificaAlertaHorario()}" update="growl gridevento"/>		
 				</p:dataTable>

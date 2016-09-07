@@ -30,7 +30,8 @@
 						<h:outputText value="#{evento.descricao}" />
 					</p:column>
 					<p:column headerText="#{message['label.acoes']}" >
-						<p:commandButton value="#{message['button.cancelar']}" action="#{eventoMedicacaoManager.excluir(evento.id)}" update="growl" icon="ui-icon-close" />
+						<p:commandButton action="#{eventoMedicacaoManager.editar(evento)}" update="growl" icon="ui-icon-close" />
+						<p:commandButton action="#{eventoMedicacaoManager.excluir(evento)}" update="growl" icon="ui-icon-close" />
 					</p:column>						
 							
 				</p:dataTable>

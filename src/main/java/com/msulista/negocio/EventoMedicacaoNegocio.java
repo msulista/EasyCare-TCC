@@ -48,7 +48,13 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			Mensagem.add("Horário informado está fora do intervalo de atendimento.");
 			return false;
 		} else {
-//			this.salvaEvento(eventoMedicacao);
+			this.eventMedicacaoDAO = new EventoMedicacaoDAO();
+			try {
+				this.eventMedicacaoDAO.alterar(eventoMedicacao);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}

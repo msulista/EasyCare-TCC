@@ -13,10 +13,8 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
 
 import com.msulista.entidade.Atendimento;
-import com.msulista.entidade.EventoMedicacao;
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.AtendimentoNegocio;
-import com.msulista.negocio.EventoMedicacaoNegocio;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
