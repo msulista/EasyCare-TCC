@@ -3,6 +3,7 @@ package com.msulista.manager;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -12,7 +13,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@ViewScoped
+@ApplicationScoped
 @URLMappings(mappings = {
 		@URLMapping(id = "medicamento", pattern = "/medicamento", viewId = "/pages/medicamento/medicamento-listar.xhtml"),
 		@URLMapping(id = "medicamento-incluir", pattern = "/incluir", viewId = "/pages/medicamento/medicamento-incluir.xhtml", parentId = "medicamento"),
@@ -38,6 +39,11 @@ public class MedicamentoManager {
 		this.medicamentoNegocio.alterar(this.medicamento);
 		return "pretty:medicamento";
 	}
+	
+	public String editar(Medicamento medicamentoEdit) {
+		this.medicamento = medicamentoEdit;
+		return "pretty:medicamento-editar";
+	}
 
 	public List<Medicamento> obterLista() {
 		return this.medicamentoNegocio.obterLista();
@@ -45,6 +51,11 @@ public class MedicamentoManager {
 
 	public Medicamento obterMedicamento() {
 		return this.medicamentoNegocio.obterPorId(this.medicamento.getId());
+	}
+	
+	public String excluir(Medicamento medicamento) {
+		this.medicamentoNegocio.excluir(medicamento);
+		return "pretty:medicamento";
 	}
 
 	// Getter e SEtter

@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+    template="/pages/template/default.xhtml"
+    xmlns:pretty="http://ocpsoft.com/prettyfaces"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="content">
+    	<div class="evento-geral ui-g">
+    		<div class="incluir-editar ui-g-8">
+	    	
+	    	<h2>#{message['title.atendimento']}</h2>
+	        <h:form>
+	        	<p:growl id="growl" life="4000" />
+				<p:panel header="#{message['title.cadastro']}" id="painel-form">	
+					<p:focus context="painel-form"/>
+					
+					<p:outputLabel for="paciente" value="#{message['label.nome.paciente']}" styleClass="label" />
+					<p:selectOneMenu id="paciente" value="#{atendimentoManager.atendimento.paciente}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
+						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
+						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
+					</p:selectOneMenu>
+					<br /><br />
+					<p:outputLabel for="dtIni" value="Data Inicio" styleClass="label"/>
+					<p:calendar id="dtIni"
+						value="#{atendimentoManager.atendimento.dataInicial}"
+						pattern="dd/MM/yyyy" timeOnly="false" showOn="button"/>
+					<br/><br/>
+					<p:outputLabel for="dtFim" value="Data Final" styleClass="label"/>
+					<p:calendar id="dtFim"
+						value="#{atendimentoManager.atendimento.dataFinal}"
+						pattern="dd/MM/yyyy" timeOnly="false" showOn="button"/>
+					<br/><br/>
+					<p:outputLabel for="hrIni" value="Hora Inicial" styleClass="label"/>
+					<p:calendar id="hrIni"
+						value="#{atendimentoManager.atendimento.horaInicial}"
+						pattern="HH:mm" timeOnly="true" showOn="button"/>
+					<br/><br/>
+					<p:outputLabel for="hrFim" value="Hora Final" styleClass="label"/>
+					<p:calendar id="hrFim"
+						value="#{atendimentoManager.atendimento.horaFinal}"
+						pattern="HH:mm" timeOnly="true" showOn="button"/>
+					
+					<br/><br/>					  
+					<br/><br/>	     		
+	        		<p:outputLabel for="local" value="#{message['label.edereco.atendimento']}" styleClass="label" />
+					<p:inputText id="local" value="#{atendimentoManager.atendimento.localAtendimento}" required="false" />
+					<br/><br/>
+					     		       		
+	        		<p:commandButton value="#{message['button.salvar']}" action="#{atendimentoManager.aterar()}" update="growl" />
+	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:atendimento" />
+				</p:panel> 
+			</h:form>
+			</div>
+			<div class="calendario-mini ui-g-4">
+						<p:schedule id="schedule" value="#{eventoMedicacaoManager.scheduleModel}" timeZone="America/Sao_Paulo" locale="pt" />
+			</div>
+		</div>
+    </ui:define>
+</ui:composition>

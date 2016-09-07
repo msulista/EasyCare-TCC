@@ -69,7 +69,7 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
-		manager.remove(medicamento);
+		manager.remove(manager.merge(medicamento));
 		manager.getTransaction().commit();
 		manager.close();
 		

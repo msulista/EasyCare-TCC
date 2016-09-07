@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 import com.msulista.entidade.Atendimento;
 import com.msulista.entidade.Paciente;
@@ -16,7 +16,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@ViewScoped
+@ApplicationScoped
 @URLMappings(mappings = {
 		@URLMapping(id = "atendimento", pattern = "/atendimento", viewId = "/pages/atendimento/atendimento-listar.xhtml"),
 		@URLMapping(id = "atendimento-incluir", pattern = "/incluir", viewId = "/pages/atendimento/atendimento-incluir.xhtml", parentId = "atendimento"),
@@ -55,6 +55,11 @@ public class AtendimentoManager {
 		}
 		return null;
 	}
+	
+	public String editar(Atendimento atendimentoEdit) {
+		this.atendimento = atendimentoEdit;
+		return "pretty:atendimento-editar";
+	}
 
 	/**
 	 * Obtem lista de todos os {@link Atendimento}
@@ -68,8 +73,9 @@ public class AtendimentoManager {
 	/**
 	 * Remove o {@link Atendimento} do banco
 	 */
-	public void excluirAtendimento() {
-		this.atendimentoNegocio.excluir(this.atendimento);
+	public String excluirAtendimento(Atendimento atendimentoExcluir) {
+		this.atendimentoNegocio.excluir(atendimentoExcluir);
+		return "pretty:atendimento";
 	}
 
 	public Atendimento getAtendimento() {

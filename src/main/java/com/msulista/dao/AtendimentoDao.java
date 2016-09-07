@@ -62,7 +62,7 @@ public class AtendimentoDao implements BaseDao<Atendimento> {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 		
-		manager.remove(atendimento);
+		manager.remove(manager.merge(atendimento));
 		manager.getTransaction().commit();
 		manager.close();
 	}

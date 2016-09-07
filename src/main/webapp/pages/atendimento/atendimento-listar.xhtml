@@ -31,8 +31,8 @@
 						</h:outputText>
 					</p:column>	 
 					<p:column headerText="#{message['label.acoes']}">
-						<p:commandButton  id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{atendimentoManager.obtemAtendimento()}" outcome="pretty:medicamento-editar"/>
-						<p:commandButton  id="editar" styleClass="btn-acao" icon="ui-icon-trash" action="#{atendimentoManager.excluirAtendimento}" outcome="pretty:medicamento-editar"/>
+						<p:commandButton id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{atendimentoManager.editar(atendimento)}" />
+						<p:commandButton id="deletar" styleClass="btn-acao" icon="ui-icon-trash" action="#{atendimentoManager.excluirAtendimento(atendimento)}" />
 					</p:column>						
 							
 				</p:dataTable>

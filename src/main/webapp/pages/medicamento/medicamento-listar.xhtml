@@ -39,8 +39,8 @@
 						<h:outputText value="#{medicamento.estoque}" />
 					</p:column>			
 					<p:column headerText="#{message['label.acoes']}">
-						<p:commandButton  id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{medicamentoManager.obterMedicamento(medicamento.id)}" outcome="pretty:medicamento-editar"/>
-						<p:commandButton  id="editar" styleClass="btn-acao" icon="ui-icon-trash" action="#{medicamentoManager.excluir()}" outcome="pretty:medicamento-editar"/>
+						<p:commandButton  id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{medicamentoManager.editar(medicamento)}"/>
+						<p:commandButton  id="deletar" styleClass="btn-acao" icon="ui-icon-trash" action="#{medicamentoManager.excluir(medicamento)}" />
 					</p:column>
 				</p:dataTable>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
