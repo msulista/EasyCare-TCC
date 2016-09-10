@@ -37,7 +37,7 @@
 				<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
 
 				<h:form prependId="false">
-                    <p:poll interval="300" listener="#{eventoMedicacaoManager.verificaAlertaHorario()}" update="growl gridevento"/>
+                    <p:poll interval="30" listener="#{eventoMedicacaoManager.verificaAlertaHorario()}" update="growl gridevento"/>
 
 					<p:dataTable id="gridevento" var="evento"
 						value="#{eventoMedicacaoManager.obterListaDiaCorrente()}">

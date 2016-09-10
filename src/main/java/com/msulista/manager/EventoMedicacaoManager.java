@@ -123,8 +123,8 @@ public class EventoMedicacaoManager {
 		List<EventoMedicacao> eventos = this.obterListaDiaCorrente();
 		for (EventoMedicacao eventoMedicacao : eventos) {
 			Long minuto = DateUtil.verificaHoraAlareme(eventoMedicacao.getDataHora()); 
-			if (minuto.intValue() <= 1) {
-				Mensagem.add("Você possui um evento agendado agora!!!");
+			if (minuto.intValue() <= 5) {
+				Mensagem.add("Você possui um evento agendado em " + minuto +" minutos !!!");
 			}			
 		}		
 	}
