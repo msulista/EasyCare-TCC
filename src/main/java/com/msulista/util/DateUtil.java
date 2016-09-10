@@ -12,7 +12,7 @@ import org.joda.time.Duration;
 import org.joda.time.Interval;
 
 public class DateUtil {
-	
+
 	private static final String DATA_FORMATO = "dd/MM/yyyy";
 	private static final String HORA_FORMATO = "HH:mm";
 
@@ -157,16 +157,19 @@ public class DateUtil {
 			return true;
 		}
 	}
-	
+
 	/**
-	 * Retorna true para dataFinal apos data inicial ou dataInicial igual DataFinal
-	 * 
-	 * @param dataInicial Data inicial
-	 * @param dataFinal Data Final
+	 * Retorna true para dataFinal apos data inicial ou dataInicial igual
+	 * DataFinal
+	 *
+	 * @param dataInicial
+	 *            Data inicial
+	 * @param dataFinal
+	 *            Data Final
 	 * @return boolean
 	 */
 	public static boolean verificaDataFinalAposDataInicial(final Date dataInicial, final Date dataFinal) {
-		if (dataFinal != null ) {
+		if (dataFinal != null) {
 			if (dataInicial.before(dataFinal) || dataInicial.compareTo(dataFinal) == 0) {
 				return true;
 			} else {
@@ -204,10 +207,10 @@ public class DateUtil {
 		data = calendar.getTime();
 		return data;
 	}
-		
-	public static int getIdade(Date data) {
-		Calendar cData = Calendar.getInstance();
-		Calendar cHoje= Calendar.getInstance();
+
+	public static int getIdade(final Date data) {
+		final Calendar cData = Calendar.getInstance();
+		final Calendar cHoje = Calendar.getInstance();
 		cData.setTime(data);
 		cData.set(Calendar.YEAR, cHoje.get(Calendar.YEAR));
 		int idade = cData.after(cHoje) ? -1 : 0;
@@ -215,55 +218,55 @@ public class DateUtil {
 		idade += cHoje.get(Calendar.YEAR) - cData.get(Calendar.YEAR);
 		return idade;
 	}
-	
-	public static Calendar dateToCalendarTimeZeroTrueOrFalse(Date date, boolean setTimeToZero){ 
-	    Calendar calendario = Calendar.getInstance();
-	    calendario.setTime(date);
-	    if(setTimeToZero){
-	        calendario.set(Calendar.HOUR_OF_DAY, 0);
-	        calendario.set(Calendar.MINUTE, 0);
-	        calendario.set(Calendar.SECOND, 0);
-	        calendario.set(Calendar.MILLISECOND, 0);
-	    }
-	    return calendario;
-	} 
-	
-	public static boolean comparaHr1MaiorHr2(Date hr1, Date hr2) {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
-		String hora1 = sdf.format(hr1);
-		String hora2 = sdf.format(hr2);
+
+	public static Calendar dateToCalendarTimeZeroTrueOrFalse(final Date date, final boolean setTimeToZero) {
+		final Calendar calendario = Calendar.getInstance();
+		calendario.setTime(date);
+		if (setTimeToZero) {
+			calendario.set(Calendar.HOUR_OF_DAY, 0);
+			calendario.set(Calendar.MINUTE, 0);
+			calendario.set(Calendar.SECOND, 0);
+			calendario.set(Calendar.MILLISECOND, 0);
+		}
+		return calendario;
+	}
+
+	public static boolean comparaHr1MaiorHr2(final Date hr1, final Date hr2) {
+
+		final SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
+		final String hora1 = sdf.format(hr1);
+		final String hora2 = sdf.format(hr2);
 		Date dt1 = null;
 		Date dt2 = null;
 		try {
 			dt1 = sdf.parse(hora1);
 			dt2 = sdf.parse(hora2);
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		return dt1.after(dt2);
 	}
-	
-	public static int calculaNumeroDeDias(Date dataInicial, Date dataFinal) {
-	   
-		DateTime dtInicial = new DateTime(dataInicial);
-	    DateTime dtFinal = new DateTime(dataFinal);
 
-	    Days dias = Days.daysBetween(dtInicial, dtFinal);
-	    int dia = dias.getDays();
-	    return dia+1;
+	public static int calculaNumeroDeDias(final Date dataInicial, final Date dataFinal) {
+
+		final DateTime dtInicial = new DateTime(dataInicial);
+		final DateTime dtFinal = new DateTime(dataFinal);
+
+		final Days dias = Days.daysBetween(dtInicial, dtFinal);
+		final int dia = dias.getDays();
+		return dia + 1;
 	}
-	
-	public static Long verificaHoraAlareme(Date dataHora) {
-		
-		DateTime horaAtual = new DateTime();
-		DateTime horaEvento = new DateTime(dataHora);
-		
-		Interval intervalo = new Interval(horaEvento, horaAtual);
-		Duration duracao = intervalo.toDuration();
-		
+
+	public static Long verificaHoraAlareme(final Date dataHora) {
+
+		final DateTime horaAtual = new DateTime();
+		final DateTime horaEvento = new DateTime(dataHora);
+
+		final Interval intervalo = new Interval(horaAtual, horaEvento);
+		final Duration duracao = intervalo.toDuration();
+
 		return duracao.getStandardMinutes();
 	}
-	
+
 }

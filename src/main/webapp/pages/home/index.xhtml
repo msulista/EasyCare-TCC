@@ -1,78 +1,79 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:p="http://primefaces.org/ui"
-    template="/pages/template/default.xhtml">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/template/default.xhtml">
 
-    <ui:define name="content">
-    
-    <div class="index-geral ui-g"> 
-    <div class="index-paineis ui-g-4"> 
-    	<div id="evento" class="index-painel">
-        	<h:link outcome="pretty:eventoMedicacao-incluir">
-        		<div class="index-text-painel">
-        			Novo evento
-        		</div>        		
-       		</h:link>
-        </div>
-    	<div id="agenda" class="index-painel">
-        	<h:link outcome="pretty:atendimento-incluir">
-        		<div class="index-text-painel">
-        			Reserva de horário
-        		</div>        		
-       		</h:link>
-        </div>
-         <div id="paciente" class="index-painel">
-        	<h:link outcome="pretty:paciente">
-        		<div class="index-text-painel">
-        			Paciente
-        		</div>        		
-       		</h:link>
-        </div>
-   	   <div id="medicamento" class="index-painel">   	   	
-        	<h:link outcome="pretty:medicamento">
-        		<div class="index-text-painel">
-        			Medicamento
-        		</div>        		
-       		</h:link>
-       </div>  
-     </div><!-- index-paineis --> 
-        
-        <div class="ui-g-8">
-			<h2>#{message['title.atendimento.diario']}</h2>
-			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
-			
-			<h:form>
-				<p:dataTable id="gridevento" var="evento" value="#{eventoMedicacaoManager.obterListaDiaCorrente()}">
-	                 
-					<p:column headerText="#{message['label.evento.hora']}" >
-						<h:outputText value="#{evento.transientHora}" />
-					</p:column>	
-					<p:column headerText="#{message['label.evento.cliente']}" >
-						<h:outputText value="#{evento.titulo}" />
-					</p:column>
-					<p:column headerText="#{message['label.evento.medicacao']}" >
-						<h:outputText value="#{evento.transientNomeMedicacao}" />
-					</p:column>	
-					<p:column headerText="#{message['label.evento.descricao']}" >
-						<h:outputText value="#{evento.descricao}" />
-					</p:column>
-					<p:column headerText="#{message['label.acoes']}" >
-						<p:commandButton icon="ui-icon-check"  action="#{eventoMedicacaoManager.eventoRealizado(evento)}" update="growl"/>
-						<p:commandButton icon="ui-icon-closethick"  action="#{eventoMedicacaoManager.eventoNaoRealizado(evento)}" update="growl"/>
-					</p:column>						
-					<p:poll interval="1" autoStart="true"  listener="#{eventoMedicacaoManager.verificaAlertaHorario()}" update="growl gridevento"/>		
-				</p:dataTable>
-			</h:form>
+	<ui:define name="content">
+
+		<div class="index-geral ui-g">
+			<div class="index-paineis ui-g-4">
+				<div id="evento" class="index-painel">
+					<h:link outcome="pretty:eventoMedicacao-incluir">
+						<div class="index-text-painel">Novo evento</div>
+					</h:link>
+				</div>
+				<div id="agenda" class="index-painel">
+					<h:link outcome="pretty:atendimento-incluir">
+						<div class="index-text-painel">Reserva de horário</div>
+					</h:link>
+				</div>
+				<div id="paciente" class="index-painel">
+					<h:link outcome="pretty:paciente">
+						<div class="index-text-painel">Paciente</div>
+					</h:link>
+				</div>
+				<div id="medicamento" class="index-painel">
+					<h:link outcome="pretty:medicamento">
+						<div class="index-text-painel">Medicamento</div>
+					</h:link>
+				</div>
+			</div>
+			<!-- index-paineis -->
+
+			<div class="ui-g-8">
+				<h2>#{message['title.atendimento.diario']}</h2>
+				<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
+
+				<h:form prependId="false">
+                    <p:poll interval="300" listener="#{eventoMedicacaoManager.verificaAlertaHorario()}" update="growl gridevento"/>
+
+					<p:dataTable id="gridevento" var="evento"
+						value="#{eventoMedicacaoManager.obterListaDiaCorrente()}">
+
+						<p:column headerText="#{message['label.evento.hora']}">
+							<h:outputText value="#{evento.transientHora}" />
+						</p:column>
+						<p:column headerText="#{message['label.evento.cliente']}">
+							<h:outputText value="#{evento.titulo}" />
+						</p:column>
+						<p:column headerText="#{message['label.evento.medicacao']}">
+							<h:outputText value="#{evento.transientNomeMedicacao}" />
+						</p:column>
+						<p:column headerText="#{message['label.evento.descricao']}">
+							<h:outputText value="#{evento.descricao}" />
+						</p:column>
+						<p:column headerText="#{message['label.acoes']}">
+							<p:commandButton icon="ui-icon-check"
+								action="#{eventoMedicacaoManager.eventoRealizado(evento)}"
+								update="growl" />
+							<p:commandButton icon="ui-icon-closethick"
+								action="#{eventoMedicacaoManager.eventoNaoRealizado(evento)}"
+								update="growl" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 					<p:commandButton value="Sim" type="button"
 						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 					<p:commandButton value="Não" type="button"
 						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 				</p:confirmDialog>
-		</div><!--index-medicacao-->
-       </div><!--index-geral-->     	
-    </ui:define>
+			</div>
+			<!--index-medicacao-->
+		</div>
+		<!--index-geral-->
+	</ui:define>
 
 </ui:composition>
