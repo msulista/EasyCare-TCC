@@ -52,7 +52,7 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	@JoinColumn(name = "atend_id", nullable = false)
 	private Atendimento atendimento;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
 	private List<Medicamento> medicamentos = new ArrayList<>();
 
@@ -176,6 +176,7 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	public void setTransientNomeMedicacao(String transientNomeMedicacao) {
 		this.transientNomeMedicacao = transientNomeMedicacao;
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -207,6 +208,8 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 	
 }

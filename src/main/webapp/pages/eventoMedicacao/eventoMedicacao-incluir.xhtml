@@ -18,7 +18,7 @@
 					<p:selectOneMenu id="atendimento" value="#{eventoMedicacaoManager.eventoMedicacao.atendimento}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
 						<p:ajax  update="dt" /><p:ajax  update="hr" />
 						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
-						<f:selectItems value="#{atendimentoManager.obterLista()}" var="atendimento" itemLabel="#{atendimento.paciente.nomePaciente}" itemValue="#{atendimento}"/>
+						<f:selectItems value="#{atendimentoManager.obterLista()}" var="atendimento" itemLabel="#{atendimento.atendimentoTitulo}" itemValue="#{atendimento}"/>
 					</p:selectOneMenu>
 					<br /><br />
 					<p:separator />

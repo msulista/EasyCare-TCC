@@ -1,21 +1,24 @@
 package com.msulista.manager;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.PacienteNegocio;
 import com.msulista.util.DateUtil;
 import com.msulista.util.Mensagem;
+import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@ApplicationScoped
+@ViewScoped
 @URLMappings(mappings = {
 		@URLMapping(id = "paciente", pattern = "/paciente", viewId = "/pages/paciente/paciente-listar.xhtml"),
 		@URLMapping(id = "paciente-incluir", pattern = "/incluir", viewId = "/pages/paciente/paciente-incluir.xhtml", parentId = "paciente"),
@@ -122,9 +125,9 @@ public class PacienteManager {
 		this.pacienteNegocio = pacienteNegocio;
 	}
 	
-//	@URLActions(actions = { @URLAction(mappingId = "paciente-editar", onPostback = false) })
-//	public void loadEditar() throws IOException {
-//		pacientes = pacienteNegocio.obterLista();
-//	}
+	@URLActions(actions = { @URLAction(mappingId = "paciente-editar", onPostback = false) })
+	public void load() throws IOException {
+		this.paciente = this.pacienteNegocio.obterPaciente(this.paciente.getId());
+	}
 
 }

@@ -30,15 +30,15 @@
 						<h:outputText value="#{evento.descricao}" />
 					</p:column>
 					<p:column headerText="#{message['label.acoes']}" >
-						<p:commandButton action="#{eventoMedicacaoManager.editar(evento)}" update="growl" icon="ui-icon-pencil" />
-						<p:commandButton action="#{eventoMedicacaoManager.excluir(evento)}" update="growl" icon="ui-icon-trash" />
+						<p:commandButton id="editar" action="#{eventoMedicacaoManager.editar(evento)}" update="growl" icon="ui-icon-pencil" />
+						<p:commandButton id="deletar" action="#{eventoMedicacaoManager.excluir(evento)}" update="growl" icon="ui-icon-trash" />
 					</p:column>						
 							
 				</p:dataTable>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-					<p:commandButton value="Sim" type="button"
+					<p:commandButton id="editar" value="Sim" type="button"
 						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-					<p:commandButton value="Não" type="button"
+					<p:commandButton id="deletar" value="Não" type="button"
 						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 				</p:confirmDialog>
 

@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "atendimento")
 @NamedQueries({ @NamedQuery(name = "Atendimento.findAll", query = "SELECT a FROM Atendimento a"),
-		@NamedQuery(name = "Atendimento.findPorId", query = "SELECT a FROM Atendimento a WHERE a.id = :id"), })
+				@NamedQuery(name = "Atendimento.findPorId", query = "SELECT a FROM Atendimento a WHERE a.id = :id"), })
 public class Atendimento implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = -8458837793631601906L;
@@ -84,6 +84,9 @@ public class Atendimento implements BaseEntity, Serializable {
 	
 	@Transient
 	private boolean enderecoPaciente;
+	
+	@Transient
+	private String atendimentoTitulo;
 	
 	@Override
 	public Long getId() {
@@ -225,6 +228,15 @@ public class Atendimento implements BaseEntity, Serializable {
 	public String getHrIntervalo() {
 		this.hrIntervalo = this.getTransientHrIni() + " até " + this.getTransientHrFim();
 		return hrIntervalo;
+	}
+
+	public String getAtendimentoTitulo() {
+		atendimentoTitulo = this.getPaciente().getNomePaciente() + " - " + this.getTransientDtIni() + " até " + this.getTransientDtFim();
+		return atendimentoTitulo;
+	}
+
+	public void setAtendimentoTitulo(String atendimentoTitulo) {
+		this.atendimentoTitulo = atendimentoTitulo;
 	}
 
 	/* (non-Javadoc)

@@ -1,18 +1,21 @@
 package com.msulista.manager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import com.msulista.entidade.Medicamento;
 import com.msulista.negocio.MedicamentoNegocio;
+import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@ApplicationScoped
+@ViewScoped
 @URLMappings(mappings = {
 		@URLMapping(id = "medicamento", pattern = "/medicamento", viewId = "/pages/medicamento/medicamento-listar.xhtml"),
 		@URLMapping(id = "medicamento-incluir", pattern = "/incluir", viewId = "/pages/medicamento/medicamento-incluir.xhtml", parentId = "medicamento"),
@@ -80,6 +83,11 @@ public class MedicamentoManager {
 
 	public void setMedicamentoNegocio(final MedicamentoNegocio medicamentoNegocio) {
 		this.medicamentoNegocio = medicamentoNegocio;
+	}
+	
+	@URLActions(actions = { @URLAction(mappingId = "medicamento-editar", onPostback = false) })
+	public void load() throws IOException {
+		this.medicamento = this.medicamentoNegocio.obterPorId(this.medicamento.getId());
 	}
 
 }

@@ -30,6 +30,16 @@
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>	 
+					<p:column headerText="#{message['label.hora.inicial']}" >
+						<h:outputText value="#{atendimento.horaInicial}" >
+							<f:convertDateTime pattern="HH:mm" />
+						</h:outputText>
+					</p:column>	
+					<p:column headerText="#{message['label.hora.final']}" >
+						<h:outputText value="#{atendimento.horaFinal}" >
+							<f:convertDateTime pattern="HH:mm" />
+						</h:outputText>
+					</p:column>
 					<p:column headerText="#{message['label.acoes']}">
 						<p:commandButton id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{atendimentoManager.editar(atendimento)}" />
 						<p:commandButton id="deletar" styleClass="btn-acao" icon="ui-icon-trash" action="#{atendimentoManager.excluirAtendimento(atendimento)}" />

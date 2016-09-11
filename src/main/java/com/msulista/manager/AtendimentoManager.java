@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
@@ -21,7 +21,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@ApplicationScoped
+@ViewScoped
 @URLMappings(mappings = {
 		@URLMapping(id = "atendimento", pattern = "/atendimento", viewId = "/pages/atendimento/atendimento-listar.xhtml"),
 		@URLMapping(id = "atendimento-incluir", pattern = "/incluir", viewId = "/pages/atendimento/atendimento-incluir.xhtml", parentId = "atendimento"),
