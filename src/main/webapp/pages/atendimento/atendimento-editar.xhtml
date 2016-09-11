@@ -45,9 +45,8 @@
 	        		<p:outputLabel for="local" value="#{message['label.edereco.atendimento']}" styleClass="label" />
 					<p:inputText id="local" value="#{atendimentoManager.atendimento.localAtendimento}" required="false" />
 					<br/><br/>
-					     		       		
-	        		<p:commandButton value="#{message['button.salvar']}" action="#{atendimentoManager.aterar()}" update="growl" />
-	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:atendimento" />
+	        		<p:commandButton id="editar" value="#{message['button.salvar']}" action="#{atendimentoManager.aterar()}" update="growl" />
+	        		<p:button id="cancelar" value="#{message['button.cancelar']}" outcome="pretty:atendimento" />
 				</p:panel> 
 			</h:form>
 			</div>

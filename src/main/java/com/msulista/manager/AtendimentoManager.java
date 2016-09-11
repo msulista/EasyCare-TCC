@@ -150,7 +150,6 @@ public class AtendimentoManager {
 		this.scheduleModel = scheduleModel;
 	}
 
-
 	@URLActions(actions = { @URLAction(mappingId = "atendimento-editar", onPostback = false) })
 	public void load() throws IOException {
 		this.atendimento = this.atendimentoNegocio.obterPorId(this.atendimento.getId());

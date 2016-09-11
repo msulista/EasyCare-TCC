@@ -37,9 +37,9 @@ public class PacienteNegocio {
 	}
 
 	public Paciente obterPaciente(final Long id) {
-
+		this.pacienteDao = new PacienteDao();
 		try {
-			return this.pacienteDao.obterEvento(id);
+			return this.pacienteDao.obterEvento(id); 
 		} catch (final SQLException e) {
 			Mensagem.add("Ocorreu um erro ao alterar o evento.");
 			e.printStackTrace();

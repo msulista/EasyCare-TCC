@@ -64,7 +64,6 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 
 		final EventoMedicacao eventoMedicacao= (EventoMedicacao) query.getSingleResult();
 		manager.close();
-
 		return eventoMedicacao;
 	}
 

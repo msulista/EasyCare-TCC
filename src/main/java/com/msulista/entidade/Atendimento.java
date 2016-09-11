@@ -53,7 +53,7 @@ public class Atendimento implements BaseEntity, Serializable {
 	@Column(name = "atend_local")
 	private String localAtendimento;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cuid_id", nullable = true)
 	private Cuidador cuidador;
 

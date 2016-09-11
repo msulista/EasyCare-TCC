@@ -127,7 +127,7 @@ public class PacienteManager {
 	
 	@URLActions(actions = { @URLAction(mappingId = "paciente-editar", onPostback = false) })
 	public void load() throws IOException {
-		this.paciente = this.pacienteNegocio.obterPaciente(this.paciente.getId());
+		paciente = this.pacienteNegocio.obterPaciente(paciente.getId());
 	}
 
 }

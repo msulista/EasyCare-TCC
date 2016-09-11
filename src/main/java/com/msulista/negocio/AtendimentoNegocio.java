@@ -61,7 +61,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	@Override
 	public Atendimento obterPorId(final Long id) {
-		
+		this.atendimentoDao = new AtendimentoDao();
 		Atendimento atendimento = null;
 		try {
 			atendimento = this.atendimentoDao.obterEvento(id);
