@@ -31,7 +31,6 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			this.eventMedicacaoDAO = new EventoMedicacaoDAO();
 			eventoMedicacao.setTitulo(eventoMedicacao.getAtendimento().getPaciente().getNomePaciente());
 			this.salvaEvento(eventoMedicacao);
-			this.replicaEvento(eventoMedicacao);
 		}
 		return true;
 	}
@@ -50,7 +49,9 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		} else {
 			this.eventMedicacaoDAO = new EventoMedicacaoDAO();
 			try {
+				eventoMedicacao.setTitulo(eventoMedicacao.getAtendimento().getPaciente().getNomePaciente());
 				this.eventMedicacaoDAO.alterar(eventoMedicacao);
+				this.replicaEvento(eventoMedicacao);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

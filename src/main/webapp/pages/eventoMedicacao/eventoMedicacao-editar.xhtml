@@ -11,7 +11,7 @@
 	    	<h2>#{message['title.evento.medicacao']}</h2>
 	        <h:form>
 	        	<p:growl id="growl" life="4000" />
-				<p:panel header="#{message['title.cadastro']}" id="painel">	
+				<p:panel header="#{message['title.editar']}" id="painel">	
 					<p:focus context="painel"/>
 					
 					<p:outputLabel for="atendimento" value="#{message['label.nome.paciente']}" styleClass="label" />
@@ -58,7 +58,7 @@
                 	</p:inputNumber>  
 					<br/><br/>
 					     		       		
-	        		<p:commandButton value="#{message['button.salvar']}" action="#{eventoMedicacaoManager.salvar()}" update="growl" />
+	        		<p:commandButton value="#{message['button.salvar']}" action="#{eventoMedicacaoManager.alterar()}" update="growl" />
 	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:eventoMedicacao" />
 	        		<br /><br />
 				</p:panel> 

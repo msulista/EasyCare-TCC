@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
@@ -24,7 +24,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@ApplicationScoped
+@ViewScoped
 @URLMappings(mappings = {
 		@URLMapping(id = "eventoMedicacao", pattern = "/eventoMedicacao", viewId = "/pages/eventoMedicacao/eventoMedicacao-listar.xhtml"),
 		@URLMapping(id = "eventoMedicacao-incluir", pattern = "/incluir", viewId = "/pages/eventoMedicacao/eventoMedicacao-incluir.xhtml", parentId = "eventoMedicacao"),
@@ -102,24 +102,21 @@ public class EventoMedicacaoManager {
 		return "pretty:eventoMedicacao";
 	}
 	
-	public String eventoRealizado(EventoMedicacao evento) {
+	public void eventoRealizado(EventoMedicacao evento) {
 		
 		evento.setStattus(1);
 		this.eventoMedicacao = evento;
 		this.eventMedicacaoNegocio.alterar(eventoMedicacao);
-		
-		return "pretty:eventoMedicacao";
+		Mensagem.add("Evento realizado!!!");
 	}
 	
-	public String eventoNaoRealizado(EventoMedicacao evento) {
+	public void eventoNaoRealizado(EventoMedicacao evento) {
 		
 		evento.setStattus(0);
 		this.eventoMedicacao = evento;
 		this.eventMedicacaoNegocio.alterar(eventoMedicacao);
-		
-		return "pretty:eventoMedicacao";
+		Mensagem.add("Evento não realizado!!!");
 	}
-	
 	
 	public void verificaAlertaHorario() {
 		List<EventoMedicacao> eventos = this.obterListaDiaCorrente();
@@ -203,7 +200,7 @@ public class EventoMedicacaoManager {
 		this.atendimento = atendimento;
 	}
 	
-	@URLActions(actions = { @URLAction(mappingId = "atendimento-editar", onPostback = false) })
+	@URLActions(actions = { @URLAction(mappingId = "eventoMedicacao-editar", onPostback = false) })
 	public void load() throws IOException {
 		this.eventoMedicacao = this.eventMedicacaoNegocio.obterPorId(this.eventoMedicacao.getId());
 	}

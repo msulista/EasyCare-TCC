@@ -48,11 +48,11 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	@Column(name = "event_status")
 	private Integer stattus;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "atend_id", nullable = false)
 	private Atendimento atendimento;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
 	private List<Medicamento> medicamentos = new ArrayList<>();
 
