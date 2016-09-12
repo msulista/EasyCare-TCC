@@ -28,9 +28,9 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			Mensagem.add("Horário informado está fora do intervalo de atendimento.");
 			return false;
 		} else {
-			this.eventMedicacaoDAO = new EventoMedicacaoDAO();
 			eventoMedicacao.setTitulo(eventoMedicacao.getAtendimento().getPaciente().getNomePaciente());
 			this.salvaEvento(eventoMedicacao);
+			this.multiplicadorDeEventos(eventoMedicacao);
 		}
 		return true;
 	}
@@ -51,7 +51,7 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 			try {
 				eventoMedicacao.setTitulo(eventoMedicacao.getAtendimento().getPaciente().getNomePaciente());
 				this.eventMedicacaoDAO.alterar(eventoMedicacao);
-				this.replicaEvento(eventoMedicacao);
+				this.multiplicadorDeEventos(eventoMedicacao);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -129,6 +129,33 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		return false;
 	}
 	
+	protected void multiplicadorDeEventos(EventoMedicacao eventoMedicacao) {
+		
+		if (eventoMedicacao.getTransientRepetirDiariamente() && eventoMedicacao.getTransientFrequenciaEvento() > 0) {
+			this.replicaEventoPorDataEHora(eventoMedicacao);
+		}else if (eventoMedicacao.getTransientRepetirDiariamente()) {
+			this.repeteEventoHora(eventoMedicacao);
+		}else if (eventoMedicacao.getTransientFrequenciaEvento() > 0) {
+			this.repeteEventoHora(eventoMedicacao);
+		}
+	}
+
+	/**
+	 * Cria novos eventos por data e hora
+	 * 
+	 * @param eventoMedicacao
+	 */
+	private void replicaEventoPorDataEHora(EventoMedicacao eventoMedicacao) {
+		int repet = DateUtil.calculaNumeroDeDias(eventoMedicacao.getDataHora(), eventoMedicacao.getAtendimento().getDataFinal());
+		for (int i = 0; i < repet; i++) {
+			Date novoDia = this.adicionaDias(eventoMedicacao.getDataHora(), 1+i);
+			EventoMedicacao novoEvento = this.criaNovoEvento(eventoMedicacao);
+			novoEvento.setDataHora(novoDia);
+			this.salvaEvento(novoEvento);
+			this.repeteEventoHora(novoEvento);
+		}
+	}
+	
 	/**
 	 * Replica evento original com novas datas
 	 * 
@@ -147,6 +174,20 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 	}
 	
 	/**
+	 * Repete o evento incrementando hora de acordo com o informado
+	 * 
+	 * @param evento
+	 */
+	protected void repeteEventoHora(EventoMedicacao evento) {
+		if (evento.getTransientFrequenciaEvento() > 0) {
+			Date novaHora = this.adicionaHora(evento.getDataHora(), evento.getTransientFrequenciaEvento());
+			EventoMedicacao novoEvento = this.criaNovoEvento(evento);
+			novoEvento.setDataHora(novaHora);
+			this.salvaEvento(novoEvento);
+		}
+	}
+	
+	/**
 	 * Cria novo evento com os dados do evento original para ser replicado com data difetente
 	 * 
 	 * @param ev
@@ -160,6 +201,7 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 		evento.getMedicamentos().addAll(ev.getMedicamentos());
 		evento.getRefeicoes().addAll(ev.getRefeicoes());
 		evento.setTitulo(ev.getTitulo());
+		evento.setTransientFrequenciaEvento(ev.getTransientFrequenciaEvento());
 		
 		return evento;
 	}
@@ -186,6 +228,20 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 	protected Date adicionaDias(Date dataEvento, int dia) {
 		DateTime data = new DateTime(dataEvento);
 		data = data.plusDays(dia);
+		
+		return data.toDate();
+	}
+	
+	/**
+	 * Incrementa a data do evento em horas
+	 * 
+	 * @param dataEvento
+	 * @param hora numero de horas de incremento
+	 * @return Date
+	 */
+	protected Date adicionaHora(Date dataEvento, int hora) {
+		DateTime data = new DateTime(dataEvento);
+		data = data.plusHours(hora);
 		
 		return data.toDate();
 	}
