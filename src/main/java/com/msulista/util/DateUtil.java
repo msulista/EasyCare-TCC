@@ -6,10 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Duration;
 import org.joda.time.Interval;
+import org.joda.time.LocalTime;
 
 public class DateUtil {
 
@@ -267,6 +269,28 @@ public class DateUtil {
 		final Duration duracao = intervalo.toDuration();
 
 		return duracao.getStandardMinutes();
+	}
+	
+	@SuppressWarnings("static-access")
+	public static Date dataSistemaUltimoHorario() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(calendar.HOUR_OF_DAY, 23);
+		calendar.set(calendar.MINUTE, 59);
+		calendar.set(calendar.SECOND, 59);
+		calendar.set(calendar.MILLISECOND, 59);
+		
+		return calendar.getTime();
+	}
+	
+	@SuppressWarnings("static-access")
+	public static Date dataTruncada() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(calendar.HOUR_OF_DAY, 0);
+		calendar.set(calendar.MINUTE, 0);
+		calendar.set(calendar.SECOND, 0);
+		calendar.set(calendar.MILLISECOND, 0);
+		
+		return calendar.getTime();
 	}
 
 }

@@ -1,12 +1,14 @@
 package com.msulista.dao;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.msulista.entidade.EventoMedicacao;
+import com.msulista.util.DateUtil;
 import com.msulista.util.JPAUtil;
 
 public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
@@ -51,6 +53,8 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 		final EntityManager manager = JPAUtil.getEntityManager();
 
 		final Query query = manager.createNamedQuery("EventoMedicacao.findDiaCorrente");
+		query.setParameter("dataInicio", new Date());
+		query.setParameter("dataFim", DateUtil.dataSistemaUltimoHorario());
 		final List<EventoMedicacao> retorno = query.getResultList();
 		manager.close();
 		return retorno;
