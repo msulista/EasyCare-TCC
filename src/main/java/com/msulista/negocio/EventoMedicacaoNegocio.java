@@ -132,9 +132,10 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 	protected void multiplicadorDeEventos(EventoMedicacao eventoMedicacao) {
 		
 		if (eventoMedicacao.getTransientRepetirDiariamente() && eventoMedicacao.getTransientFrequenciaEvento() > 0) {
+			this.repeteEventoHora(eventoMedicacao);
 			this.replicaEventoPorDataEHora(eventoMedicacao);
 		}else if (eventoMedicacao.getTransientRepetirDiariamente()) {
-			this.repeteEventoHora(eventoMedicacao);
+			this.replicaEvento(eventoMedicacao);
 		}else if (eventoMedicacao.getTransientFrequenciaEvento() > 0) {
 			this.repeteEventoHora(eventoMedicacao);
 		}
