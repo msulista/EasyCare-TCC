@@ -17,9 +17,9 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @ViewScoped
 @URLMappings(mappings = {
-		@URLMapping(id = "medicamento", pattern = "/medicamento", viewId = "/pages/medicamento/medicamento-listar.xhtml"),
-		@URLMapping(id = "medicamento-incluir", pattern = "/incluir", viewId = "/pages/medicamento/medicamento-incluir.xhtml", parentId = "medicamento"),
-		@URLMapping(id = "medicamento-editar", pattern = "/#{medicamentoManager.medicamento.id}/editar", viewId = "/pages/medicamento/medicamento-editar.xhtml", parentId = "medicamento") })
+		@URLMapping(id = "medicamento", pattern = "/medicamento", viewId = "/pages/usuario/medicamento/medicamento-listar.xhtml"),
+		@URLMapping(id = "medicamento-incluir", pattern = "/incluir", viewId = "/pages/usuario/medicamento/medicamento-incluir.xhtml", parentId = "medicamento"),
+		@URLMapping(id = "medicamento-editar", pattern = "/#{medicamentoManager.medicamento.id}/editar", viewId = "/pages/usuario/medicamento/medicamento-editar.xhtml", parentId = "medicamento") })
 public class MedicamentoManager {
 
 	private Medicamento medicamento;

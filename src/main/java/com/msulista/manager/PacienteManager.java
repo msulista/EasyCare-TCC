@@ -20,9 +20,9 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @ViewScoped
 @URLMappings(mappings = {
-		@URLMapping(id = "paciente", pattern = "/paciente", viewId = "/pages/paciente/paciente-listar.xhtml"),
-		@URLMapping(id = "paciente-incluir", pattern = "/incluir", viewId = "/pages/paciente/paciente-incluir.xhtml", parentId = "paciente"),
-		@URLMapping(id = "paciente-editar", pattern = "/#{pacienteManager.paciente.id}/editar", viewId = "/pages/paciente/paciente-editar.xhtml", parentId = "paciente") })
+		@URLMapping(id = "paciente", pattern = "/paciente", viewId = "/pages/usuario/paciente/paciente-listar.xhtml"),
+		@URLMapping(id = "paciente-incluir", pattern = "/incluir", viewId = "/pages/usuario/paciente/paciente-incluir.xhtml", parentId = "paciente"),
+		@URLMapping(id = "paciente-editar", pattern = "/#{pacienteManager.paciente.id}/editar", viewId = "/pages/usuario/paciente/paciente-editar.xhtml", parentId = "paciente") })
 public class PacienteManager {
 
 	private Paciente paciente;

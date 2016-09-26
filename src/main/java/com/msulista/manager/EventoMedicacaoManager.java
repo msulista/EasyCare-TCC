@@ -26,9 +26,9 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @ViewScoped
 @URLMappings(mappings = {
-		@URLMapping(id = "eventoMedicacao", pattern = "/eventoMedicacao", viewId = "/pages/eventoMedicacao/eventoMedicacao-listar.xhtml"),
-		@URLMapping(id = "eventoMedicacao-incluir", pattern = "/incluir", viewId = "/pages/eventoMedicacao/eventoMedicacao-incluir.xhtml", parentId = "eventoMedicacao"),
-		@URLMapping(id = "eventoMedicacao-editar", pattern = "/#{eventoMedicacaoManager.eventoMedicacao.id}/editar", viewId = "/pages/eventoMedicacao/eventoMedicacao-editar.xhtml", parentId = "eventoMedicacao") })
+		@URLMapping(id = "eventoMedicacao", pattern = "/eventoMedicacao", viewId = "/pages/usuario/eventoMedicacao/eventoMedicacao-listar.xhtml"),
+		@URLMapping(id = "eventoMedicacao-incluir", pattern = "/incluir", viewId = "/pages/usuario/eventoMedicacao/eventoMedicacao-incluir.xhtml", parentId = "eventoMedicacao"),
+		@URLMapping(id = "eventoMedicacao-editar", pattern = "/#{eventoMedicacaoManager.eventoMedicacao.id}/editar", viewId = "/pages/usuario/eventoMedicacao/eventoMedicacao-editar.xhtml", parentId = "eventoMedicacao") })
 public class EventoMedicacaoManager {
 
 	private ScheduleModel scheduleModel;

@@ -23,9 +23,9 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @ViewScoped
 @URLMappings(mappings = {
-		@URLMapping(id = "atendimento", pattern = "/atendimento", viewId = "/pages/atendimento/atendimento-listar.xhtml"),
-		@URLMapping(id = "atendimento-incluir", pattern = "/incluir", viewId = "/pages/atendimento/atendimento-incluir.xhtml", parentId = "atendimento"),
-		@URLMapping(id = "atendimento-editar", pattern = "/#{atendimentoManager.atendimento.id}/editar", viewId = "/pages/atendimento/atendimento-editar.xhtml", parentId = "atendimento") })
+		@URLMapping(id = "atendimento", pattern = "/atendimento", viewId = "/pages/usuario/atendimento/atendimento-listar.xhtml"),
+		@URLMapping(id = "atendimento-incluir", pattern = "/incluir", viewId = "/pages/usuario/atendimento/atendimento-incluir.xhtml", parentId = "atendimento"),
+		@URLMapping(id = "atendimento-editar", pattern = "/#{atendimentoManager.atendimento.id}/editar", viewId = "/pages/usuario/atendimento/atendimento-editar.xhtml", parentId = "atendimento") })
 public class AtendimentoManager {
 
 	private ScheduleModel scheduleModel;
