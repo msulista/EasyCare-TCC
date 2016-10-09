@@ -2,12 +2,24 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_paciente" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7335e9a3-8043-4205-9cc5-b43990b5e326">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataInicial" class="java.lang.String"/>
+	<parameter name="dataFinal" class="java.lang.String"/>
+	<parameter name="cuidadorNome" class="java.lang.String"/>
+	<parameter name="cuidadorFone" class="java.lang.String"/>
+	<parameter name="pacienteNome" class="java.lang.String"/>
+	<parameter name="pacienteEndereco" class="java.lang.String"/>
+	<parameter name="familiarNome" class="java.lang.String"/>
+	<field name="dia" class="java.lang.String"/>
+	<field name="hora" class="java.lang.String"/>
+	<field name="medicamento" class="java.lang.String"/>
+	<field name="dosagem" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="157" splitType="Stretch">
+		<band height="164" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="10" width="168" height="52" uuid="ef15c701-7b21-4ef2-abab-d6cd5b4d3179"/>
 				<imageExpression><![CDATA["img\\logo.jpg"]]></imageExpression>
@@ -26,64 +38,202 @@
 				</textElement>
 				<text><![CDATA[Relatório de atendimento]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="116" width="231" height="20" uuid="05b0738b-7b00-4453-b6f3-6e98f25773a9"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="76" width="555" height="20" uuid="41fb478e-3ca6-49c2-a8a0-5b03b393bea9"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Periodo: " + $P{dataInicial} + " até " + $P{dataFinal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="96" width="331" height="20" uuid="17a7ae6b-fd73-4847-9f36-f636f28b2ddf"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cuidador: " + $P{cuidadorNome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="331" y="96" width="224" height="20" uuid="081446ed-ea6a-4004-9b4f-9b865fc0cd33"/>
+				<box leftPadding="5"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Paciente:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="76" width="324" height="20" uuid="4693b38a-a6a2-46ce-b318-6d71d8aefbb1"/>
-				<textElement>
+				<textFieldExpression><![CDATA["Telefone:  " + $P{cuidadorFone}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="116" width="331" height="20" uuid="82e84dd9-4567-476e-b7d0-e472f5e77bac"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Periodo:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="96" width="231" height="20" uuid="24f1b654-e51f-4ba9-a0a6-a4f0697b3432"/>
-				<textElement>
+				<textFieldExpression><![CDATA["Paciente: " + $P{pacienteNome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="331" y="116" width="224" height="20" uuid="bdc12d0c-aafa-41c0-bd88-2392ac12c669"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Cuidador: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="231" y="96" width="100" height="20" uuid="60daa75a-47d4-4d76-a9e2-a5985d0e4f59"/>
-				<textElement>
+				<textFieldExpression><![CDATA["Endereço: " + $P{pacienteEndereco}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="136" width="555" height="20" uuid="fbd57086-5900-482c-958f-05dae43dd21f"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Telefone:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="231" y="116" width="100" height="20" uuid="93576f36-7189-43c0-adb6-5d17d7c865ac"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Endereço:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="136" width="231" height="20" uuid="e0ff7f42-582b-47be-ba5c-7d670fb43d3b"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Familiar:]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA["Familiar responsável: " + $P{familiarNome}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="38" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="60" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="9561df24-9e98-4793-a2c5-b40de0c9f39b"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="60" y="0" width="60" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="5b757fb5-ff0e-43d3-9f87-38b9ecf76e00"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="eadc2724-8aa3-453f-8c29-9c91061ea72b"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medicação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="305" y="0" width="125" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="2ad51a11-c22b-48f6-a346-aba8cec1ab3e"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dosagem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="430" y="0" width="125" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="ce726dc7-c5f8-4e06-b4ae-8b66d7732fb3"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ação realizada]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="60" height="20" uuid="1fe61e31-9b00-4d22-acce-c27dc896999f"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="60" height="20" uuid="2247e351-7886-4688-acf6-1cbaf6d9addd"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="0" width="185" height="20" uuid="2a2c1b91-654d-4d15-9435-8835c691721b"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{medicamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="0" width="125" height="20" uuid="54fc408b-cb02-4c97-a205-0ede4fd1d2d2"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dosagem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="125" height="20" uuid="09ba1511-1af3-43f1-acee-288ece1e271d"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
