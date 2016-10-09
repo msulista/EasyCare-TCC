@@ -1,6 +1,7 @@
 package com.msulista.negocio;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.msulista.dao.CuidadorDao;
@@ -30,7 +31,12 @@ public class CuidadorNegocio implements NegocioBase<Cuidador> {
 	@Override
 	public List<Cuidador> obterLista() {
 		// TODO Auto-generated method stub
-		return null;
+		final List<Cuidador> cuidadores = new ArrayList<>();
+		final Cuidador cuidador = new Cuidador();
+		cuidador.setCpf("82707529087");
+		cuidador.setEmail("marcus.rodrigues81@gmail.com");
+		cuidadores.add(cuidador);
+		return cuidadores;
 	}
 
 	@Override
@@ -40,9 +46,9 @@ public class CuidadorNegocio implements NegocioBase<Cuidador> {
 	}
 
 	@Override
-	public void excluir(Cuidador cuidador) {
+	public void excluir(final Cuidador cuidador) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
