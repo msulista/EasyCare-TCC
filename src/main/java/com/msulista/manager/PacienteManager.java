@@ -8,9 +8,12 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.PacienteNegocio;
 import com.msulista.util.DateUtil;
+import com.msulista.util.EmailUtil;
 import com.msulista.util.Mensagem;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
@@ -47,26 +50,25 @@ public class PacienteManager {
 	/**
 	 * Editar
 	 */
-	
+
 	public String alterar() {
 		this.pacienteNegocio.alterar(this.paciente);
 		return "pretty:paciente";
 	}
-	
-	public String editar(Paciente editaPaciente) {
+
+	public String editar(final Paciente editaPaciente) {
 		this.paciente = editaPaciente;
 		return "pretty:paciente-editar";
 	}
-	
 
 	public Paciente obterPaciente(final Long id) {
 		return this.pacienteNegocio.obterPaciente(id);
 	}
-	
-	public String excluirPaciente(Paciente paciente) {
+
+	public String excluirPaciente(final Paciente paciente) {
 		try {
 			this.pacienteNegocio.excluirPaciente(paciente);
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Mensagem.add("Erro ao conectar com o banco de dados!!!");
 		}
 		return "pretty:paciente";
@@ -78,23 +80,39 @@ public class PacienteManager {
 	 * @return lista de {@link Paciente}
 	 */
 	public List<Paciente> obterLista() {
-		
-		List<Paciente> pacientes = this.pacienteNegocio.obterLista();
+
+		final List<Paciente> pacientes = this.pacienteNegocio.obterLista();
 		this.adicionaIdadePaciente(pacientes);
 		return pacientes;
 	}
-	
+
+	/**
+	 * Envia relatorio de atendimento ao familiar do paciente
+	 *
+	 * @param paciente
+	 */
+	public void enviarRealatorio(final Paciente paciente) {
+
+		final String email = paciente.getEmailFamiliar();
+
+		if (StringUtils.isNotBlank(email)) {
+			EmailUtil.sendEmail(email);
+		}
+
+		Mensagem.add("Relatório enviado com sucesso.");
+
+	}
 
 	/**
 	 * Percorre lista de {@link Paciente} e adiciona idade no Transiente
-	 * 
+	 *
 	 * @param pacientes
 	 */
-	private void adicionaIdadePaciente(List<Paciente> pacientes) {
-		for (Paciente paciente : pacientes) {
+	private void adicionaIdadePaciente(final List<Paciente> pacientes) {
+		for (final Paciente paciente : pacientes) {
 			if (paciente.getDtNascimento() != null) {
-				
-				int idade = DateUtil.getIdade(paciente.getDtNascimento());
+
+				final int idade = DateUtil.getIdade(paciente.getDtNascimento());
 				paciente.setTransientIdade(idade);
 			}
 		}
@@ -124,10 +142,10 @@ public class PacienteManager {
 	public void setPacienteNegocio(final PacienteNegocio pacienteNegocio) {
 		this.pacienteNegocio = pacienteNegocio;
 	}
-	
+
 	@URLActions(actions = { @URLAction(mappingId = "paciente-editar", onPostback = false) })
 	public void load() throws IOException {
-		paciente = this.pacienteNegocio.obterPaciente(paciente.getId());
+		this.paciente = this.pacienteNegocio.obterPaciente(this.paciente.getId());
 	}
 
 }

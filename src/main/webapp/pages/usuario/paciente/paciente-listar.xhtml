@@ -45,7 +45,8 @@
 						
 						<p:commandButton id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{pacienteManager.editar(paciente)}" />
 						<p:commandButton id="deletar" styleClass="btn-acao" icon="ui-icon-trash" action="#{pacienteManager.excluirPaciente(paciente)}" />
-						
+						<p:commandButton id="mail" styleClass="btn-acao" icon="ui-icon-mail-closed" action="#{pacienteManager.enviarRealatorio(paciente)}" />
+                        
 					</p:column>			
 				</p:dataTable>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
