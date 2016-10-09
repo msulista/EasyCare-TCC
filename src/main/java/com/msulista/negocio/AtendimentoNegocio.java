@@ -1,16 +1,30 @@
 package com.msulista.negocio;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 
 import com.msulista.dao.AtendimentoDao;
 import com.msulista.entidade.Atendimento;
+import com.msulista.entidade.EventoMedicacao;
+import com.msulista.enums.RelatorioEnum;
+import com.msulista.enums.StatusEventoEnum;
 import com.msulista.util.DateUtil;
+import com.msulista.util.EmailUtil;
 import com.msulista.util.Mensagem;
+import com.msulista.util.RelatorioUtils;
+import com.msulista.vo.RelatorioAtendimentoVO;
+
 
 public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	private AtendimentoDao atendimentoDao;
+	private RelatorioUtils relatorioUtils;
 
 	@Override
 	public boolean salvar(final Atendimento atendimento) {
@@ -76,6 +90,83 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		this.atendimentoDao = new AtendimentoDao();
 		this.atendimentoDao.excluir(atendimento);
 	}
+	
+	/**
+	 * Envia relatorio de atendimento ao familiar do paciente
+	 *
+	 * @param paciente
+	 * @throws SQLException 
+	 */
+	public void enviarRealatorio(final Atendimento atendimento) throws SQLException {
+
+		final String email = atendimento.getPaciente().getEmailFamiliar();
+		
+		byte[] anexo = this.geraRelatorioAtendimento(atendimento);
+
+		if (StringUtils.isNotBlank(email)) {
+			EmailUtil.enviarEmail(atendimento.getCuidador().getNome(), atendimento.getPaciente().getNomePaciente(), email, anexo);
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * 
+	 * @param atendimento
+	 * @return
+	 * @throws SQLException
+	 */
+	public byte[] geraRelatorioAtendimento(Atendimento atendimento) throws SQLException {
+		
+		List<RelatorioAtendimentoVO> vos = new ArrayList<>();
+		relatorioUtils = new RelatorioUtils();
+		atendimentoDao = new AtendimentoDao();
+		
+		Atendimento atendimentoRelatorio = atendimentoDao.obterEvento(atendimento.getId());
+		
+		RelatorioAtendimentoVO relatorioAtendimentoVO = new RelatorioAtendimentoVO();
+	
+		for (EventoMedicacao evento : atendimentoRelatorio.getEventoMedicacoes()) {
+			relatorioAtendimentoVO.setDia(DateFormatUtils.format(evento.getDataHora(), "dd/MM/yyyy"));
+			relatorioAtendimentoVO.setHora(DateFormatUtils.format(evento.getDataHora(), "HH:mm"));
+			relatorioAtendimentoVO.setMediamento(evento.getMedicamentos().get(0).getNome());
+			relatorioAtendimentoVO.setDosagem(evento.getDescricao());
+			relatorioAtendimentoVO.setStatus(StatusEventoEnum.obterDescricaoPorId(evento.getStattus()));
+		}
+		
+		final Map<String, Object> parametros = this.criaMapParametros(atendimentoRelatorio);
+		
+		byte[] relatorio = this.relatorioUtils.gerarRelatorioPdf(RelatorioEnum.RELATORIO_ATENDIMENTO, vos, parametros);
+		
+		return relatorio;
+	}
+	
+	private Map<String, Object> criaMapParametros(Atendimento atendimento) {
+		
+        final Map<String, Object> parametros = new HashMap<String, Object>();
+
+        String dtIni = null;
+    	String dtFim = null;
+
+        if (atendimento.getDataInicial() != null) {
+            dtIni = DateFormatUtils.format(atendimento.getDataInicial(), "dd/MM/yyyy");
+        }
+        if (atendimento.getDataFinal() != null) {
+            dtFim = DateFormatUtils.format(atendimento.getDataFinal(), "dd/MM/yyyy");
+        }
+        parametros.put("dataInicial", dtIni);
+        parametros.put("dataFinal", dtFim);
+        parametros.put("cuidadorNome", atendimento.getCuidador().getNome());
+        parametros.put("cuidadorFone", atendimento.getCuidador().getTelefone());
+        parametros.put("pacienteNome", atendimento.getPaciente().getNomePaciente());
+        parametros.put("pacienteEndereco", atendimento.getLocalAtendimento());
+        if (StringUtils.isNotBlank(atendimento.getPaciente().getNomeFamiliar())) {
+        	parametros.put("familiarNome", atendimento.getPaciente().getNomeFamiliar());
+		}
+
+        return parametros;
+    }
+	
 	
 	/**
 	 * Seta endereço do paciente em local de atendimento

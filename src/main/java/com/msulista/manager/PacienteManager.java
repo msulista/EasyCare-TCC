@@ -87,23 +87,6 @@ public class PacienteManager {
 	}
 
 	/**
-	 * Envia relatorio de atendimento ao familiar do paciente
-	 *
-	 * @param paciente
-	 */
-	public void enviarRealatorio(final Paciente paciente) {
-
-		final String email = paciente.getEmailFamiliar();
-
-		if (StringUtils.isNotBlank(email)) {
-			EmailUtil.sendEmail(email);
-		}
-
-		Mensagem.add("Relatório enviado com sucesso.");
-
-	}
-
-	/**
 	 * Percorre lista de {@link Paciente} e adiciona idade no Transiente
 	 *
 	 * @param pacientes

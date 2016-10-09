@@ -1,6 +1,7 @@
 package com.msulista.manager;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.primefaces.model.ScheduleModel;
 import com.msulista.entidade.Atendimento;
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.AtendimentoNegocio;
+import com.msulista.util.Mensagem;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
@@ -114,6 +116,17 @@ public class AtendimentoManager {
 		return this.atendimentoNegocio.obterPorId(this.atendimento.getId());
 	}
 
+	public void enviarRelatorio(Atendimento atendimento) {
+		try {
+			this.atendimentoNegocio.enviarRealatorio(atendimento);
+			Mensagem.add("Relatório enviado com sucesso.");
+		} catch (SQLException e) {
+			Mensagem.add("Falha ao enviar relatório.");
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public void setAtendimento(final Atendimento atendimento) {
 		this.atendimento = atendimento;
 	}
