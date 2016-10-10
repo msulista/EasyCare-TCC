@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 
 import com.msulista.dao.AtendimentoDao;
+import com.msulista.dao.EventoMedicacaoDAO;
 import com.msulista.entidade.Atendimento;
 import com.msulista.entidade.EventoMedicacao;
 import com.msulista.enums.RelatorioEnum;
@@ -25,6 +26,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	private AtendimentoDao atendimentoDao;
 	private RelatorioUtils relatorioUtils;
+	private EventoMedicacaoDAO eventoMedicacaoDAO;
 
 	@Override
 	public boolean salvar(final Atendimento atendimento) {
@@ -121,17 +123,23 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		List<RelatorioAtendimentoVO> vos = new ArrayList<>();
 		relatorioUtils = new RelatorioUtils();
 		atendimentoDao = new AtendimentoDao();
+		eventoMedicacaoDAO = new EventoMedicacaoDAO();
 		
 		Atendimento atendimentoRelatorio = atendimentoDao.obterEvento(atendimento.getId());
 		
 		RelatorioAtendimentoVO relatorioAtendimentoVO = new RelatorioAtendimentoVO();
+		List<EventoMedicacao> eventos = eventoMedicacaoDAO.obterListaPorAtendimentoId(atendimento.getId());
 	
-		for (EventoMedicacao evento : atendimentoRelatorio.getEventoMedicacoes()) {
+		for (EventoMedicacao evento : eventos) {
 			relatorioAtendimentoVO.setDia(DateFormatUtils.format(evento.getDataHora(), "dd/MM/yyyy"));
 			relatorioAtendimentoVO.setHora(DateFormatUtils.format(evento.getDataHora(), "HH:mm"));
 			relatorioAtendimentoVO.setMediamento(evento.getMedicamentos().get(0).getNome());
 			relatorioAtendimentoVO.setDosagem(evento.getDescricao());
-			relatorioAtendimentoVO.setStatus(StatusEventoEnum.obterDescricaoPorId(evento.getStattus()));
+			if (evento.getStattus() != null) {
+				relatorioAtendimentoVO.setStatus(StatusEventoEnum.obterDescricaoPorId(evento.getStattus()));
+			}else {
+				relatorioAtendimentoVO.setStatus("Nenhuma ação registrada");
+			}
 		}
 		
 		final Map<String, Object> parametros = this.criaMapParametros(atendimentoRelatorio);

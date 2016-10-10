@@ -70,6 +70,18 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 		manager.close();
 		return eventoMedicacao;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<EventoMedicacao> obterListaPorAtendimentoId(Long atendId) {
+		
+		EntityManager manager = JPAUtil.getEntityManager();
+		Query query = manager.createNamedQuery("EventoMedicacao.findPorAtendimentoId");
+		query.setParameter("id", atendId);
+		List<EventoMedicacao> retorno = query.getResultList();
+		manager.close();
+		
+		return retorno;
+	}
 
 	@Override
 	public void excluir(EventoMedicacao eventoMedicacao) {
