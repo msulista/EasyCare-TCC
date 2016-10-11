@@ -19,6 +19,7 @@ import com.msulista.util.DateUtil;
 import com.msulista.util.EmailUtil;
 import com.msulista.util.Mensagem;
 import com.msulista.util.RelatorioUtils;
+import com.msulista.vo.RealatorioAtendimentoEventoVO;
 import com.msulista.vo.RelatorioAtendimentoVO;
 
 
@@ -125,26 +126,25 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		atendimentoDao = new AtendimentoDao();
 		eventoMedicacaoDAO = new EventoMedicacaoDAO();
 		
-		Atendimento atendimentoRelatorio = atendimentoDao.obterEvento(atendimento.getId());
-		
-		RelatorioAtendimentoVO relatorioAtendimentoVO = new RelatorioAtendimentoVO();
+		RelatorioAtendimentoVO relatorioVO = atendimentoDao.obterRelatorioVO(atendimento.getId());
 		List<EventoMedicacao> eventos = eventoMedicacaoDAO.obterListaPorAtendimentoId(atendimento.getId());
-	
+		RealatorioAtendimentoEventoVO relatorioEventoVO = new RealatorioAtendimentoEventoVO();
 		for (EventoMedicacao evento : eventos) {
-			relatorioAtendimentoVO.setDia(DateFormatUtils.format(evento.getDataHora(), "dd/MM/yyyy"));
-			relatorioAtendimentoVO.setHora(DateFormatUtils.format(evento.getDataHora(), "HH:mm"));
-			relatorioAtendimentoVO.setMediamento(evento.getMedicamentos().get(0).getNome());
-			relatorioAtendimentoVO.setDosagem(evento.getDescricao());
+			relatorioEventoVO.setDia(DateFormatUtils.format(evento.getDataHora(), "dd/MM/yyyy"));
+			relatorioEventoVO.setHora(DateFormatUtils.format(evento.getDataHora(), "HH:mm"));
+			relatorioEventoVO.setMediamento(evento.getMedicamentos().get(0).getNome());
+			relatorioEventoVO.setDosagem(evento.getDescricao());
 			if (evento.getStattus() != null) {
-				relatorioAtendimentoVO.setStatus(StatusEventoEnum.obterDescricaoPorId(evento.getStattus()));
+				relatorioEventoVO.setStatus(StatusEventoEnum.obterDescricaoPorId(evento.getStattus()));
 			}else {
-				relatorioAtendimentoVO.setStatus("Nenhuma ação registrada");
+				relatorioEventoVO.setStatus("Nenhuma ação registrada");
 			}
+			relatorioVO.getEventos().add(relatorioEventoVO);
 		}
+
+//		final Map<String, Object> parametros = this.criaMapParametros(atendimentoRelatorio);
 		
-		final Map<String, Object> parametros = this.criaMapParametros(atendimentoRelatorio);
-		
-		byte[] relatorio = this.relatorioUtils.gerarRelatorioPdf(RelatorioEnum.RELATORIO_ATENDIMENTO, vos, parametros);
+		byte[] relatorio = this.relatorioUtils.gerarRelatorioPdf(RelatorioEnum.RELATORIO_ATENDIMENTO, vos, null);
 		
 		return relatorio;
 	}

@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import com.msulista.entidade.Atendimento;
 import com.msulista.util.JPAUtil;
+import com.msulista.vo.RelatorioAtendimentoVO;
 
 public class AtendimentoDao implements BaseDao<Atendimento> {
 
@@ -55,6 +56,16 @@ public class AtendimentoDao implements BaseDao<Atendimento> {
 		final Atendimento atendimento = (Atendimento) query.getSingleResult();
 		manager.close();
 		return atendimento;
+	}
+	
+	public RelatorioAtendimentoVO obterRelatorioVO(Long id) {
+		EntityManager manager = JPAUtil.getEntityManager();
+		Query query = manager.createNamedQuery("Atendimento.findCustomizada");
+		query.setParameter("id", id);
+		
+		RelatorioAtendimentoVO relatorio = (RelatorioAtendimentoVO) query.getSingleResult();
+		manager.close();
+		return relatorio;
 	}
 
 	@Override

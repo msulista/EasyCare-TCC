@@ -25,7 +25,8 @@ import javax.persistence.Transient;
 @Table(name = "atendimento")
 @NamedQueries({ @NamedQuery(name = "Atendimento.findAll", query = "SELECT a FROM Atendimento a"),
 				@NamedQuery(name = "Atendimento.findPorId", query = "SELECT a FROM Atendimento a WHERE a.id = :id"), 
-				@NamedQuery(name = "Atendimento.findPorIdEPacienteId", query = "SELECT a FROM Atendimento a WHERE a.id = :id AND a.paciente.id = :paci_id"), })
+//				@NamedQuery(name = "Atendimento.findPorIdEPacienteId", query = "SELECT a FROM Atendimento a WHERE a.id = :id AND a.paciente.id = :paci_id"), 
+				@NamedQuery(name = "Atendimento.findCustomizada", query = "SELECT NEW com.msulista.vo.RelatorioAtendimentoVO(a.cuidador.nome, a.cuidador.telefone, a.paciente.nome, a.localAtendimento, a.paciente.nomeFamiliar) FROM Atendimento a WHERE a.id = :id"),})
 public class Atendimento implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = -8458837793631601906L;

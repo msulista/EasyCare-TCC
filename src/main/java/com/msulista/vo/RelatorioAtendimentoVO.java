@@ -10,47 +10,63 @@ import com.msulista.entidade.EventoMedicacao;
 public class RelatorioAtendimentoVO implements Serializable{
 	
 	private static final long serialVersionUID = -3694950953721262491L;
+		
+	private String cuidadorNome;
+	private String cuidadorFone;
+	private String pacienteNome;
+	private String pacienteEndereco;
+	private String familiarNome;
 	
-	private String hora;
-	private String dia;
-	private String mediamento;
-	private String dosagem;
-	private String status;
+	private List<RealatorioAtendimentoEventoVO> eventos = new ArrayList<>();
 	
-	
-	public String getHora() {
-		return hora;
+	public RelatorioAtendimentoVO(String cuidadorNome, String cuidadorFone, String pacienteNome, String pacienteEndereco,
+			String familiarNome) {
+		super();
+		this.cuidadorNome = cuidadorNome;
+		this.cuidadorFone = cuidadorFone;
+		this.pacienteNome = pacienteNome;
+		this.pacienteEndereco = pacienteEndereco;
+		this.familiarNome = familiarNome;
 	}
-	public void setHora(String hora) {
-		this.hora = hora;
+		
+	public String getCuidadorNome() {
+		return cuidadorNome;
 	}
-	public String getDia() {
-		return dia;
+	public void setCuidadorNome(String cuidadorNome) {
+		this.cuidadorNome = cuidadorNome;
 	}
-	public void setDia(String dia) {
-		this.dia = dia;
+	public String getCuidadorFone() {
+		return cuidadorFone;
 	}
-	public String getMediamento() {
-		return mediamento;
+	public void setCuidadorFone(String cuidadorFone) {
+		this.cuidadorFone = cuidadorFone;
 	}
-	public void setMediamento(String mediamento) {
-		this.mediamento = mediamento;
+	public String getPacienteNome() {
+		return pacienteNome;
 	}
-	public String getDosagem() {
-		return dosagem;
+	public void setPacienteNome(String pacienteNome) {
+		this.pacienteNome = pacienteNome;
 	}
-	public void setDosagem(String dosagem) {
-		this.dosagem = dosagem;
+	public String getPacienteEndereco() {
+		return pacienteEndereco;
 	}
-	public String getStatus() {
-		return status;
+	public void setPacienteEndereco(String pacienteEndereco) {
+		this.pacienteEndereco = pacienteEndereco;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public String getFamiliarNome() {
+		return familiarNome;
+	}
+	public void setFamiliarNome(String familiarNome) {
+		this.familiarNome = familiarNome;
 	}
 
-	
-	
-	
+	public List<RealatorioAtendimentoEventoVO> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<RealatorioAtendimentoEventoVO> eventos) {
+		this.eventos = eventos;
+	}
+
 
 }
