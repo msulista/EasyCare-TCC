@@ -18,16 +18,6 @@ public class RelatorioAtendimentoVO implements Serializable{
 	private String familiarNome;
 	
 	private List<RealatorioAtendimentoEventoVO> eventos = new ArrayList<>();
-	
-	public RelatorioAtendimentoVO(String cuidadorNome, String cuidadorFone, String pacienteNome, String pacienteEndereco,
-			String familiarNome) {
-		super();
-		this.cuidadorNome = cuidadorNome;
-		this.cuidadorFone = cuidadorFone;
-		this.pacienteNome = pacienteNome;
-		this.pacienteEndereco = pacienteEndereco;
-		this.familiarNome = familiarNome;
-	}
 		
 	public String getCuidadorNome() {
 		return cuidadorNome;

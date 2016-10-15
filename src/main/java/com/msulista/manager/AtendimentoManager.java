@@ -118,8 +118,11 @@ public class AtendimentoManager {
 
 	public void enviarRelatorio(Atendimento atendimento) {
 		try {
-			this.atendimentoNegocio.enviarRealatorio(atendimento);
-			Mensagem.add("Relatório enviado com sucesso.");
+			if (this.atendimentoNegocio.enviarRealatorio(atendimento)) {
+				Mensagem.add("Relatório enviado com sucesso.");
+			}else {
+				Mensagem.add("Paciente não possui familiar cadastrado para envio de relatório.");
+			}
 		} catch (SQLException e) {
 			Mensagem.add("Falha ao enviar relatório.");
 			e.printStackTrace();

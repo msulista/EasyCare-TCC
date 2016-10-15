@@ -100,14 +100,21 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	 * @param paciente
 	 * @throws SQLException 
 	 */
-	public void enviarRealatorio(final Atendimento atendimento) throws SQLException {
-
-		final String email = atendimento.getPaciente().getEmailFamiliar();
+	public boolean enviarRealatorio(final Atendimento atendimento) throws SQLException {
 		
-		byte[] anexo = this.geraRelatorioAtendimento(atendimento);
-
-		if (StringUtils.isNotBlank(email)) {
-			EmailUtil.enviarEmail(atendimento.getCuidador().getNome(), atendimento.getPaciente().getNomePaciente(), email, anexo);
+		if (StringUtils.isNotBlank(atendimento.getPaciente().getEmailFamiliar())) {
+			
+			final String email = atendimento.getPaciente().getEmailFamiliar();
+			
+			byte[] anexo = this.geraRelatorioAtendimento(atendimento);
+			
+			if (StringUtils.isNotBlank(email)) {
+				EmailUtil.enviarEmail(atendimento.getCuidador().getNome(), atendimento.getPaciente().getNomePaciente(), email, anexo);
+			}
+			
+			return true;
+		}else {
+			return false;
 		}
 	}
 	
@@ -126,7 +133,13 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		atendimentoDao = new AtendimentoDao();
 		eventoMedicacaoDAO = new EventoMedicacaoDAO();
 		
-		RelatorioAtendimentoVO relatorioVO = atendimentoDao.obterRelatorioVO(atendimento.getId());
+		RelatorioAtendimentoVO relatorioVO = new RelatorioAtendimentoVO();
+		relatorioVO.setCuidadorNome(atendimento.getCuidador().getNome());
+		relatorioVO.setCuidadorFone(atendimento.getCuidador().getTelefone());
+		relatorioVO.setPacienteNome(atendimento.getPaciente().getNomePaciente());
+		relatorioVO.setPacienteEndereco(atendimento.getLocalAtendimento());
+		relatorioVO.setFamiliarNome(atendimento.getPaciente().getNomeFamiliar());
+				
 		List<EventoMedicacao> eventos = eventoMedicacaoDAO.obterListaPorAtendimentoId(atendimento.getId());
 		RealatorioAtendimentoEventoVO relatorioEventoVO = new RealatorioAtendimentoEventoVO();
 		for (EventoMedicacao evento : eventos) {
@@ -141,39 +154,36 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 			}
 			relatorioVO.getEventos().add(relatorioEventoVO);
 		}
-
-//		final Map<String, Object> parametros = this.criaMapParametros(atendimentoRelatorio);
-		
 		byte[] relatorio = this.relatorioUtils.gerarRelatorioPdf(RelatorioEnum.RELATORIO_ATENDIMENTO, vos, null);
 		
 		return relatorio;
 	}
 	
-	private Map<String, Object> criaMapParametros(Atendimento atendimento) {
-		
-        final Map<String, Object> parametros = new HashMap<String, Object>();
-
-        String dtIni = null;
-    	String dtFim = null;
-
-        if (atendimento.getDataInicial() != null) {
-            dtIni = DateFormatUtils.format(atendimento.getDataInicial(), "dd/MM/yyyy");
-        }
-        if (atendimento.getDataFinal() != null) {
-            dtFim = DateFormatUtils.format(atendimento.getDataFinal(), "dd/MM/yyyy");
-        }
-        parametros.put("dataInicial", dtIni);
-        parametros.put("dataFinal", dtFim);
-        parametros.put("cuidadorNome", atendimento.getCuidador().getNome());
-        parametros.put("cuidadorFone", atendimento.getCuidador().getTelefone());
-        parametros.put("pacienteNome", atendimento.getPaciente().getNomePaciente());
-        parametros.put("pacienteEndereco", atendimento.getLocalAtendimento());
-        if (StringUtils.isNotBlank(atendimento.getPaciente().getNomeFamiliar())) {
-        	parametros.put("familiarNome", atendimento.getPaciente().getNomeFamiliar());
-		}
-
-        return parametros;
-    }
+//	private Map<String, Object> criaMapParametros(Atendimento atendimento) {
+//		
+//        final Map<String, Object> parametros = new HashMap<String, Object>();
+//
+//        String dtIni = null;
+//    	String dtFim = null;
+//
+//        if (atendimento.getDataInicial() != null) {
+//            dtIni = DateFormatUtils.format(atendimento.getDataInicial(), "dd/MM/yyyy");
+//        }
+//        if (atendimento.getDataFinal() != null) {
+//            dtFim = DateFormatUtils.format(atendimento.getDataFinal(), "dd/MM/yyyy");
+//        }
+//        parametros.put("dataInicial", dtIni);
+//        parametros.put("dataFinal", dtFim);
+//        parametros.put("cuidadorNome", atendimento.getCuidador().getNome());
+//        parametros.put("cuidadorFone", atendimento.getCuidador().getTelefone());
+//        parametros.put("pacienteNome", atendimento.getPaciente().getNomePaciente());
+//        parametros.put("pacienteEndereco", atendimento.getLocalAtendimento());
+//        if (StringUtils.isNotBlank(atendimento.getPaciente().getNomeFamiliar())) {
+//        	parametros.put("familiarNome", atendimento.getPaciente().getNomeFamiliar());
+//		}
+//
+//        return parametros;
+//    }
 	
 	
 	/**
