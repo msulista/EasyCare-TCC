@@ -2,25 +2,28 @@ package com.msulista.enums;
 
 public enum RelatorioEnum {
 
-	RELATORIO_ATENDIMENTO("/report/relatorio_paciente.jasper"),;
-	
-	 private String caminho;
+	// C:\Users\Marcus\workspace\EasyCare-TCC\src\main\webapp\resources\report
+	// C:\Users\Marcus\workspace\EasyCare-TCC\src\main\java\resources\reports
+	RELATORIO_ATENDIMENTO("/resources/reports/relatorio_paciente.jasper");
 
-    /**
-     * Construtor da classe {@link RelatorioEnum}
-     *
-     * @param caminho caminho do relatório.
-     */
-    private RelatorioEnum(final String caminho) {
-        this.caminho = caminho;
-    }
+	private String caminho;
 
-    /**
-     * Método getter do atributo caminho
-     *
-     * @return valor do atributo caminho
-     */
-    public String getCaminho() {
-        return this.caminho;
-    }
+	/**
+	 * Construtor da classe {@link RelatorioEnum}
+	 *
+	 * @param caminho
+	 *            caminho do relatório.
+	 */
+	private RelatorioEnum(final String caminho) {
+		this.caminho = caminho;
+	}
+
+	/**
+	 * Método getter do atributo caminho
+	 *
+	 * @return valor do atributo caminho
+	 */
+	public String getCaminho() {
+		return this.caminho;
+	}
 }

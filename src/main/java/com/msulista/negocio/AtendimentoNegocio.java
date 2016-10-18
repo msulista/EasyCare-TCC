@@ -2,9 +2,7 @@ package com.msulista.negocio;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -22,7 +20,6 @@ import com.msulista.util.RelatorioUtils;
 import com.msulista.vo.RealatorioAtendimentoEventoVO;
 import com.msulista.vo.RelatorioAtendimentoVO;
 
-
 public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	private AtendimentoDao atendimentoDao;
@@ -32,7 +29,8 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	@Override
 	public boolean salvar(final Atendimento atendimento) {
 
-		boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(), atendimento.getDataFinal());
+		final boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(),
+				atendimento.getDataFinal());
 		this.verificaEnderecoAtendimento(atendimento);
 		if (datas) {
 			this.atendimentoDao = new AtendimentoDao();
@@ -42,7 +40,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 				Mensagem.add("Erro ao acessar o banco de dados.");
 			}
 			return true;
-		}else {
+		} else {
 			Mensagem.add("Data final não pode ser anterior a data inicial.");
 		}
 		return false;
@@ -50,16 +48,17 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	@Override
 	public boolean alterar(final Atendimento atendimento) {
-		
-		boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(), atendimento.getDataFinal());
+
+		final boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(),
+				atendimento.getDataFinal());
 		if (datas) {
 			try {
 				this.atendimentoDao.alterar(atendimento);
-			} catch (SQLException e) {
+			} catch (final SQLException e) {
 				Mensagem.add("Erro ao acessar o banco de dados.");
 			}
 			return true;
-		}else {
+		} else {
 			Mensagem.add("Data final não pode ser anterior a data inicial.");
 		}
 		return false;
@@ -82,116 +81,122 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		Atendimento atendimento = null;
 		try {
 			atendimento = this.atendimentoDao.obterEvento(id);
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Mensagem.add("Erro ao acessar o banco de dados.");
 		}
 		return atendimento;
 	}
 
 	@Override
-	public void excluir(Atendimento atendimento) {
+	public void excluir(final Atendimento atendimento) {
 		this.atendimentoDao = new AtendimentoDao();
 		this.atendimentoDao.excluir(atendimento);
 	}
-	
+
 	/**
 	 * Envia relatorio de atendimento ao familiar do paciente
 	 *
 	 * @param paciente
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public boolean enviarRealatorio(final Atendimento atendimento) throws SQLException {
-		
+
 		if (StringUtils.isNotBlank(atendimento.getPaciente().getEmailFamiliar())) {
-			
+
 			final String email = atendimento.getPaciente().getEmailFamiliar();
-			
-			byte[] anexo = this.geraRelatorioAtendimento(atendimento);
-			
+
+			final byte[] anexo = this.geraRelatorioAtendimento(atendimento);
+
 			if (StringUtils.isNotBlank(email)) {
-				EmailUtil.enviarEmail(atendimento.getCuidador().getNome(), atendimento.getPaciente().getNomePaciente(), email, anexo);
+				EmailUtil.enviarEmail(atendimento.getCuidador().getNome(), atendimento.getPaciente().getNomePaciente(),
+						email, anexo);
 			}
-			
+
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
-	
+
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param atendimento
 	 * @return
 	 * @throws SQLException
 	 */
-	public byte[] geraRelatorioAtendimento(Atendimento atendimento) throws SQLException {
-		
-		List<RelatorioAtendimentoVO> vos = new ArrayList<>();
-		relatorioUtils = new RelatorioUtils();
-		atendimentoDao = new AtendimentoDao();
-		eventoMedicacaoDAO = new EventoMedicacaoDAO();
-		
-		RelatorioAtendimentoVO relatorioVO = new RelatorioAtendimentoVO();
+	public byte[] geraRelatorioAtendimento(final Atendimento atendimento) throws SQLException {
+
+		final List<RelatorioAtendimentoVO> vos = new ArrayList<>();
+		this.relatorioUtils = new RelatorioUtils();
+		this.atendimentoDao = new AtendimentoDao();
+		this.eventoMedicacaoDAO = new EventoMedicacaoDAO();
+
+		final RelatorioAtendimentoVO relatorioVO = new RelatorioAtendimentoVO();
 		relatorioVO.setCuidadorNome(atendimento.getCuidador().getNome());
 		relatorioVO.setCuidadorFone(atendimento.getCuidador().getTelefone());
 		relatorioVO.setPacienteNome(atendimento.getPaciente().getNomePaciente());
 		relatorioVO.setPacienteEndereco(atendimento.getLocalAtendimento());
 		relatorioVO.setFamiliarNome(atendimento.getPaciente().getNomeFamiliar());
-				
-		List<EventoMedicacao> eventos = eventoMedicacaoDAO.obterListaPorAtendimentoId(atendimento.getId());
-		RealatorioAtendimentoEventoVO relatorioEventoVO = new RealatorioAtendimentoEventoVO();
-		for (EventoMedicacao evento : eventos) {
+		relatorioVO.setDataInicial(atendimento.getDataInicial());
+		relatorioVO.setDataFinal(atendimento.getDataFinal());
+
+		final List<EventoMedicacao> eventos = this.eventoMedicacaoDAO.obterListaPorAtendimentoId(atendimento.getId());
+		final RealatorioAtendimentoEventoVO relatorioEventoVO = new RealatorioAtendimentoEventoVO();
+		for (final EventoMedicacao evento : eventos) {
 			relatorioEventoVO.setDia(DateFormatUtils.format(evento.getDataHora(), "dd/MM/yyyy"));
 			relatorioEventoVO.setHora(DateFormatUtils.format(evento.getDataHora(), "HH:mm"));
 			relatorioEventoVO.setMediamento(evento.getMedicamentos().get(0).getNome());
 			relatorioEventoVO.setDosagem(evento.getDescricao());
 			if (evento.getStattus() != null) {
 				relatorioEventoVO.setStatus(StatusEventoEnum.obterDescricaoPorId(evento.getStattus()));
-			}else {
+			} else {
 				relatorioEventoVO.setStatus("Nenhuma ação registrada");
 			}
 			relatorioVO.getEventos().add(relatorioEventoVO);
 		}
-		byte[] relatorio = this.relatorioUtils.gerarRelatorioPdf(RelatorioEnum.RELATORIO_ATENDIMENTO, vos, null);
-		
+		vos.add(relatorioVO);
+		final byte[] relatorio = this.relatorioUtils.gerarRelatorioPdf(RelatorioEnum.RELATORIO_ATENDIMENTO, vos, null);
+
 		return relatorio;
 	}
-	
-//	private Map<String, Object> criaMapParametros(Atendimento atendimento) {
-//		
-//        final Map<String, Object> parametros = new HashMap<String, Object>();
-//
-//        String dtIni = null;
-//    	String dtFim = null;
-//
-//        if (atendimento.getDataInicial() != null) {
-//            dtIni = DateFormatUtils.format(atendimento.getDataInicial(), "dd/MM/yyyy");
-//        }
-//        if (atendimento.getDataFinal() != null) {
-//            dtFim = DateFormatUtils.format(atendimento.getDataFinal(), "dd/MM/yyyy");
-//        }
-//        parametros.put("dataInicial", dtIni);
-//        parametros.put("dataFinal", dtFim);
-//        parametros.put("cuidadorNome", atendimento.getCuidador().getNome());
-//        parametros.put("cuidadorFone", atendimento.getCuidador().getTelefone());
-//        parametros.put("pacienteNome", atendimento.getPaciente().getNomePaciente());
-//        parametros.put("pacienteEndereco", atendimento.getLocalAtendimento());
-//        if (StringUtils.isNotBlank(atendimento.getPaciente().getNomeFamiliar())) {
-//        	parametros.put("familiarNome", atendimento.getPaciente().getNomeFamiliar());
-//		}
-//
-//        return parametros;
-//    }
-	
-	
+
+	// private Map<String, Object> criaMapParametros(Atendimento atendimento) {
+	//
+	// final Map<String, Object> parametros = new HashMap<String, Object>();
+	//
+	// String dtIni = null;
+	// String dtFim = null;
+	//
+	// if (atendimento.getDataInicial() != null) {
+	// dtIni = DateFormatUtils.format(atendimento.getDataInicial(),
+	// "dd/MM/yyyy");
+	// }
+	// if (atendimento.getDataFinal() != null) {
+	// dtFim = DateFormatUtils.format(atendimento.getDataFinal(), "dd/MM/yyyy");
+	// }
+	// parametros.put("dataInicial", dtIni);
+	// parametros.put("dataFinal", dtFim);
+	// parametros.put("cuidadorNome", atendimento.getCuidador().getNome());
+	// parametros.put("cuidadorFone", atendimento.getCuidador().getTelefone());
+	// parametros.put("pacienteNome",
+	// atendimento.getPaciente().getNomePaciente());
+	// parametros.put("pacienteEndereco", atendimento.getLocalAtendimento());
+	// if (StringUtils.isNotBlank(atendimento.getPaciente().getNomeFamiliar()))
+	// {
+	// parametros.put("familiarNome",
+	// atendimento.getPaciente().getNomeFamiliar());
+	// }
+	//
+	// return parametros;
+	// }
+
 	/**
 	 * Seta endereço do paciente em local de atendimento
-	 * 
+	 *
 	 * @param atendimento
 	 */
-	protected void verificaEnderecoAtendimento(Atendimento atendimento) {
+	protected void verificaEnderecoAtendimento(final Atendimento atendimento) {
 		if (atendimento.getEnderecoPaciente()) {
 			atendimento.setLocalAtendimento(atendimento.getPaciente().getEndereco());
 		}
