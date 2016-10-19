@@ -153,6 +153,7 @@ public class RelatorioUtils {
 
 			return ((ByteArrayOutputStream) outputStream).toByteArray();
 		} catch (IOException | JRException exception) {
+			exception.printStackTrace();
 			this.logger.log(Level.SEVERE, "Erro ao gerar o relatório.", exception);
 			Mensagem.add("Erro ao gerar o relatório.");
 		}

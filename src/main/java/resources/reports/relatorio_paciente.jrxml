@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_paciente" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7335e9a3-8043-4205-9cc5-b43990b5e326">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="0"/>
 	<field name="dataInicial" class="java.util.Date"/>
 	<field name="dataFinal" class="java.util.Date"/>
 	<field name="cuidadorNome" class="java.lang.String"/>
@@ -17,7 +17,7 @@
 		<band height="164" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="10" width="168" height="52" uuid="ef15c701-7b21-4ef2-abab-d6cd5b4d3179"/>
-				<imageExpression><![CDATA["img\\logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["/resources/reports/logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="168" y="16" width="387" height="20" uuid="3387153d-1c2e-46b6-84db-4175cdec90fe"/>

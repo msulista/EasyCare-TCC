@@ -2,11 +2,9 @@ package com.msulista.util;
 
 import javax.mail.util.ByteArrayDataSource;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
 import org.apache.commons.mail.SimpleEmail;
-import org.apache.log4j.lf5.viewer.categoryexplorer.CategoryAbstractCellEditor;
 
 public class EmailUtil {
 
@@ -40,12 +38,14 @@ public class EmailUtil {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void enviarEmail(String nomeCuidador, String nomePaciente, String destinatario, byte[] anexo) {
-		
-		MultiPartEmail email = new MultiPartEmail();
+
+	public static void enviarEmail(final String nomeCuidador, final String nomePaciente, final String destinatario,
+			final byte[] anexo) {
+
+		final MultiPartEmail email = new MultiPartEmail();
+
 		try {
-			
+
 			email.setHostName(SMTP_GMAIL_COM);
 			email.setSSL(true);
 			email.setAuthentication(EASYCAREWEB, PASSWORD);
@@ -53,16 +53,17 @@ public class EmailUtil {
 			email.setFrom(EMAIL);
 			email.setSubject(TITULO);
 			email.setMsg(MENSAGEM1 + nomePaciente + MENSAGEM2 + nomeCuidador + MENSAGEM3);
-			ByteArrayDataSource source = new ByteArrayDataSource(anexo,	".pdf");
+
+			final ByteArrayDataSource source = new ByteArrayDataSource(anexo, "application/pdf");
 			email.attach(source, "relatorio_easycare.pdf", "");
-			
+
 			email.send();
-			
-		} catch (EmailException e) {
+
+		} catch (final EmailException e) {
 			Mensagem.add("Falha ao enviar o relatório.");
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 }
