@@ -9,9 +9,9 @@ import org.apache.commons.mail.SimpleEmail;
 public class EmailUtil {
 
 	private static final String TITULO = "Relatório de atendimento EasyCare";
-	private static final String MENSAGEM1 = "Olá \n\n Segue em anexo o relatório de atendimento ao paciente ";
-	private static final String MENSAGEM2 = " no período de atendimento contratado.\n Atenciosamente.\n";
-	private static final String MENSAGEM3 = "\n EasyCare - Sistema web de controle de mecicamentos";
+	private static final String MENSAGEM1 = "Olá \n\nSegue em anexo o relatório de atendimento ao paciente ";
+	private static final String MENSAGEM2 = " no período de atendimento contratado.\n\nAtenciosamente.\n\n";
+	private static final String MENSAGEM3 = "\nEasyCare - Sistema web de controle de mecicamentos";
 	private static final String EMAIL = "easycareweb@gmail.com";
 	private static final String PASSWORD = "easycare123";
 	private static final String EASYCAREWEB = "easycareweb@gmail.com";
