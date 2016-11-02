@@ -13,6 +13,14 @@
 	        	<p:growl id="growl" life="4000" />
 				<p:panel header="#{message['title.medicamento.cadastrar']}" id="painel">			
 					<p:focus context="painel"/>
+					
+					<p:outputLabel for="paciente" value="#{message['label.nome.paciente']}" styleClass="label" />
+					<p:selectOneMenu id="paciente" value="#{medicamentoManager.medicamento.paciente}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
+						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
+						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
+					</p:selectOneMenu>
+					<br /><br />
+										
 					<p:outputLabel for="nome"  value="#{message['label.medicamento.nome']}" styleClass="label" />
 					<p:inputText id="nome" value="#{medicamentoManager.medicamento.nome}" required="true" requiredMessage="#{message['span.obrigatorio.nomeMedicamento']}"/>
 					<br/><br/>	
@@ -32,6 +40,11 @@
 	        		<p:outputLabel for="validade" value="#{message['label.medicamento.validade']}" styleClass="label" />
 	        		<p:calendar id="validade" value="#{medicamentoManager.medicamento.dataValidade}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false"/>
 	        		<br/><br/>
+	        		
+	        		<p:outputLabel for="estoque" value="#{message['label.medicamento.estoque']}" styleClass="label" />
+					<p:inputNumber id="estoque" value="#{medicamentoManager.medicamento.estoque}" minValue="0" maxValue="100" cols="20">  
+                	</p:inputNumber>  
+					<br/><br/>
 					  		       		
 	        		<p:commandButton value="#{message['button.salvar']}" action="#{medicamentoManager.salvar()}" update="growl" styleClass="btn"/>
 	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:medicamento" styleClass="btn"/>

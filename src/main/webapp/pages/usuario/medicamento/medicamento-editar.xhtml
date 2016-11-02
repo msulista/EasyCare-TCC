@@ -13,6 +13,14 @@
 	        	<p:growl id="growl" life="4000" />
 				<p:panel header="#{message['title.editar']}" id="painel">			
 					<p:focus context="painel"/>
+					
+					<p:outputLabel for="paciente" value="#{message['label.nome.paciente']}" styleClass="label" />
+					<p:selectOneMenu id="paciente" value="#{medicamentoManager.medicamento.paciente}" converter="simpleEntityConverter" required="true" requiredMessage="#{message['span.obrigatorio.nomePaciente']}">
+						<f:selectItem itemLabel="#{message['select.selecione.opcao']}" noSelectionOption="true"/>
+						<f:selectItems value="#{pacienteManager.obterLista()}" var="paciente" itemLabel="#{paciente.nomePaciente}" itemValue="#{paciente}"/>
+					</p:selectOneMenu>
+					<br /><br />
+					
 					<p:outputLabel for="nome"  value="#{message['label.medicamento.nome']}" styleClass="label" />
 					<p:inputText id="nome" value="#{medicamentoManager.medicamento.nome}" required="true" requiredMessage="#{message['span.obrigatorio.nomeMedicamento']}"/>
 					<br/><br/>	

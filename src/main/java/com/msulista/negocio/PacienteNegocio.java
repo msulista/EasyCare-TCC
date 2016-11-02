@@ -58,8 +58,9 @@ public class PacienteNegocio {
 		this.pacienteDao = new PacienteDao();
 
 		List<Paciente> retorno = null;
+		Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
 		try {
-			retorno = this.pacienteDao.obterLista();
+			retorno = this.pacienteDao.obterListaPorCuidador(usuarioLogado.getId());
 		} catch (final SQLException e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,

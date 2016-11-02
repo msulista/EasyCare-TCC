@@ -24,6 +24,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "paciente")
 @NamedQueries({ @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p ORDER BY p.nomePaciente ASC"),
+		@NamedQuery(name = "Paciente.findPorCuidador", query =  "SELECT p FROM Paciente p WHERE p.cuidador.id = :id ORDER BY p.nomePaciente ASC"),
 		@NamedQuery(name = "Paciente.findPorId", query = "SELECT p FROM Paciente p WHERE p.id = :id"), })
 public class Paciente implements BaseEntity, Serializable {
 

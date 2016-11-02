@@ -4,19 +4,48 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
 public class Dieta implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = -8708257484929430757L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "diet_id")
 	private Long id;
 
+	@Column(name = "diet_nome")
 	private String nome;
+	
+	@Column(name = "diet_porcao")
+	private String porcao;
+	
+	@Column(name = "diet_descricao")
+	private String descricao;
+	
+	@Column(name = "diet_tp_refeicao")
+	private Integer tipoRefeicao;
+	
+	@Column(name = "diet_vl_nutri")
+	private Double valorNutricional;
 
-	// @ManyToMany(fetch = FetchType.LAZY)
-	// @JoinTable(name = "evento_medicamento", joinColumns = { @JoinColumn(name
-	// = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "diet_id") })
-	private final List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "dieta_has_evento_medicacao", joinColumns = { @JoinColumn(name = "diet_id") }, inverseJoinColumns = { @JoinColumn(name = "event_id") })
+	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "paci_id", nullable = true)
+	private Paciente paciente;
+	
 	@Override
 	public Long getId() {
 		return this.id;
@@ -32,6 +61,56 @@ public class Dieta implements BaseEntity, Serializable {
 
 	public void setNome(final String nome) {
 		this.nome = nome;
+	}
+	
+	
+
+	public String getPorcao() {
+		return porcao;
+	}
+
+	public void setPorcao(String porcao) {
+		this.porcao = porcao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Integer getTipoRefeicao() {
+		return tipoRefeicao;
+	}
+
+	public void setTipoRefeicao(Integer tipoRefeicao) {
+		this.tipoRefeicao = tipoRefeicao;
+	}
+
+	public Double getValorNutricional() {
+		return valorNutricional;
+	}
+
+	public void setValorNutricional(Double valorNutricional) {
+		this.valorNutricional = valorNutricional;
+	}
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+	
+	public List<EventoMedicacao> getEventoMedicacoes() {
+		return eventoMedicacoes;
+	}
+
+	public void setEventoMedicacoes(List<EventoMedicacao> eventoMedicacoes) {
+		this.eventoMedicacoes = eventoMedicacoes;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import com.msulista.dao.AtendimentoDao;
 import com.msulista.dao.EventoMedicacaoDAO;
 import com.msulista.entidade.Atendimento;
+import com.msulista.entidade.Cuidador;
 import com.msulista.entidade.EventoMedicacao;
 import com.msulista.enums.RelatorioEnum;
 import com.msulista.enums.StatusEventoEnum;
@@ -17,6 +18,7 @@ import com.msulista.util.DateUtil;
 import com.msulista.util.EmailUtil;
 import com.msulista.util.Mensagem;
 import com.msulista.util.RelatorioUtils;
+import com.msulista.util.SessionUtil;
 import com.msulista.vo.RealatorioAtendimentoEventoVO;
 import com.msulista.vo.RelatorioAtendimentoVO;
 
@@ -28,6 +30,9 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	@Override
 	public boolean salvar(final Atendimento atendimento) {
+		
+		Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
+		atendimento.setCuidador(usuarioLogado);
 
 		final boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(),
 				atendimento.getDataFinal());
@@ -67,8 +72,9 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	@Override
 	public List<Atendimento> obterLista() {
 		this.atendimentoDao = new AtendimentoDao();
+		Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
 		try {
-			return this.atendimentoDao.obterLista();
+			return this.atendimentoDao.obterLista(usuarioLogado.getId());
 		} catch (final SQLException e) {
 			Mensagem.add("Erro ao acessar o banco de dados.");
 		}

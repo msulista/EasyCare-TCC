@@ -44,6 +44,20 @@ public class PacienteDao implements BaseDao<Paciente> {
 		final EntityManager manager = JPAUtil.getEntityManager();
 
 		final Query query = manager.createNamedQuery("Paciente.findAll");
+		
+		final List<Paciente> retorno = query.getResultList();
+		manager.close();
+		return retorno;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Paciente> obterListaPorCuidador(Long cuidId) throws SQLException {
+
+		final EntityManager manager = JPAUtil.getEntityManager();
+
+		final Query query = manager.createNamedQuery("Paciente.findPorCuidador");
+		query.setParameter("id", cuidId);
+		
 		final List<Paciente> retorno = query.getResultList();
 		manager.close();
 		return retorno;

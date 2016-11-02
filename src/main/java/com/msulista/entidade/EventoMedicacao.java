@@ -25,8 +25,9 @@ import com.msulista.util.DateUtil;
 @Entity
 @Table(name = "evento_medicacao")
 @NamedQueries({ @NamedQuery(name = "EventoMedicacao.findAll", query = "SELECT em FROM EventoMedicacao em"),
+	@NamedQuery(name = "EventoMedicacao.findPorCuidador", query = "SELECT em FROM EventoMedicacao em WHERE em.atendimento.cuidador.id = :id"),
 		@NamedQuery(name = "EventoMedicacao.findId", query = "SELECT em FROM EventoMedicacao em WHERE em.id = :id"),
-		@NamedQuery(name = "EventoMedicacao.findDiaCorrente", query = "SELECT em FROM EventoMedicacao em WHERE em.dataHora BETWEEN :dataInicio AND :dataFim ORDER BY em.dataHora"),
+		@NamedQuery(name = "EventoMedicacao.findDiaCorrente", query = "SELECT em FROM EventoMedicacao em WHERE em.dataHora BETWEEN :dataInicio AND :dataFim AND em.atendimento.cuidador.id = :id ORDER BY em.dataHora"),
 		@NamedQuery(name = "EventoMedicacao.findPorAtendimentoId", query = "SELECT em FROM EventoMedicacao em WHERE em.atendimento.id = :id ORDER BY em.dataHora"),})
 public class EventoMedicacao implements BaseEntity, Serializable {
 

@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import com.msulista.entidade.EventoMedicacao;
 import com.msulista.util.DateUtil;
 import com.msulista.util.JPAUtil;
+import com.msulista.util.SessionUtil;
 
 public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 
@@ -49,12 +50,24 @@ public class EventoMedicacaoDAO implements BaseDao<EventoMedicacao>{
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<EventoMedicacao> obterLista(Long id) throws SQLException {
+		final EntityManager manager = JPAUtil.getEntityManager();
+
+		final Query query = manager.createNamedQuery("EventoMedicacao.findPorCuidador");
+		query.setParameter("id", id);
+		final List<EventoMedicacao> retorno = query.getResultList();
+		manager.close();
+		return retorno;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<EventoMedicacao> obterListaDiaCorrente() throws SQLException {
 		final EntityManager manager = JPAUtil.getEntityManager();
 
 		final Query query = manager.createNamedQuery("EventoMedicacao.findDiaCorrente");
 		query.setParameter("dataInicio", new Date());
 		query.setParameter("dataFim", DateUtil.dataSistemaUltimoHorario());
+		query.setParameter("id", SessionUtil.obtemUsuarioLogado().getId());
 		final List<EventoMedicacao> retorno = query.getResultList();
 		manager.close();
 		return retorno;

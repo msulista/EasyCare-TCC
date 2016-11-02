@@ -8,9 +8,11 @@ import org.joda.time.DateTime;
 
 import com.msulista.dao.EventoMedicacaoDAO;
 import com.msulista.entidade.Atendimento;
+import com.msulista.entidade.Cuidador;
 import com.msulista.entidade.EventoMedicacao;
 import com.msulista.util.DateUtil;
 import com.msulista.util.Mensagem;
+import com.msulista.util.SessionUtil;
 
 public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 	
@@ -63,8 +65,9 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao>{
 	@Override
 	public List<EventoMedicacao> obterLista() {
 		this.eventMedicacaoDAO = new EventoMedicacaoDAO();
+		Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
 		try {
-			return this.eventMedicacaoDAO.obterLista();
+			return this.eventMedicacaoDAO.obterLista(usuarioLogado.getId());
 		} catch (SQLException e) {
 			Mensagem.add("Erro ao executar Sql.");
 		}

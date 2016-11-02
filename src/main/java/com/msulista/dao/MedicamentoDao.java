@@ -49,6 +49,30 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 		manager.close();
 		return retorno;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Medicamento> obterListaPorCuidador(Long id) throws SQLException {
+
+		final EntityManager manager = JPAUtil.getEntityManager();
+
+		final Query query = manager.createNamedQuery("Medicamento.findPorCuidador");
+		query.setParameter("id", id);
+		final List<Medicamento> retorno = query.getResultList();
+		manager.close();
+		return retorno;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Medicamento> obterListaPorPaciente(Long id) throws SQLException {
+
+		final EntityManager manager = JPAUtil.getEntityManager();
+
+		final Query query = manager.createNamedQuery("Medicamento.findPorPaciente");
+		query.setParameter("id", id);
+		final List<Medicamento> retorno = query.getResultList();
+		manager.close();
+		return retorno;
+	}
 
 	@Override
 	public Medicamento obterEvento(final Long id) throws SQLException {

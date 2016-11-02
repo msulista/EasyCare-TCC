@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,6 +25,8 @@ import com.msulista.util.DateUtil;
 @Entity
 @Table(name = "medicamento")
 @NamedQueries({ @NamedQuery(name = "Medicamento.findAll", query = "SELECT m FROM Medicamento m ORDER BY m.nome ASC"),
+		@NamedQuery(name = "Medicamento.findPorPaciente", query = "SELECT m FROM Medicamento m  WHERE m.paciente.id = :id ORDER BY m.nome ASC"),
+		@NamedQuery(name = "Medicamento.findPorCuidador", query = "SELECT m FROM Medicamento m  WHERE m.paciente.cuidador.id = :id ORDER BY m.nome ASC"),
 		@NamedQuery(name = "Medicamento.findPorId", query = "SELECT m FROM Medicamento m WHERE m.id = :id"), })
 public class Medicamento implements BaseEntity, Serializable {
 
@@ -58,6 +61,10 @@ public class Medicamento implements BaseEntity, Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "medi_id") }, inverseJoinColumns = { @JoinColumn(name = "event_id") })
 	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "paci_id", nullable = true)
+	private Paciente paciente;
 	
 	@Transient
 	private String transientDtValidade;
@@ -142,6 +149,14 @@ public class Medicamento implements BaseEntity, Serializable {
 
 	public void setTransientDtValidade(String transientDtValidade) {
 		this.transientDtValidade = transientDtValidade;
+	}
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
 	@Override

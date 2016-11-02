@@ -7,7 +7,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import com.msulista.dao.MedicamentoDao;
+import com.msulista.entidade.Cuidador;
 import com.msulista.entidade.Medicamento;
+import com.msulista.util.SessionUtil;
 
 public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 
@@ -43,8 +45,24 @@ public class MedicamentoNegocio implements NegocioBase<Medicamento> {
 
 		this.medicamentoDao = new MedicamentoDao();
 		List<Medicamento> retorno = null;
+		
+		Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
 		try {
-			retorno = this.medicamentoDao.obterLista();
+			retorno = this.medicamentoDao.obterListaPorCuidador(usuarioLogado.getId());
+		} catch (final SQLException e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro ao executar Sql."));
+		}
+		return retorno;
+	}
+	
+	public List<Medicamento> obterListaPorPaciente(Long id) {
+
+		this.medicamentoDao = new MedicamentoDao();
+		List<Medicamento> retorno = null;
+		try {
+			retorno = this.medicamentoDao.obterListaPorPaciente(id);
 		} catch (final SQLException e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,

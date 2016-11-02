@@ -46,6 +46,17 @@ public class AtendimentoDao implements BaseDao<Atendimento> {
 		manager.close();
 		return retorno;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Atendimento> obterLista(Long id) throws SQLException {
+		final EntityManager manager = JPAUtil.getEntityManager();
+
+		final Query query = manager.createNamedQuery("Atendimento.findPorCuidador");
+		query.setParameter("id", id);
+		final List<Atendimento> retorno = query.getResultList();
+		manager.close();
+		return retorno;
+	}
 
 	@Override
 	public Atendimento obterEvento(final Long id) throws SQLException {
