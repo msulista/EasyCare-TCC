@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -54,6 +56,10 @@ public class Paciente implements BaseEntity, Serializable {
 
 	@Column(name = "paci_endereco")
 	private String endereco;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cuid_id", nullable = true)
+	private Cuidador cuidador;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = CascadeType.REMOVE)
 	private List<Atendimento> atendimentos = new ArrayList<>();
@@ -178,6 +184,14 @@ public class Paciente implements BaseEntity, Serializable {
 
 	public void setGoogleAgenda(Boolean googleAgenda) {
 		this.googleAgenda = googleAgenda;
+	}
+
+	public Cuidador getCuidador() {
+		return cuidador;
+	}
+
+	public void setCuidador(Cuidador cuidador) {
+		this.cuidador = cuidador;
 	}
 
 	@Override

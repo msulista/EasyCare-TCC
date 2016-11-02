@@ -29,7 +29,6 @@ public class LoginManager implements Serializable {
 	private Cuidador cuidadorLogado;
 
 	public String autentica() {
-		System.out.println("TESTEEEEEEEEEEEEE");
 		final CuidadorNegocio cuidadorNegocio = new CuidadorNegocio();
 		final List<Cuidador> cuidadores = cuidadorNegocio.obterLista();
 		for (final Cuidador cuidador : cuidadores) {
@@ -40,7 +39,7 @@ public class LoginManager implements Serializable {
 
 				SessionUtil.setParam("user", cuidador);
 				this.cuidadorLogado = cuidador;
-
+   
 				return "pretty:logado";
 			}
 		}
@@ -81,5 +80,5 @@ public class LoginManager implements Serializable {
 	public boolean logadoOn() {
 		return (this.cuidadorLogado != null);
 	}
-
+	
 }

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import com.msulista.entidade.Cuidador;
+
 public class SessionUtil implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,5 +32,9 @@ public class SessionUtil implements Serializable {
 
 	public static void invalidate() {
 		getSession().invalidate();
+	}
+	
+	public static Cuidador obtemUsuarioLogado() {
+		return (Cuidador)getSession().getAttribute("user");
 	}
 }

@@ -52,7 +52,7 @@ public class Atendimento implements BaseEntity, Serializable {
 	@Column(name = "atend_hr_final")
 	private Date horaFinal;
 
-	@Column(name = "atend_local")
+	@Column(name = "atend_localizacao")
 	private String localAtendimento;
 
 	@ManyToOne(fetch = FetchType.EAGER)

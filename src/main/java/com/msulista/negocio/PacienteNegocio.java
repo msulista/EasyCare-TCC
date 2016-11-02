@@ -6,16 +6,22 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import com.msulista.dao.CuidadorDao;
 import com.msulista.dao.PacienteDao;
+import com.msulista.entidade.Cuidador;
 import com.msulista.entidade.Paciente;
 import com.msulista.util.Mensagem;
+import com.msulista.util.SessionUtil;
 
 public class PacienteNegocio {
 
 	protected PacienteDao pacienteDao;
+	protected CuidadorDao cuidadorDao;
 
 	public String salvar(final Paciente paciente) {
 		this.pacienteDao = new PacienteDao();
+		Cuidador cui = SessionUtil.obtemUsuarioLogado();
+		paciente.setCuidador(cui);
 		try {
 			this.pacienteDao.salvar(paciente);
 		} catch (final SQLException e) {
@@ -41,7 +47,7 @@ public class PacienteNegocio {
 		try {
 			return this.pacienteDao.obterEvento(id); 
 		} catch (final SQLException e) {
-			Mensagem.add("Ocorreu um erro ao alterar o evento.");
+			Mensagem.add("Ocorreu um erro ao obter o paciente.");
 			e.printStackTrace();
 		}
 		return null;
