@@ -33,7 +33,7 @@
 			<!-- index-paineis -->
 
 			<div class="ui-g-8">
-				
+				<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
 				<h:form>           
 			        <h:panelGrid columns="2" cellpadding="5">
 			            <h:outputLabel for="email" value="Email:" />
@@ -43,9 +43,10 @@
 			            <p:password id="cpf" value="#{loginManager.cpf}" required="true" label="password" />
 			 
 			            <f:facet name="footer">
-			                <p:commandButton value="Login" actionListener="#{loginManager.autentica()}" />
+			                <p:commandButton value="Login" action="#{loginManager.autentica()}" update="growl" />
 			            </f:facet>  
 			        </h:panelGrid>
+			        
 				</h:form>
  
 

@@ -8,11 +8,14 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//@WebFilter(filterName = "controleAcesso", urlPatterns = { "/pages/usuario/*" })
+import com.msulista.entidade.Cuidador;
+
+@WebFilter(filterName = "controleAcesso", urlPatterns = { "/pages/usuario/*" })
 public class ControleDeAcesso implements Filter {
 	// servletNames = { "Faces Servlet" },
 	@Override
@@ -21,13 +24,16 @@ public class ControleDeAcesso implements Filter {
 
 		final HttpServletRequest req = (HttpServletRequest) request;
 		final HttpSession session = req.getSession();
+		System.out.println("TESTEEEEEEEEEEEEEEe");
 
-		if ((session.getAttribute("user") != null) || (req.getRequestURI().endsWith("inicial.xhtml"))
-		// || (req.getRequestURI().endsWith("easycare")) ||
-		// (req.getRequestURI().endsWith("pretty:easycare"))
-				|| (req.getRequestURI().contains("javax.faces.resource/"))) {
+		if ((session.getAttribute("user") != null && ((Cuidador) (session.getAttribute("user"))).getId() != null)
+				|| (req.getRequestURI().endsWith("inicial.xhtml"))) {
+			// || (req.getRequestURI().endsWith("easycare")) ||
+			// (req.getRequestURI().endsWith("pretty:easycare"))
+			// || (req.getRequestURI().contains("javax.faces.resource/"))) {
 
 			System.out.println("Loguei!!!!!!!!!!!!");
+			System.out.println(session.getAttribute("user"));
 
 			// redireciona("/Logado.xhtml", response);
 

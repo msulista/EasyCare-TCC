@@ -41,7 +41,7 @@ public class Cuidador implements BaseEntity, Serializable {
 
 	@Column(name = "cuid_dt_nascimento")
 	private Date dataNascimento;
-	
+
 	@Column(name = "cuid_cpf")
 	private String cpf;
 
@@ -142,18 +142,18 @@ public class Cuidador implements BaseEntity, Serializable {
 	}
 
 	public String getCpf() {
-		return cpf;
+		return this.cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public void setCpf(final String cpf) {
 		this.cpf = cpf;
 	}
 
-	 public boolean verificaLogin(String email, String cpf){
-	        
-	        return (this.email.equalsIgnoreCase(email) && this.cpf.equals(cpf));
+	public boolean verificaLogin(final String email, final String cpf) {
+
+		return (this.email.equalsIgnoreCase(email) && this.cpf.equals(cpf));
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -182,6 +182,11 @@ public class Cuidador implements BaseEntity, Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Cuidador [id=" + this.id + ", nome=" + this.nome + "]";
 	}
 
 }

@@ -16,67 +16,70 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @SessionScoped
 @URLMappings(mappings = {
-//		@URLMapping(id = "easycare", pattern = "/easycare", viewId = "/pages/home/inicial.xhtml"),
-		@URLMapping(id = "logado", pattern = "/logado", viewId = "/pages/usuario/home/index.xhtml")})
-public class LoginManager implements Serializable{    
-    
+		// @URLMapping(id = "easycare", pattern = "/easycare", viewId =
+		// "/pages/home/inicial.xhtml"),
+		@URLMapping(id = "logado", pattern = "/logado", viewId = "/pages/usuario/home/index.xhtml") })
+public class LoginManager implements Serializable {
+
 	private static final long serialVersionUID = 7165000715351164498L;
-	
-    private String email;
-    private String cpf;
-    
-    private Cuidador cuidadorLogado;
-    
-    public String autentica() {
-    	CuidadorNegocio cuidadorNegocio = new CuidadorNegocio();
-    	List<Cuidador> cuidadores = cuidadorNegocio.obterLista();
-    	for (Cuidador cuidador : cuidadores) {
 
-    		if (email.equals(cuidador.getEmail()) && cpf.equals(cuidador.getCpf())) {
-    			
-    			Mensagem.add("Login realizado com sucesso!");
-    			
-    			SessionUtil.setParam("user", cuidador);
-    			
-    			return "pretty:logado";
-    		}
+	private String email;
+	private String cpf;
+
+	private Cuidador cuidadorLogado;
+
+	public String autentica() {
+		System.out.println("TESTEEEEEEEEEEEEE");
+		final CuidadorNegocio cuidadorNegocio = new CuidadorNegocio();
+		final List<Cuidador> cuidadores = cuidadorNegocio.obterLista();
+		for (final Cuidador cuidador : cuidadores) {
+
+			if (this.email.equals(cuidador.getEmail()) && this.cpf.equals(cuidador.getCpf())) {
+
+				Mensagem.add("Login realizado com sucesso!");
+
+				SessionUtil.setParam("user", cuidador);
+				this.cuidadorLogado = cuidador;
+
+				return "pretty:logado";
+			}
 		}
-    	Mensagem.add("Email ou senha informados estão errados!");
-    	return "/pages/home/inicial.xhtml";
-    }
-    
-    public String logout() {
-    	
-    	SessionUtil.remove("user");
-    	return "pretty:easycare";
-    }
-   
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-	public Cuidador getCuidadorLogado() {
-		return cuidadorLogado;
+		Mensagem.add("Email ou senha informados estão errados!");
+		return "/pages/home/inicial.xhtml";
 	}
 
-	public void setCuidadorLogado(Cuidador cuidadorLogado) {
+	public String logout() {
+
+		SessionUtil.remove("user");
+		return "pretty:easycare";
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(final String email) {
+		this.email = email;
+	}
+
+	public String getCpf() {
+		return this.cpf;
+	}
+
+	public void setCpf(final String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Cuidador getCuidadorLogado() {
+		return this.cuidadorLogado;
+	}
+
+	public void setCuidadorLogado(final Cuidador cuidadorLogado) {
 		this.cuidadorLogado = cuidadorLogado;
 	}
 
-	public boolean logadoOn(){
-        return (cuidadorLogado != null);
-    }
-   
+	public boolean logadoOn() {
+		return (this.cuidadorLogado != null);
+	}
+
 }
