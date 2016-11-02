@@ -1,5 +1,6 @@
 package com.msulista.manager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,15 +9,19 @@ import javax.faces.bean.ViewScoped;
 
 import com.msulista.entidade.Cuidador;
 import com.msulista.negocio.CuidadorNegocio;
+import com.msulista.util.Mensagem;
+import com.msulista.util.SessionUtil;
+import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
 @ViewScoped
 @URLMappings(mappings = {
-		@URLMapping(id = "cuidador", pattern = "/cuidador", viewId = "/pages/cuidador/cuidador-listar.xhtml"),
+		@URLMapping(id = "cuidador", pattern = "/cuidador", viewId = "/pages/usuario/cuidador/cuidador-listar.xhtml"),
 		@URLMapping(id = "cuidador-incluir", pattern = "/incluir", viewId = "/pages/cuidador/cuidador-incluir.xhtml", parentId = "cuidador"),
-		@URLMapping(id = "cuidador-editar", pattern = "/#{cuidadorManager.cuidador.id}/editar", viewId = "/pages/cuidador/cuidador-editar.xhtml", parentId = "cuidador") })
+		@URLMapping(id = "cuidador-editar", pattern = "/#{cuidadorManager.cuidador.id}/editar", viewId = "/pages/usuario/cuidador/cuidador-editar.xhtml", parentId = "cuidador") })
 public class CuidadorManager {
 
 	private Cuidador cuidador;
@@ -31,12 +36,13 @@ public class CuidadorManager {
 
 	public String salvar() {
 		this.cuidadorNegocio.salvar(this.cuidador);
-		return "pretty:cuidador";
+		Mensagem.add("Cadastro realizado com sucesso.");
+		return "/pages/home/inicial.xhtml";
 	}
 
 	public String alterar() {
 		this.cuidadorNegocio.alterar(this.cuidador);
-		return "pretty:cuidador";
+		return "/pages/usuario/home/index.xhtml";
 	}
 
 	public List<Cuidador> obterLista() {
@@ -50,7 +56,7 @@ public class CuidadorManager {
 	// Getters & Setters
 
 	public Cuidador getCuidador() {
-		return this.cuidador;
+		return this.cuidador = SessionUtil.obtemUsuarioLogado();
 	}
 
 	public void setCuidador(final Cuidador cuidador) {
@@ -72,4 +78,11 @@ public class CuidadorManager {
 	public void setLista(final List<Cuidador> lista) {
 		this.lista = lista;
 	}
+
+	@URLActions(actions = { @URLAction(mappingId = "cuidador-editar", onPostback = false) })
+	public void load() throws IOException {
+		this.cuidador = this.cuidadorNegocio.obterPorId(this.cuidador.getId());
+	}
+	
+	
 }

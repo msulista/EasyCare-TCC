@@ -487,6 +487,7 @@ input[type=text] {
   .index-paineis{
   	
   }
+ 
   .index-painel{
 	border: 3px solid #0f4d40;
 	margin-top: 5px;
@@ -500,6 +501,10 @@ input[type=text] {
 	margin-left: 10%;
 	float: inherit;
 	top: 50%;
+}
+/*-------------Inicial-------------*/
+.login{
+	margin-left: 5%;
 }
 
 /*----------Cadastro Evento--------*/

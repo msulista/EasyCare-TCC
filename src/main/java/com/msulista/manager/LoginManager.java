@@ -50,7 +50,7 @@ public class LoginManager implements Serializable {
 	public String logout() {
 
 		SessionUtil.remove("user");
-		return "pretty:easycare";
+		return "pages/home/inicial.xhtml";
 	}
 
 	public String getEmail() {

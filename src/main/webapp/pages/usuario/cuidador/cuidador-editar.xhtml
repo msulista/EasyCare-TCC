@@ -1,6 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-    template="/pages/template/default.xhtml"
+    template="/pages/template/logado.xhtml"
     xmlns:pretty="http://ocpsoft.com/prettyfaces"
     xmlns:pe="http://primefaces.org/ui/extensions">
 
@@ -16,9 +16,13 @@
 					<p:outputLabel for="nome"  value="#{message['label.nome']}" styleClass="label" />
 					<p:inputText id="nome" value="#{cuidadorManager.cuidador.nome}" required="true" requiredMessage="#{message['span.obrigatorio.nome']}"/>
 					<br/><br/>	
+					
+					<p:outputLabel for="cpf"  value="#{message['label.cpf']}" styleClass="label" />
+					<p:inputMask id="cpf" value="#{cuidadorManager.cuidador.cpf}" mask="999.999.999-99" required="true" requiredMessage="#{message['span.obrigatorio.nome']}"/>
+					<br/><br/>
 								
 					<p:outputLabel for="fone" value="#{message['label.fone']}" styleClass="label" />
-					<p:inputText id="fone" value="#{cuidadorManager.cuidador.telefone}" mask="(99) 9999.9999" required="false" />
+					<p:inputMask id="fone" value="#{cuidadorManager.cuidador.telefone}" mask="(99) 9999.9999" required="false" />
 					<br/><br/>	
 					
 					<p:outputLabel for="email" value="#{message['label.email']}" styleClass="label" />
@@ -41,7 +45,7 @@
 	        		<p:calendar id="aniver" value="#{cuidadorManager.cuidador.dataNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false"/>
 	        		<br/><br/>
 					  		       		
-	        		<p:commandButton value="#{message['button.salvar']}" action="#{cuidadorManager.salvar()}" update="growl" styleClass="btn"/>
+	        		<p:commandButton value="#{message['button.salvar']}" action="#{cuidadorManager.alterar()}" update="growl" styleClass="btn"/>
 	        		<p:button value="#{message['button.cancelar']}" outcome="pretty:cuidador" styleClass="btn"/>
 				</p:panel> 
 			</h:form>

@@ -1,6 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-    template="/pages/template/default.xhtml"
+    template="/pages/template/logado.xhtml"
     xmlns:pretty="http://ocpsoft.com/prettyfaces"
     xmlns:pe="http://primefaces.org/ui/extensions">
 
@@ -37,9 +37,7 @@
 					<br/><br/>	
 					<p:outputLabel for="email" value="#{message['label.email.responsavel']}" styleClass="label" />
 					<p:inputText id="email" value="#{pacienteManager.paciente.emailFamiliar}" required="false"/>					
-					<br/><br/>						
-			        <h:outputText value="#{message['label.google.calendar']}" styleClass="label" />
-        			<p:selectBooleanCheckbox value="#{pacienteManager.paciente.googleAgenda}" />
+					
 					<br/><br/>
 					<br/><br/>
 					            		

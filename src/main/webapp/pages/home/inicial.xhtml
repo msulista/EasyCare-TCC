@@ -6,56 +6,52 @@
 	template="/pages/template/default.xhtml">
 
 	<ui:define name="content">
-
+		
 		<div class="index-geral ui-g">
-			<div class="index-paineis ui-g-4">
-				<div id="evento" class="index-painel">
-					<h:link outcome="pretty:eventoMedicacao-incluir">
-						<div class="index-text-painel">Novo evento</div>
-					</h:link>
-				</div>
-				<div id="agenda" class="index-painel">
+
+			<div class="ui-g-6">
+				<H1>Classificados de cuidadores</H1>
+				<div id="agenda" class="index-painel ">
 					<h:link outcome="pretty:atendimento-incluir">
-						<div class="index-text-painel">Reserva de horário</div>
+						<div class="index-text-painel">Lista de Cuidadores</div>
 					</h:link>
 				</div>
-				<div id="paciente" class="index-painel">
-					<h:link outcome="pretty:paciente">
-						<div class="index-text-painel">Paciente</div>
-					</h:link>
-				</div>
-				<div id="medicamento" class="index-painel">
-					<h:link outcome="pretty:medicamento">
-						<div class="index-text-painel">Medicamento</div>
-					</h:link>
-				</div>
-			</div>
-			<!-- index-paineis -->
-
-			<div class="ui-g-8">
-				<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
-				<h:form>           
-			        <h:panelGrid columns="2" cellpadding="5">
-			            <h:outputLabel for="email" value="Email:" />
-			            <p:inputText id="email" value="#{loginManager.email}" required="true" label="username" />
-			 
-			            <h:outputLabel for="cpf" value="Password:" />
-			            <p:password id="cpf" value="#{loginManager.cpf}" required="true" label="password" />
-			 
-			            <f:facet name="footer">
-			                <p:commandButton value="Login" action="#{loginManager.autentica()}" update="growl" />
-			            </f:facet>  
-			        </h:panelGrid>
-			        
-				</h:form>
- 
-
 				
 				
 			</div>
-			<!--index-medicacao-->
+				<!-- index-paineis -->
+	
+				<div class="ui-g-6">
+				
+				<H1>Não possui cadastro no sistema?</H1>
+				<div class="index-paineis">
+					<div id="evento" class="index-painel ">
+						<h:link outcome="pretty:cuidador-incluir">
+							<div class="index-text-painel">Cadastro Cuidador</div>
+						</h:link>
+					</div>
+					
+				</div>
+				
+					<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
+					<H1>Realize o login no sistema</H1>
+					<h:form>           
+				        <h:panelGrid columns="2" cellpadding="5">
+				            <h:outputLabel for="email" value="Email:" />
+				            <p:inputText id="email" value="#{loginManager.email}" required="true" label="username" />
+				 
+				            <h:outputLabel for="cpf" value="Password:" />
+				            <p:password id="cpf" value="#{loginManager.cpf}" required="true" label="password" />
+				 
+				            <f:facet name="footer">
+				                <p:commandButton value="Login" action="#{loginManager.autentica()}" update="growl" />
+				            </f:facet>  
+				        </h:panelGrid>
+				        
+					</h:form>
+				</div>
+			<!--index-geral-->
 		</div>
-		<!--index-geral-->
 	</ui:define>
 
 </ui:composition>
