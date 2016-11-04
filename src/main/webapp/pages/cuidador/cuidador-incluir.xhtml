@@ -13,12 +13,13 @@
 	        	<p:growl id="growl" life="4000" />
 				<p:panel header="#{message['title.cuidador.cadastrar']}" id="painel">			
 					<p:focus context="painel"/>
+					
 					<p:outputLabel for="nome"  value="#{message['label.nome']}" styleClass="label" />
-					<p:inputText id="nome" value="#{cuidadorManager.cuidador.nome}" required="true" requiredMessage="#{message['span.obrigatorio.nome']}"/>
+					<p:inputText id="nome" value="#{cuidadorManager.cuidador.nome}" required="true" requiredMessage="#{message['span.obrigatorio.nomeCuidador']}"/>
 					<br/><br/>
 					
 					<p:outputLabel for="cpf"  value="#{message['label.cpf']}" styleClass="label" />
-					<p:inputMask id="cpf" value="#{cuidadorManager.cuidador.cpf}" mask="999.999.999-99" required="true" requiredMessage="#{message['span.obrigatorio.nome']}"/>
+					<p:inputMask id="cpf" value="#{cuidadorManager.cuidador.cpf}" mask="999.999.999-99" converter="conversorCpf" required="true" requiredMessage="#{message['span.obrigatorio.cpfCuidador']}"/>
 					<br/><br/>	
 								
 					<p:outputLabel for="fone" value="#{message['label.fone']}" styleClass="label" />
@@ -26,7 +27,7 @@
 					<br/><br/>	
 					
 					<p:outputLabel for="email" value="#{message['label.email']}" styleClass="label" />
-					<p:inputText id="email" value="#{cuidadorManager.cuidador.email}" required="true" requiredMessage="#{message['span.obrigatorio.email']}" />
+					<p:inputText id="email" value="#{cuidadorManager.cuidador.email}" required="true" requiredMessage="#{message['span.obrigatorio.emailCuidador']}" />
 					<br/><br/>
 					
 					<p:outputLabel for="bio" value="#{message['label.descricao']}" styleClass="label" />

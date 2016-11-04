@@ -41,8 +41,8 @@ public class MedicamentoManager {
 		this.medicamentoNegocio.alterar(this.medicamento);
 		return "pretty:medicamento";
 	}
-	
-	public String editar(Medicamento medicamentoEdit) {
+
+	public String editar(final Medicamento medicamentoEdit) {
 		this.medicamento = medicamentoEdit;
 		return "pretty:medicamento-editar";
 	}
@@ -51,11 +51,15 @@ public class MedicamentoManager {
 		return this.medicamentoNegocio.obterLista();
 	}
 
+	public List<Medicamento> obterListaPorPaciente(final Long idPaciente) {
+		return this.medicamentoNegocio.obterListaPorPaciente(idPaciente);
+	}
+
 	public Medicamento obterMedicamento() {
 		return this.medicamentoNegocio.obterPorId(this.medicamento.getId());
 	}
-	
-	public String excluir(Medicamento medicamento) {
+
+	public String excluir(final Medicamento medicamento) {
 		this.medicamentoNegocio.excluir(medicamento);
 		return "pretty:medicamento";
 	}
@@ -84,7 +88,7 @@ public class MedicamentoManager {
 	public void setMedicamentoNegocio(final MedicamentoNegocio medicamentoNegocio) {
 		this.medicamentoNegocio = medicamentoNegocio;
 	}
-	
+
 	@URLActions(actions = { @URLAction(mappingId = "medicamento-editar", onPostback = false) })
 	public void load() throws IOException {
 		this.medicamento = this.medicamentoNegocio.obterPorId(this.medicamento.getId());

@@ -26,6 +26,9 @@
 							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
 						</h:outputText>
 					</p:column>
+					<p:column headerText="#{message['label.evento.medicacao']}" >
+                        <h:outputText value="#{evento.transientNomeMedicacao}" />
+                    </p:column>
 					<p:column headerText="#{message['label.evento.descricao']}" >
 						<h:outputText value="#{evento.descricao}" />
 					</p:column>

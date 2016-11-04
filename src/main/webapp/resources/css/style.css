@@ -398,6 +398,9 @@ input[type=text] {
 .menu-categoria{
 	padding: 17px 10px;
 }
+.menu-logout{
+	float: right !important;
+}
 
 .menu > ul > li > a {
     

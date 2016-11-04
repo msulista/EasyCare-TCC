@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.msulista.entidade.Cuidador;
-import com.msulista.entidade.Paciente;
 import com.msulista.util.JPAUtil;
 
 public class CuidadorDao implements BaseDao<Cuidador> {
@@ -43,8 +42,8 @@ public class CuidadorDao implements BaseDao<Cuidador> {
 
 		final EntityManager manager = JPAUtil.getEntityManager();
 
-		Query query = manager.createNamedQuery("Cuidador.findAll");
-		
+		final Query query = manager.createNamedQuery("Cuidador.findAll");
+
 		final List<Cuidador> retorno = query.getResultList();
 		manager.close();
 		return retorno;
@@ -62,10 +61,10 @@ public class CuidadorDao implements BaseDao<Cuidador> {
 	}
 
 	@Override
-	public void excluir(Cuidador cuidador) {
+	public void excluir(final Cuidador cuidador) {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
-		
+
 		manager.remove(manager.merge(cuidador));
 		manager.getTransaction().commit();
 		manager.close();

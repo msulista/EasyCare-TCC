@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import com.msulista.entidade.Medicamento;
 import com.msulista.util.JPAUtil;
-import com.msulista.util.Mensagem;
 
 public class MedicamentoDao implements BaseDao<Medicamento> {
 
@@ -49,9 +48,9 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 		manager.close();
 		return retorno;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Medicamento> obterListaPorCuidador(Long id) throws SQLException {
+	public List<Medicamento> obterListaPorCuidador(final Long id) throws SQLException {
 
 		final EntityManager manager = JPAUtil.getEntityManager();
 
@@ -61,9 +60,9 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 		manager.close();
 		return retorno;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Medicamento> obterListaPorPaciente(Long id) throws SQLException {
+	public List<Medicamento> obterListaPorPaciente(final Long id) throws SQLException {
 
 		final EntityManager manager = JPAUtil.getEntityManager();
 
@@ -87,16 +86,15 @@ public class MedicamentoDao implements BaseDao<Medicamento> {
 		return medicamento;
 	}
 
-
 	@Override
-	public void excluir(Medicamento medicamento) {
+	public void excluir(final Medicamento medicamento) {
 		final EntityManager manager = JPAUtil.getEntityManager();
 		manager.getTransaction().begin();
 
 		manager.remove(manager.merge(medicamento));
 		manager.getTransaction().commit();
 		manager.close();
-		
+
 	}
 
 }

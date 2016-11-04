@@ -184,9 +184,9 @@ public class Cuidador implements BaseEntity, Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Cuidador [id=" + this.id + ", nome=" + this.nome + "]";
-	}
+	// @Override
+	// public String toString() {
+	// return "Cuidador [id=" + this.id + ", nome=" + this.nome + "]";
+	// }
 
 }

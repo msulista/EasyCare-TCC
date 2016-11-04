@@ -37,18 +37,18 @@ public class EventoMedicacaoManager {
 	private EventoMedicacaoNegocio eventMedicacaoNegocio;
 	private Medicamento medicademento;
 	private Atendimento atendimento;
-	
+
 	@PostConstruct
 	public void inicializar() {
 		this.eventoMedicacao = new EventoMedicacao();
 		this.eventoMedicacoes = new ArrayList<>();
 		this.eventMedicacaoNegocio = new EventoMedicacaoNegocio();
 		this.scheduleModel = new DefaultScheduleModel();
-		
+
 		this.eventoMedicacoes = this.eventMedicacaoNegocio.obterLista();
-		
-		for (EventoMedicacao eventoMedicacao : eventoMedicacoes) {
-			DefaultScheduleEvent evt = new DefaultScheduleEvent();
+
+		for (final EventoMedicacao eventoMedicacao : this.eventoMedicacoes) {
+			final DefaultScheduleEvent evt = new DefaultScheduleEvent();
 			evt.setData(eventoMedicacao.getId());
 			evt.setTitle(eventoMedicacao.getTitulo());
 			evt.setStartDate(eventoMedicacao.getDataHora());
@@ -56,12 +56,12 @@ public class EventoMedicacaoManager {
 			evt.setDescription(eventoMedicacao.getDescricao());
 			evt.setAllDay(false);
 			evt.setEditable(true);
-//			evt.setStyleClass("event-green");			
-			
-			scheduleModel.addEvent(evt);
+			// evt.setStyleClass("event-green");
+
+			this.scheduleModel.addEvent(evt);
 		}
 	}
-		
+
 	public String salvar() {
 		this.eventoMedicacao.getMedicamentos().add(this.medicademento);
 		if (this.eventMedicacaoNegocio.salvar(this.eventoMedicacao)) {
@@ -79,66 +79,67 @@ public class EventoMedicacaoManager {
 		}
 		return null;
 	}
-	
-	public String editar(EventoMedicacao evento) {
+
+	public String editar(final EventoMedicacao evento) {
 		this.eventoMedicacao = evento;
 		return "pretty:eventoMedicacao-editar";
 	}
-	
+
 	public List<EventoMedicacao> obterLista() {
 		return this.eventMedicacaoNegocio.obterLista();
 	}
-	
+
 	public List<EventoMedicacao> obterListaDiaCorrente() {
 		return this.eventMedicacaoNegocio.obterListaDiaCorrente();
 	}
-	
+
 	public EventoMedicacao obterEventoMedicacao() {
 		return this.eventMedicacaoNegocio.obterPorId(this.eventoMedicacao.getId());
 	}
-	
-	public String excluir(EventoMedicacao evento) {
+
+	public String excluir(final EventoMedicacao evento) {
 		this.eventMedicacaoNegocio.excluir(evento);
 		return "pretty:eventoMedicacao";
 	}
-	
-	public void eventoRealizado(EventoMedicacao evento) {
-		
+
+	public void eventoRealizado(final EventoMedicacao evento) {
+
 		evento.setStattus(1);
 		this.eventoMedicacao = evento;
-		this.eventMedicacaoNegocio.alterar(eventoMedicacao);
+		this.eventMedicacaoNegocio.alterar(this.eventoMedicacao);
 		Mensagem.add("Evento realizado!!!");
 	}
-	
-	public void eventoNaoRealizado(EventoMedicacao evento) {
-		
+
+	public void eventoNaoRealizado(final EventoMedicacao evento) {
+
 		evento.setStattus(0);
 		this.eventoMedicacao = evento;
-		this.eventMedicacaoNegocio.alterar(eventoMedicacao);
+		this.eventMedicacaoNegocio.alterar(this.eventoMedicacao);
 		Mensagem.add("Evento não realizado!!!");
 	}
-	
+
 	public void verificaAlertaHorario() {
-		List<EventoMedicacao> eventos = this.obterListaDiaCorrente();
-		for (EventoMedicacao eventoMedicacao : eventos) {
-			Long minuto = DateUtil.verificaHoraAlareme(eventoMedicacao.getDataHora()); 
-			if (minuto.intValue()>= 0 && minuto.intValue() <= 5) {
-				Mensagem.add("Você possui um evento agendado em " + minuto +" minutos !!!");
-			}			
-		}		
+		final List<EventoMedicacao> eventos = this.obterListaDiaCorrente();
+		for (final EventoMedicacao eventoMedicacao : eventos) {
+			final Long minuto = DateUtil.verificaHoraAlareme(eventoMedicacao.getDataHora());
+			if (minuto.intValue() >= 0 && minuto.intValue() <= 5) {
+				Mensagem.add("Você possui um evento agendado em " + minuto + " minutos !!!");
+			}
+		}
 	}
-	
+
 	/**
 	 * @return the eventoMedicacao
 	 */
 	public EventoMedicacao getEventoMedicacao() {
-		return eventoMedicacao;
+		return this.eventoMedicacao;
 	}
 
 	/**
-	 * @param eventoMedicacao the eventoMedicacao to set
+	 * @param eventoMedicacao
+	 *            the eventoMedicacao to set
 	 */
-	public void setEventoMedicacao(EventoMedicacao eventoMedicacao) {
+	public void setEventoMedicacao(final EventoMedicacao eventoMedicacao) {
 		this.eventoMedicacao = eventoMedicacao;
 	}
 
@@ -146,13 +147,14 @@ public class EventoMedicacaoManager {
 	 * @return the eventoMedicacoes
 	 */
 	public List<EventoMedicacao> getEventoMedicacoes() {
-		return eventoMedicacoes;
+		return this.eventoMedicacoes;
 	}
 
 	/**
-	 * @param eventoMedicacoes the eventoMedicacoes to set
+	 * @param eventoMedicacoes
+	 *            the eventoMedicacoes to set
 	 */
-	public void setEventoMedicacoes(List<EventoMedicacao> eventoMedicacoes) {
+	public void setEventoMedicacoes(final List<EventoMedicacao> eventoMedicacoes) {
 		this.eventoMedicacoes = eventoMedicacoes;
 	}
 
@@ -160,21 +162,22 @@ public class EventoMedicacaoManager {
 	 * @return the eventMedicacaoNegocio
 	 */
 	public EventoMedicacaoNegocio getEventMedicacaoNegocio() {
-		return eventMedicacaoNegocio;
+		return this.eventMedicacaoNegocio;
 	}
 
 	/**
-	 * @param eventMedicacaoNegocio the eventMedicacaoNegocio to set
+	 * @param eventMedicacaoNegocio
+	 *            the eventMedicacaoNegocio to set
 	 */
-	public void setEventMedicacaoNegocio(EventoMedicacaoNegocio eventMedicacaoNegocio) {
+	public void setEventMedicacaoNegocio(final EventoMedicacaoNegocio eventMedicacaoNegocio) {
 		this.eventMedicacaoNegocio = eventMedicacaoNegocio;
 	}
 
 	public ScheduleModel getScheduleModel() {
-		return scheduleModel;
+		return this.scheduleModel;
 	}
 
-	public void setScheduleModel(ScheduleModel scheduleModel) {
+	public void setScheduleModel(final ScheduleModel scheduleModel) {
 		this.scheduleModel = scheduleModel;
 	}
 
@@ -182,24 +185,25 @@ public class EventoMedicacaoManager {
 	 * @return the medicademento
 	 */
 	public Medicamento getMedicademento() {
-		return medicademento;
+		return this.medicademento;
 	}
 
 	/**
-	 * @param medicademento the medicademento to set
+	 * @param medicademento
+	 *            the medicademento to set
 	 */
-	public void setMedicademento(Medicamento medicademento) {
+	public void setMedicademento(final Medicamento medicademento) {
 		this.medicademento = medicademento;
 	}
 
 	public Atendimento getAtendimento() {
-		return atendimento;
+		return this.atendimento;
 	}
 
-	public void setAtendimento(Atendimento atendimento) {
+	public void setAtendimento(final Atendimento atendimento) {
 		this.atendimento = atendimento;
 	}
-	
+
 	@URLActions(actions = { @URLAction(mappingId = "eventoMedicacao-editar", onPostback = false) })
 	public void load() throws IOException {
 		this.eventoMedicacao = this.eventMedicacaoNegocio.obterPorId(this.eventoMedicacao.getId());

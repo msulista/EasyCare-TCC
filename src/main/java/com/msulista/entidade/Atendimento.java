@@ -24,14 +24,14 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "atendimento")
 @NamedQueries({ @NamedQuery(name = "Atendimento.findAll", query = "SELECT a FROM Atendimento a"),
-				@NamedQuery(name = "Atendimento.findPorCuidador", query = "SELECT a FROM Atendimento a WHERE a.cuidador.id = :id"),
-				@NamedQuery(name = "Atendimento.findPorId", query = "SELECT a FROM Atendimento a WHERE a.id = :id"),})
+		@NamedQuery(name = "Atendimento.findPorCuidador", query = "SELECT a FROM Atendimento a WHERE a.cuidador.id = :id"),
+		@NamedQuery(name = "Atendimento.findPorId", query = "SELECT a FROM Atendimento a WHERE a.id = :id"), })
 public class Atendimento implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = -8458837793631601906L;
-	
+
 	private static final String DATA_FORMATO = "dd/MM/yyyy";
-	
+
 	private static final String HORA_FORMATO = "HH:mm";
 
 	@Id
@@ -54,7 +54,7 @@ public class Atendimento implements BaseEntity, Serializable {
 	@Column(name = "atend_localizacao")
 	private String localAtendimento;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cuid_id", nullable = true)
 	private Cuidador cuidador;
 
@@ -64,31 +64,31 @@ public class Atendimento implements BaseEntity, Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "atendimento", cascade = CascadeType.REMOVE)
 	private final List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
-	
+
 	@Transient
 	private String transientDtIni;
 
 	@Transient
 	private String transientDtFim;
-	
+
 	@Transient
 	private String transientHrIni;
-	
+
 	@Transient
 	private String transientHrFim;
-	
+
 	@Transient
 	private String dtPeriodo;
-	
+
 	@Transient
 	private String hrIntervalo;
-	
+
 	@Transient
 	private boolean enderecoPaciente;
-	
+
 	@Transient
 	private String atendimentoTitulo;
-	
+
 	@Override
 	public Long getId() {
 		return this.id;
@@ -152,20 +152,20 @@ public class Atendimento implements BaseEntity, Serializable {
 
 	public void setPaciente(final Paciente paciente) {
 		this.paciente = paciente;
-	}	
+	}
 
 	/**
 	 * @return the eventoMedicacoes
 	 */
 	public List<EventoMedicacao> getEventoMedicacoes() {
-		return eventoMedicacoes;
+		return this.eventoMedicacoes;
 	}
 
 	public boolean getEnderecoPaciente() {
-		return enderecoPaciente;
+		return this.enderecoPaciente;
 	}
 
-	public void setEnderecoPaciente(boolean enderecoPaciente) {
+	public void setEnderecoPaciente(final boolean enderecoPaciente) {
 		this.enderecoPaciente = enderecoPaciente;
 	}
 
@@ -173,54 +173,52 @@ public class Atendimento implements BaseEntity, Serializable {
 	 * @return the transientDtIni
 	 */
 	public String getTransientDtIni() {
-		 if (this.getDataInicial() != null) {
-	            SimpleDateFormat sdf = new SimpleDateFormat(DATA_FORMATO);
-	            this.transientDtIni = sdf.format(this.getDataInicial());
-	        }
-		return transientDtIni;
-	}	
+		if (this.getDataInicial() != null) {
+			final SimpleDateFormat sdf = new SimpleDateFormat(DATA_FORMATO);
+			this.transientDtIni = sdf.format(this.getDataInicial());
+		}
+		return this.transientDtIni;
+	}
 
 	/**
 	 * @return the transientDtFim
 	 */
 	public String getTransientDtFim() {
-		 if (this.getDataFinal() != null) {
-	            SimpleDateFormat sdf = new SimpleDateFormat(DATA_FORMATO);
-	            this.transientDtFim = sdf.format(this.getDataFinal());
-	        }
-		return transientDtFim;
+		if (this.getDataFinal() != null) {
+			final SimpleDateFormat sdf = new SimpleDateFormat(DATA_FORMATO);
+			this.transientDtFim = sdf.format(this.getDataFinal());
+		}
+		return this.transientDtFim;
 	}
 
 	/**
 	 * @return the transientHrIni
 	 */
 	public String getTransientHrIni() {
-		 if (this.getHoraInicial() != null) {
-	            SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
-	            this.transientHrIni = sdf.format(this.getHoraInicial());
-	        }
-		return transientHrIni;
+		if (this.getHoraInicial() != null) {
+			final SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
+			this.transientHrIni = sdf.format(this.getHoraInicial());
+		}
+		return this.transientHrIni;
 	}
 
 	/**
 	 * @return the transientHrFim
 	 */
 	public String getTransientHrFim() {
-		 if (this.getHoraFinal() != null) {
-	            SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
-	            this.transientHrFim = sdf.format(this.getHoraFinal());
-	        }
-		return transientHrFim;
+		if (this.getHoraFinal() != null) {
+			final SimpleDateFormat sdf = new SimpleDateFormat(HORA_FORMATO);
+			this.transientHrFim = sdf.format(this.getHoraFinal());
+		}
+		return this.transientHrFim;
 	}
 
-	
-	
 	/**
 	 * @return the dtPeriodo
 	 */
 	public String getDtPeriodo() {
 		this.dtPeriodo = this.getTransientDtIni() + " até " + this.getTransientDtFim();
-		return dtPeriodo;
+		return this.dtPeriodo;
 	}
 
 	/**
@@ -228,48 +226,57 @@ public class Atendimento implements BaseEntity, Serializable {
 	 */
 	public String getHrIntervalo() {
 		this.hrIntervalo = this.getTransientHrIni() + " até " + this.getTransientHrFim();
-		return hrIntervalo;
+		return this.hrIntervalo;
 	}
 
 	public String getAtendimentoTitulo() {
-		atendimentoTitulo = this.getPaciente().getNomePaciente() + " - " + this.getTransientDtIni() + " até " + this.getTransientDtFim();
-		return atendimentoTitulo;
+		this.atendimentoTitulo = this.getPaciente().getNomePaciente() + " - " + this.getTransientDtIni() + " até "
+				+ this.getTransientDtFim();
+		return this.atendimentoTitulo;
 	}
 
-	public void setAtendimentoTitulo(String atendimentoTitulo) {
+	public void setAtendimentoTitulo(final String atendimentoTitulo) {
 		this.atendimentoTitulo = atendimentoTitulo;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Atendimento other = (Atendimento) obj;
-		if (id == null) {
-			if (other.id != null)
+		}
+		final Atendimento other = (Atendimento) obj;
+		if (this.id == null) {
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
 
-	
 }

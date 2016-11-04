@@ -21,17 +21,19 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @URLMappings(mappings = {
 		@URLMapping(id = "cuidador", pattern = "/cuidador", viewId = "/pages/usuario/cuidador/cuidador-listar.xhtml"),
 		@URLMapping(id = "cuidador-incluir", pattern = "/incluir", viewId = "/pages/cuidador/cuidador-incluir.xhtml", parentId = "cuidador"),
-		@URLMapping(id = "cuidador-editar", pattern = "/#{cuidadorManager.cuidador.id}/editar", viewId = "/pages/usuario/cuidador/cuidador-editar.xhtml", parentId = "cuidador") })
+		@URLMapping(id = "cuidador-editar", pattern = "/#{cuidadorManager.cuidador}/editar", viewId = "/pages/usuario/cuidador/cuidador-editar.xhtml", parentId = "cuidador") })
 public class CuidadorManager {
 
 	private Cuidador cuidador;
 	private CuidadorNegocio cuidadorNegocio;
 	private List<Cuidador> lista;
+	private Cuidador cuidadorLogado;
 
 	public CuidadorManager() {
 		this.cuidador = new Cuidador();
 		this.cuidadorNegocio = new CuidadorNegocio();
 		this.lista = new ArrayList<>();
+		this.cuidadorLogado = SessionUtil.obtemUsuarioLogado();
 	}
 
 	public String salvar() {
@@ -56,7 +58,10 @@ public class CuidadorManager {
 	// Getters & Setters
 
 	public Cuidador getCuidador() {
-		return this.cuidador = SessionUtil.obtemUsuarioLogado();
+		if (this.cuidadorLogado != null) {
+			this.cuidador = this.cuidadorLogado;
+		}
+		return this.cuidador;
 	}
 
 	public void setCuidador(final Cuidador cuidador) {
@@ -79,10 +84,17 @@ public class CuidadorManager {
 		this.lista = lista;
 	}
 
+	public Cuidador getCuidadorLogado() {
+		return this.cuidadorLogado;
+	}
+
+	public void setCuidadorLogado(final Cuidador cuidadorLogado) {
+		this.cuidadorLogado = cuidadorLogado;
+	}
+
 	@URLActions(actions = { @URLAction(mappingId = "cuidador-editar", onPostback = false) })
 	public void load() throws IOException {
 		this.cuidador = this.cuidadorNegocio.obterPorId(this.cuidador.getId());
 	}
-	
-	
+
 }

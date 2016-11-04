@@ -31,7 +31,7 @@
 		<div class="menu">
 			<ul class="clearfix">
 				<li><a href="pages/usuario/home/index.xhtml"  class="menu-categoria">Minha Agenda</a></li>
-				<li><a href="#"  class="menu-categoria">Meu Perfil<span class="arrow">&#9660;</span></a>
+				<li><a class="menu-categoria">Meu Perfil<span class="arrow">&#9660;</span></a>
 					<ul class="sub-menu">
 										
 						<li>
@@ -39,7 +39,7 @@
 						</li>
 					</ul>
 				</li>
-				<li><a href="#"  class="menu-categoria">Cadastros<span class="arrow">&#9660;</span></a>
+				<li><a class="menu-categoria">Cadastros<span class="arrow">&#9660;</span></a>
 					<ul class="sub-menu">
 										
 						<li>
@@ -51,14 +51,24 @@
 						<li>
 							<h:link outcome="pretty:atendimento" styleClass="submenu-categoria">#{message['title.atendimento']}</h:link>
 						</li>
-						<li>
+						<li >
 							<h:link outcome="pretty:eventoMedicacao" styleClass="submenu-categoria">#{message['title.evento.medicacao']}</h:link>
 						</li>
 						
 					</ul>
 				</li>
-				<li><a href="#" class="menu-categoria">Sair</a></li>
 			</ul>
+			<ul class="menu-logout">
+				<li><a class="menu-categoria menu-logout">Logout<span class="arrow">&#9660;</span></a>
+                    <ul class="sub-menu">
+	                    <li>
+		                    <h:form>
+		                        <h:commandLink  action="#{loginManager.logout}" styleClass="submenu-categoria">Sair</h:commandLink>
+		                    </h:form>
+		                </li>
+                    </ul>
+				</li>
+			</ul>				
 		</div>
 	</div>
 	<div class="container">

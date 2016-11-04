@@ -39,7 +39,7 @@ public class LoginManager implements Serializable {
 
 				SessionUtil.setParam("user", cuidador);
 				this.cuidadorLogado = cuidador;
-   
+
 				return "pretty:logado";
 			}
 		}
@@ -50,7 +50,7 @@ public class LoginManager implements Serializable {
 	public String logout() {
 
 		SessionUtil.remove("user");
-		return "pages/home/inicial.xhtml";
+		return "/pages/home/inicial.xhtml";
 	}
 
 	public String getEmail() {
@@ -80,5 +80,5 @@ public class LoginManager implements Serializable {
 	public boolean logadoOn() {
 		return (this.cuidadorLogado != null);
 	}
-	
+
 }
