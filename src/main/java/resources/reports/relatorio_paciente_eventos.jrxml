@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<field name="dia" class="java.lang.String"/>
 	<field name="hora" class="java.lang.String"/>
-	<field name="medicamento" class="java.lang.String"/>
+	<field name="mediamento" class="java.lang.String"/>
 	<field name="dosagem" class="java.lang.String"/>
 	<field name="status" class="java.lang.String"/>
 	<background>
@@ -43,16 +43,6 @@
 				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="0" width="185" height="20" uuid="7383e25c-68e5-4946-bba4-c8fef9aba577"/>
-				<box leftPadding="5">
-					<bottomPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{medicamento}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="305" y="0" width="125" height="20" uuid="d2c2fce6-2348-4426-964e-0fe84cd35417"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="1.0"/>
@@ -71,6 +61,16 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="0" width="185" height="20" uuid="7064fbfa-b1bd-4e70-b066-0bf350d31240"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mediamento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

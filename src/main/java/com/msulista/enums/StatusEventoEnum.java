@@ -2,40 +2,39 @@ package com.msulista.enums;
 
 public enum StatusEventoEnum {
 
-	ADMINISTRADO(0, "Administrado"),
-	NAO_ADMINISTRADO(1, "Não administrado");
-	
-	private int tipo;
+	ADMINISTRADO(0, "Administrado"), NAO_ADMINISTRADO(1, "Não administrado");
 
-    private String descricao;
+	private Integer tipo;
 
-    private StatusEventoEnum(int tipo, String descricao) {
-        this.tipo = tipo;
-        this.descricao = descricao;
-    }
+	private String descricao;
 
-    public int getTipo() {
-        return tipo;
-    }
+	private StatusEventoEnum(final Integer tipo, final String descricao) {
+		this.tipo = tipo;
+		this.descricao = descricao;
+	}
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
+	public int getTipo() {
+		return this.tipo;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public void setTipo(final int tipo) {
+		this.tipo = tipo;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-    
-    public static String obterDescricaoPorId(int id) {
-    	for (StatusEventoEnum element : StatusEventoEnum.values()) {
-			if (id == element.getTipo()) {
+	public String getDescricao() {
+		return this.descricao;
+	}
+
+	public void setDescricao(final String descricao) {
+		this.descricao = descricao;
+	}
+
+	public static String obterDescricaoPorId(final Integer id) {
+		for (final StatusEventoEnum element : StatusEventoEnum.values()) {
+			if (id.equals(element.getTipo())) {
 				return element.getDescricao();
 			}
 		}
-    	return "Esquecimento";
-    }
+		return "Esquecimento";
+	}
 }

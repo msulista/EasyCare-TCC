@@ -162,8 +162,8 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	public RelatorioAtendimentoVO obtemRelatorioVO(final Atendimento atendimento) {
 		this.eventoMedicacaoDAO = new EventoMedicacaoDAO();
-
 		final RelatorioAtendimentoVO relatorioVO = new RelatorioAtendimentoVO();
+
 		relatorioVO.setCuidadorNome(atendimento.getCuidador().getNome());
 		relatorioVO.setCuidadorFone(atendimento.getCuidador().getTelefone());
 		relatorioVO.setPacienteNome(atendimento.getPaciente().getNomePaciente());
@@ -173,19 +173,20 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		relatorioVO.setDataFinal(atendimento.getDataFinal());
 
 		final List<EventoMedicacao> eventos = this.eventoMedicacaoDAO.obterListaPorAtendimentoId(atendimento.getId());
-		final RealatorioAtendimentoEventoVO relatorioEventoVO = new RealatorioAtendimentoEventoVO();
+		final List<RealatorioAtendimentoEventoVO> relatorioEventosVo = new ArrayList<>();
 		for (final EventoMedicacao evento : eventos) {
+			final RealatorioAtendimentoEventoVO relatorioEventoVO = new RealatorioAtendimentoEventoVO();
 			relatorioEventoVO.setDia(DateFormatUtils.format(evento.getDataHora(), "dd/MM/yyyy"));
 			relatorioEventoVO.setHora(DateFormatUtils.format(evento.getDataHora(), "HH:mm"));
 			relatorioEventoVO.setMediamento(evento.getMedicamentos().get(0).getNome());
 			relatorioEventoVO.setDosagem(evento.getDescricao());
 			if (evento.getStattus() != null) {
-				relatorioEventoVO.setStatus(StatusEventoEnum.obterDescricaoPorId(evento.getStattus()));
-			} else {
-				relatorioEventoVO.setStatus("Nenhuma ação registrada");
+				final String statusii = StatusEventoEnum.obterDescricaoPorId(evento.getStattus());
+				relatorioEventoVO.setStatus(statusii);
 			}
-			relatorioVO.getEventos().add(relatorioEventoVO);
+			relatorioEventosVo.add(relatorioEventoVO);
 		}
+		relatorioVO.setEventos(relatorioEventosVo);
 		return relatorioVO;
 	}
 

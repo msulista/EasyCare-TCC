@@ -122,19 +122,32 @@ public class EventoMedicacaoManager {
 
 	public void eventoRealizado(final EventoMedicacao evento) {
 		if (evento.getStattus() == null) {
-			evento.setStattus(1);
+			evento.setStattus(0);
 			this.realizaBaixaEstoque(evento);
 			this.eventoMedicacao = evento;
 			this.eventMedicacaoNegocio.alterar(this.eventoMedicacao);
-			Mensagem.add("Evento realizado!!!");
+			Mensagem.add("Registrada a realização do evento!!!");
 		} else {
 			Mensagem.add("Evento já foi realizado!!!");
 		}
 	}
 
+	public void eventoNaoRealizado(final EventoMedicacao evento) {
+
+		if (evento.getStattus() == null) {
+			evento.setStattus(1);
+			this.eventoMedicacao = evento;
+			this.eventMedicacaoNegocio.alterar(this.eventoMedicacao);
+			Mensagem.add("Registrada a não realização do evento!!!");
+		} else {
+			Mensagem.add("Evento já foi realizado!!!");
+		}
+
+	}
+
 	/**
 	 * Realiza a baixa no estoque do medicamento do evento se Status igual a 1
-	 * 
+	 *
 	 * @param evento
 	 */
 	private void realizaBaixaEstoque(final EventoMedicacao evento) {
@@ -146,14 +159,6 @@ public class EventoMedicacaoManager {
 				medicamentoNegocio.alterar(med);
 			}
 		}
-	}
-
-	public void eventoNaoRealizado(final EventoMedicacao evento) {
-
-		evento.setStattus(0);
-		this.eventoMedicacao = evento;
-		this.eventMedicacaoNegocio.alterar(this.eventoMedicacao);
-		Mensagem.add("Evento não realizado!!!");
 	}
 
 	public void verificaAlertaHorario() {
