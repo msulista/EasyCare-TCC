@@ -16,6 +16,7 @@ import com.msulista.entidade.Atendimento;
 import com.msulista.entidade.EventoMedicacao;
 import com.msulista.entidade.Medicamento;
 import com.msulista.negocio.EventoMedicacaoNegocio;
+import com.msulista.negocio.MedicamentoNegocio;
 import com.msulista.util.DateUtil;
 import com.msulista.util.Mensagem;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
@@ -38,6 +39,9 @@ public class EventoMedicacaoManager {
 	private Medicamento medicademento;
 	private Atendimento atendimento;
 
+	private MedicamentoNegocio medicamentoNegocio;
+	private List<Medicamento> medicamentosPopulados;
+
 	@PostConstruct
 	public void inicializar() {
 		this.eventoMedicacao = new EventoMedicacao();
@@ -46,6 +50,9 @@ public class EventoMedicacaoManager {
 		this.scheduleModel = new DefaultScheduleModel();
 
 		this.eventoMedicacoes = this.eventMedicacaoNegocio.obterLista();
+
+		// this.medicamentoNegocio = new MedicamentoNegocio();
+		// this.medicamentosPopulados = new ArrayList<>();
 
 		for (final EventoMedicacao eventoMedicacao : this.eventoMedicacoes) {
 			final DefaultScheduleEvent evt = new DefaultScheduleEvent();
@@ -102,12 +109,43 @@ public class EventoMedicacaoManager {
 		return "pretty:eventoMedicacao";
 	}
 
-	public void eventoRealizado(final EventoMedicacao evento) {
+	/**
+	 * Popula a lista de medicamentos por paciente selecionano no atendimento.
+	 */
+	// public void popularListaMedicamento() {
+	// if (this.eventoMedicacao.getAtendimento() != null) {
+	//
+	// this.medicamentosPopulados.addAll(this.medicamentoNegocio
+	// .obterListaPorPaciente(this.eventoMedicacao.getAtendimento().getPaciente().getId()));
+	// }
+	// }
 
-		evento.setStattus(1);
-		this.eventoMedicacao = evento;
-		this.eventMedicacaoNegocio.alterar(this.eventoMedicacao);
-		Mensagem.add("Evento realizado!!!");
+	public void eventoRealizado(final EventoMedicacao evento) {
+		if (evento.getStattus() == null) {
+			evento.setStattus(1);
+			this.realizaBaixaEstoque(evento);
+			this.eventoMedicacao = evento;
+			this.eventMedicacaoNegocio.alterar(this.eventoMedicacao);
+			Mensagem.add("Evento realizado!!!");
+		} else {
+			Mensagem.add("Evento já foi realizado!!!");
+		}
+	}
+
+	/**
+	 * Realiza a baixa no estoque do medicamento do evento se Status igual a 1
+	 * 
+	 * @param evento
+	 */
+	private void realizaBaixaEstoque(final EventoMedicacao evento) {
+		if (evento.getStattus() == 1) {
+			final MedicamentoNegocio medicamentoNegocio = new MedicamentoNegocio();
+			final List<Medicamento> medicamentos = evento.getMedicamentos();
+			for (final Medicamento med : medicamentos) {
+				med.setEstoque(med.getEstoque() - 1);
+				medicamentoNegocio.alterar(med);
+			}
+		}
 	}
 
 	public void eventoNaoRealizado(final EventoMedicacao evento) {
@@ -193,6 +231,7 @@ public class EventoMedicacaoManager {
 	 *            the medicademento to set
 	 */
 	public void setMedicademento(final Medicamento medicademento) {
+		System.out.println("Medicamento: " + medicademento.getNome());
 		this.medicademento = medicademento;
 	}
 
@@ -202,6 +241,14 @@ public class EventoMedicacaoManager {
 
 	public void setAtendimento(final Atendimento atendimento) {
 		this.atendimento = atendimento;
+	}
+
+	public List<Medicamento> getMedicamentosPopulados() {
+		return this.medicamentosPopulados;
+	}
+
+	public void setMedicamentosPopulados(final List<Medicamento> medicamentosPopulados) {
+		this.medicamentosPopulados = medicamentosPopulados;
 	}
 
 	@URLActions(actions = { @URLAction(mappingId = "eventoMedicacao-editar", onPostback = false) })

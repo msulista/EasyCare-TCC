@@ -59,13 +59,14 @@ public class Medicamento implements BaseEntity, Serializable {
 	private Integer tipo;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "medi_id") }, inverseJoinColumns = { @JoinColumn(name = "event_id") })
+	@JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = {
+			@JoinColumn(name = "medi_id") }, inverseJoinColumns = { @JoinColumn(name = "event_id") })
 	private List<EventoMedicacao> eventoMedicacoes = new ArrayList<>();
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "paci_id", nullable = true)
 	private Paciente paciente;
-	
+
 	@Transient
 	private String transientDtValidade;
 
@@ -143,19 +144,19 @@ public class Medicamento implements BaseEntity, Serializable {
 	}
 
 	public String getTransientDtValidade() {
-		transientDtValidade = DateUtil.dateToStringDate(this.getDataValidade());
-		return transientDtValidade;
+		this.transientDtValidade = DateUtil.dateToStringDate(this.getDataValidade());
+		return this.transientDtValidade;
 	}
 
-	public void setTransientDtValidade(String transientDtValidade) {
+	public void setTransientDtValidade(final String transientDtValidade) {
 		this.transientDtValidade = transientDtValidade;
 	}
 
 	public Paciente getPaciente() {
-		return paciente;
+		return this.paciente;
 	}
 
-	public void setPaciente(Paciente paciente) {
+	public void setPaciente(final Paciente paciente) {
 		this.paciente = paciente;
 	}
 

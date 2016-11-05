@@ -25,10 +25,10 @@ import com.msulista.util.DateUtil;
 @Entity
 @Table(name = "evento_medicacao")
 @NamedQueries({ @NamedQuery(name = "EventoMedicacao.findAll", query = "SELECT em FROM EventoMedicacao em"),
-	@NamedQuery(name = "EventoMedicacao.findPorCuidador", query = "SELECT em FROM EventoMedicacao em WHERE em.atendimento.cuidador.id = :id"),
+		@NamedQuery(name = "EventoMedicacao.findPorCuidador", query = "SELECT em FROM EventoMedicacao em WHERE em.atendimento.cuidador.id = :id"),
 		@NamedQuery(name = "EventoMedicacao.findId", query = "SELECT em FROM EventoMedicacao em WHERE em.id = :id"),
 		@NamedQuery(name = "EventoMedicacao.findDiaCorrente", query = "SELECT em FROM EventoMedicacao em WHERE em.dataHora BETWEEN :dataInicio AND :dataFim AND em.atendimento.cuidador.id = :id ORDER BY em.dataHora"),
-		@NamedQuery(name = "EventoMedicacao.findPorAtendimentoId", query = "SELECT em FROM EventoMedicacao em WHERE em.atendimento.id = :id ORDER BY em.dataHora"),})
+		@NamedQuery(name = "EventoMedicacao.findPorAtendimentoId", query = "SELECT em FROM EventoMedicacao em WHERE em.atendimento.id = :id ORDER BY em.dataHora"), })
 public class EventoMedicacao implements BaseEntity, Serializable {
 
 	private static final long serialVersionUID = -7077632222540575070L;
@@ -54,8 +54,9 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	@JoinColumn(name = "atend_id", nullable = false)
 	private Atendimento atendimento;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "medicamento_has_evento_medicacao", joinColumns = {
+			@JoinColumn(name = "event_id") }, inverseJoinColumns = { @JoinColumn(name = "medi_id") })
 	private List<Medicamento> medicamentos = new ArrayList<>();
 
 	// @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
@@ -66,16 +67,16 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	// @JoinColumn(name = "diet_id") })
 	@Transient
 	private List<Dieta> refeicoes = new ArrayList<>();
-	
+
 	@Transient
 	private Integer transientFrequenciaEvento = 0;
-	
+
 	@Transient
 	private boolean transientRepetirDiariamente;
-	
+
 	@Transient
 	private String transientHora;
-	
+
 	@Transient
 	private String transientNomeMedicacao;
 
@@ -145,73 +146,81 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 	}
 
 	public Integer getTransientFrequenciaEvento() {
-		return transientFrequenciaEvento;
+		return this.transientFrequenciaEvento;
 	}
 
-	public void setTransientFrequenciaEvento(Integer transientFrequenciaEvento) {
+	public void setTransientFrequenciaEvento(final Integer transientFrequenciaEvento) {
 		this.transientFrequenciaEvento = transientFrequenciaEvento;
 	}
-	
+
 	public boolean getTransientRepetirDiariamente() {
-		
-		return transientRepetirDiariamente;
+
+		return this.transientRepetirDiariamente;
 	}
-	
-	public void setTransientRepetirDiariamente(boolean transientRepetirDiariamente) {
+
+	public void setTransientRepetirDiariamente(final boolean transientRepetirDiariamente) {
 		this.transientRepetirDiariamente = transientRepetirDiariamente;
 	}
 
 	public String getTransientHora() {
-		
+
 		return DateUtil.hourToStringHour(this.getDataHora());
 	}
 
-	public void setTransientHora(String transientHora) {
+	public void setTransientHora(final String transientHora) {
 		this.transientHora = transientHora;
 	}
-	
+
 	public String getTransientNomeMedicacao() {
-		transientNomeMedicacao = this.getMedicamentos().get(0).getNome();
-		return transientNomeMedicacao;
+		if (!this.getMedicamentos().isEmpty()) {
+
+			this.transientNomeMedicacao = this.getMedicamentos().get(0).getNome();
+		}
+		return this.transientNomeMedicacao;
 	}
 
-	public void setTransientNomeMedicacao(String transientNomeMedicacao) {
+	public void setTransientNomeMedicacao(final String transientNomeMedicacao) {
 		this.transientNomeMedicacao = transientNomeMedicacao;
 	}
-	
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		EventoMedicacao other = (EventoMedicacao) obj;
-		if (id == null) {
-			if (other.id != null)
+		}
+		final EventoMedicacao other = (EventoMedicacao) obj;
+		if (this.id == null) {
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
 
-	
-
-	
 }
