@@ -43,6 +43,9 @@
 					<p:column headerText="#{message['label.acoes']}">
 						<p:commandButton id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{atendimentoManager.editar(atendimento)}" />
 						<p:commandButton id="deletar" styleClass="btn-acao" icon="ui-icon-trash" action="#{atendimentoManager.excluirAtendimento(atendimento)}" />
+						<p:commandButton id="report" styleClass="btn-acao" ajax="false" icon="ui-icon-document" >
+						      <p:fileDownload value="#{atendimentoManager.relatorio(atendimento)}" />
+						</p:commandButton>
 						<p:commandButton id="mail" styleClass="btn-acao" icon="ui-icon-mail-closed" action="#{atendimentoManager.enviarRelatorio(atendimento)}" />
 					</p:column>						
 							

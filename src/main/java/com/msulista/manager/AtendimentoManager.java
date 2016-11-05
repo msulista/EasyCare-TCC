@@ -12,11 +12,13 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
+import org.primefaces.model.StreamedContent;
 
 import com.msulista.entidade.Atendimento;
 import com.msulista.entidade.Paciente;
 import com.msulista.negocio.AtendimentoNegocio;
 import com.msulista.util.Mensagem;
+import com.msulista.vo.RelatorioAtendimentoVO;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
@@ -28,6 +30,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 		@URLMapping(id = "atendimento", pattern = "/atendimento", viewId = "/pages/usuario/atendimento/atendimento-listar.xhtml"),
 		@URLMapping(id = "atendimento-incluir", pattern = "/incluir", viewId = "/pages/usuario/atendimento/atendimento-incluir.xhtml", parentId = "atendimento"),
 		@URLMapping(id = "atendimento-editar", pattern = "/#{atendimentoManager.atendimento.id}/editar", viewId = "/pages/usuario/atendimento/atendimento-editar.xhtml", parentId = "atendimento") })
+
 public class AtendimentoManager {
 
 	private ScheduleModel scheduleModel;
@@ -35,43 +38,45 @@ public class AtendimentoManager {
 	private AtendimentoNegocio atendimentoNegocio;
 	private List<Atendimento> atendimentos;
 	private Paciente paciente;
-	
+
+	private RelatorioAtendimentoVO relatorioVo;
+
 	@PostConstruct
 	public void inicializar() {
 		this.atendimento = new Atendimento();
 		this.atendimentos = new ArrayList<>();
 		this.atendimentoNegocio = new AtendimentoNegocio();
 		this.scheduleModel = new DefaultScheduleModel();
-		
+
 		this.atendimentos = this.atendimentoNegocio.obterLista();
-		
-		for (Atendimento atendimento : atendimentos) {
-			DefaultScheduleEvent evt = new DefaultScheduleEvent();
+
+		for (final Atendimento atendimento : this.atendimentos) {
+			final DefaultScheduleEvent evt = new DefaultScheduleEvent();
 			evt.setData(atendimento.getId());
 			evt.setTitle(atendimento.getPaciente().getNomePaciente());
 			evt.setStartDate(atendimento.getDataInicial());
 			evt.setEndDate(atendimento.getDataFinal());
 			evt.setAllDay(false);
 			evt.setEditable(true);
-//			evt.setStyleClass("event-green");			
-			
-			scheduleModel.addEvent(evt);
+			// evt.setStyleClass("event-green");
+
+			this.scheduleModel.addEvent(evt);
 		}
 	}
-		
-	
+
 	/**
 	 * Salva novo {@link Atendimento}
+	 *
 	 * @return
 	 */
 	public String salvar() {
-		
+
 		if (this.atendimentoNegocio.salvar(this.atendimento)) {
 			return "pretty:atendimento";
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Altera os dados de um {@link Atendimento}
 	 */
@@ -81,25 +86,38 @@ public class AtendimentoManager {
 		}
 		return null;
 	}
-	
-	public String editar(Atendimento atendimentoEdit) {
+
+	public String editar(final Atendimento atendimentoEdit) {
 		this.atendimento = atendimentoEdit;
 		return "pretty:atendimento-editar";
 	}
 
+	public StreamedContent relatorio(final Atendimento atendimento) {
+
+		StreamedContent relatorio = null;
+
+		try {
+			relatorio = this.atendimentoNegocio.exportaRelatorioAtendimentoPdf(atendimento);
+		} catch (final SQLException e) {
+			Mensagem.add("Ocorreu um erro ao gerar o relatório!");
+		}
+		return relatorio;
+	}
+
 	/**
 	 * Obtem lista de todos os {@link Atendimento}
+	 *
 	 * @return {@link List} {@link Atendimento}
 	 */
 	public List<Atendimento> obterLista() {
-		
+
 		return this.atendimentoNegocio.obterLista();
 	}
-	
+
 	/**
 	 * Remove o {@link Atendimento} do banco
 	 */
-	public String excluirAtendimento(Atendimento atendimentoExcluir) {
+	public String excluirAtendimento(final Atendimento atendimentoExcluir) {
 		this.atendimentoNegocio.excluir(atendimentoExcluir);
 		return "pretty:atendimento";
 	}
@@ -107,29 +125,29 @@ public class AtendimentoManager {
 	public Atendimento getAtendimento() {
 		return this.atendimento;
 	}
-	
+
 	/**
 	 * Obtem atendimento por Id
+	 *
 	 * @return
 	 */
 	public Atendimento obtemAtendimento() {
 		return this.atendimentoNegocio.obterPorId(this.atendimento.getId());
 	}
 
-	public void enviarRelatorio(Atendimento atendimento) {
+	public void enviarRelatorio(final Atendimento atendimento) {
 		try {
 			if (this.atendimentoNegocio.enviarRealatorio(atendimento)) {
 				Mensagem.add("Relatório enviado com sucesso.");
-			}else {
+			} else {
 				Mensagem.add("Paciente não possui familiar cadastrado para envio de relatório.");
 			}
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Mensagem.add("Falha ao enviar relatório.");
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public void setAtendimento(final Atendimento atendimento) {
 		this.atendimento = atendimento;
 	}
@@ -156,14 +174,22 @@ public class AtendimentoManager {
 
 	public void setPaciente(final Paciente paciente) {
 		this.paciente = paciente;
-	}	
-
-	public ScheduleModel getScheduleModel() {
-		return scheduleModel;
 	}
 
-	public void setScheduleModel(ScheduleModel scheduleModel) {
+	public ScheduleModel getScheduleModel() {
+		return this.scheduleModel;
+	}
+
+	public void setScheduleModel(final ScheduleModel scheduleModel) {
 		this.scheduleModel = scheduleModel;
+	}
+
+	public RelatorioAtendimentoVO getRelatorioVo() {
+		return this.relatorioVo;
+	}
+
+	public void setRelatorioVo(final RelatorioAtendimentoVO relatorioVo) {
+		this.relatorioVo = relatorioVo;
 	}
 
 	@URLActions(actions = { @URLAction(mappingId = "atendimento-editar", onPostback = false) })

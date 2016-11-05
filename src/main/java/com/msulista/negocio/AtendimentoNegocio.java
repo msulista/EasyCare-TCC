@@ -1,11 +1,14 @@
 package com.msulista.negocio;
 
+import java.io.ByteArrayInputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import com.msulista.dao.AtendimentoDao;
 import com.msulista.dao.EventoMedicacaoDAO;
@@ -30,8 +33,8 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	@Override
 	public boolean salvar(final Atendimento atendimento) {
-		
-		Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
+
+		final Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
 		atendimento.setCuidador(usuarioLogado);
 
 		final boolean datas = DateUtil.verificaDataFinalAposDataInicial(atendimento.getDataInicial(),
@@ -72,7 +75,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	@Override
 	public List<Atendimento> obterLista() {
 		this.atendimentoDao = new AtendimentoDao();
-		Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
+		final Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
 		try {
 			return this.atendimentoDao.obterLista(usuarioLogado.getId());
 		} catch (final SQLException e) {
@@ -125,6 +128,20 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	}
 
 	/**
+	 * Exporta relatorio de atendimento Pdf
+	 *
+	 * @param atendimento
+	 * @return StreamedContent
+	 * @throws SQLException
+	 */
+	public StreamedContent exportaRelatorioAtendimentoPdf(final Atendimento atendimento) throws SQLException {
+
+		final ByteArrayInputStream relatorio = new ByteArrayInputStream(this.geraRelatorioAtendimento(atendimento));
+
+		return new DefaultStreamedContent(relatorio);
+	}
+
+	/**
 	 *
 	 *
 	 * @param atendimento
@@ -133,9 +150,17 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 	 */
 	public byte[] geraRelatorioAtendimento(final Atendimento atendimento) throws SQLException {
 
-		final List<RelatorioAtendimentoVO> vos = new ArrayList<>();
 		this.relatorioUtils = new RelatorioUtils();
-		this.atendimentoDao = new AtendimentoDao();
+
+		final List<RelatorioAtendimentoVO> vos = new ArrayList<>();
+		vos.add(this.obtemRelatorioVO(atendimento));
+
+		final byte[] relatorio = this.relatorioUtils.gerarRelatorioPdf(RelatorioEnum.RELATORIO_ATENDIMENTO, vos, null);
+
+		return relatorio;
+	}
+
+	public RelatorioAtendimentoVO obtemRelatorioVO(final Atendimento atendimento) {
 		this.eventoMedicacaoDAO = new EventoMedicacaoDAO();
 
 		final RelatorioAtendimentoVO relatorioVO = new RelatorioAtendimentoVO();
@@ -161,41 +186,8 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 			}
 			relatorioVO.getEventos().add(relatorioEventoVO);
 		}
-		vos.add(relatorioVO);
-		final byte[] relatorio = this.relatorioUtils.gerarRelatorioPdf(RelatorioEnum.RELATORIO_ATENDIMENTO, vos, null);
-
-		return relatorio;
+		return relatorioVO;
 	}
-
-	// private Map<String, Object> criaMapParametros(Atendimento atendimento) {
-	//
-	// final Map<String, Object> parametros = new HashMap<String, Object>();
-	//
-	// String dtIni = null;
-	// String dtFim = null;
-	//
-	// if (atendimento.getDataInicial() != null) {
-	// dtIni = DateFormatUtils.format(atendimento.getDataInicial(),
-	// "dd/MM/yyyy");
-	// }
-	// if (atendimento.getDataFinal() != null) {
-	// dtFim = DateFormatUtils.format(atendimento.getDataFinal(), "dd/MM/yyyy");
-	// }
-	// parametros.put("dataInicial", dtIni);
-	// parametros.put("dataFinal", dtFim);
-	// parametros.put("cuidadorNome", atendimento.getCuidador().getNome());
-	// parametros.put("cuidadorFone", atendimento.getCuidador().getTelefone());
-	// parametros.put("pacienteNome",
-	// atendimento.getPaciente().getNomePaciente());
-	// parametros.put("pacienteEndereco", atendimento.getLocalAtendimento());
-	// if (StringUtils.isNotBlank(atendimento.getPaciente().getNomeFamiliar()))
-	// {
-	// parametros.put("familiarNome",
-	// atendimento.getPaciente().getNomeFamiliar());
-	// }
-	//
-	// return parametros;
-	// }
 
 	/**
 	 * Seta endereço do paciente em local de atendimento
