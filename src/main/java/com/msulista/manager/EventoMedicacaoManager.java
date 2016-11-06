@@ -39,7 +39,6 @@ public class EventoMedicacaoManager {
 	private Medicamento medicademento;
 	private Atendimento atendimento;
 
-	private MedicamentoNegocio medicamentoNegocio;
 	private List<Medicamento> medicamentosPopulados;
 
 	@PostConstruct

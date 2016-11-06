@@ -15,6 +15,7 @@ import com.msulista.dao.EventoMedicacaoDAO;
 import com.msulista.entidade.Atendimento;
 import com.msulista.entidade.Cuidador;
 import com.msulista.entidade.EventoMedicacao;
+import com.msulista.entidade.Medicamento;
 import com.msulista.enums.RelatorioEnum;
 import com.msulista.enums.StatusEventoEnum;
 import com.msulista.util.DateUtil;
@@ -27,9 +28,11 @@ import com.msulista.vo.RelatorioAtendimentoVO;
 
 public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
+	private static final String NENHUMA_AÇÃO_REGISTRADA = "Nenhuma ação registrada";
 	private AtendimentoDao atendimentoDao;
 	private RelatorioUtils relatorioUtils;
 	private EventoMedicacaoDAO eventoMedicacaoDAO;
+	private MedicamentoNegocio medicamentoNegocio;
 
 	@Override
 	public boolean salvar(final Atendimento atendimento) {
@@ -138,7 +141,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 		final ByteArrayInputStream relatorio = new ByteArrayInputStream(this.geraRelatorioAtendimento(atendimento));
 
-		return new DefaultStreamedContent(relatorio);
+		return new DefaultStreamedContent(relatorio, "application/pdf", "relatorio_atendimento_easycare.pdf");
 	}
 
 	/**
@@ -162,7 +165,12 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 
 	public RelatorioAtendimentoVO obtemRelatorioVO(final Atendimento atendimento) {
 		this.eventoMedicacaoDAO = new EventoMedicacaoDAO();
+		this.medicamentoNegocio = new MedicamentoNegocio();
+
 		final RelatorioAtendimentoVO relatorioVO = new RelatorioAtendimentoVO();
+
+		final List<Medicamento> medicamentos = this.medicamentoNegocio
+				.obterListaPorPaciente(atendimento.getPaciente().getId());
 
 		relatorioVO.setCuidadorNome(atendimento.getCuidador().getNome());
 		relatorioVO.setCuidadorFone(atendimento.getCuidador().getTelefone());
@@ -171,6 +179,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 		relatorioVO.setFamiliarNome(atendimento.getPaciente().getNomeFamiliar());
 		relatorioVO.setDataInicial(atendimento.getDataInicial());
 		relatorioVO.setDataFinal(atendimento.getDataFinal());
+		relatorioVO.setMedicamentos(medicamentos);
 
 		final List<EventoMedicacao> eventos = this.eventoMedicacaoDAO.obterListaPorAtendimentoId(atendimento.getId());
 		final List<RealatorioAtendimentoEventoVO> relatorioEventosVo = new ArrayList<>();
@@ -179,10 +188,13 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 			relatorioEventoVO.setDia(DateFormatUtils.format(evento.getDataHora(), "dd/MM/yyyy"));
 			relatorioEventoVO.setHora(DateFormatUtils.format(evento.getDataHora(), "HH:mm"));
 			relatorioEventoVO.setMediamento(evento.getMedicamentos().get(0).getNome());
+			relatorioEventoVO.setEstoque(evento.getMedicamentos().get(0).getEstoque());
 			relatorioEventoVO.setDosagem(evento.getDescricao());
 			if (evento.getStattus() != null) {
 				final String statusii = StatusEventoEnum.obterDescricaoPorId(evento.getStattus());
 				relatorioEventoVO.setStatus(statusii);
+			} else {
+				relatorioEventoVO.setStatus(NENHUMA_AÇÃO_REGISTRADA);
 			}
 			relatorioEventosVo.add(relatorioEventoVO);
 		}

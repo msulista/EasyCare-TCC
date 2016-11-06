@@ -35,6 +35,6 @@ public enum StatusEventoEnum {
 				return element.getDescricao();
 			}
 		}
-		return "Esquecimento";
+		return null;
 	}
 }

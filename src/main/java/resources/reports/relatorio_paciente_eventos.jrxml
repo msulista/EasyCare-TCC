@@ -8,6 +8,7 @@
 	<field name="mediamento" class="java.lang.String"/>
 	<field name="dosagem" class="java.lang.String"/>
 	<field name="status" class="java.lang.String"/>
+	<field name="estoque" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -43,7 +44,7 @@
 				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="305" y="0" width="125" height="20" uuid="d2c2fce6-2348-4426-964e-0fe84cd35417"/>
+				<reportElement x="315" y="0" width="125" height="20" uuid="d2c2fce6-2348-4426-964e-0fe84cd35417"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -53,17 +54,7 @@
 				<textFieldExpression><![CDATA[$F{dosagem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="430" y="0" width="125" height="20" uuid="0f167614-ffda-43fb-93b9-0d2a26368a7c"/>
-				<box leftPadding="5">
-					<bottomPen lineWidth="1.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="120" y="0" width="185" height="20" uuid="7064fbfa-b1bd-4e70-b066-0bf350d31240"/>
+				<reportElement x="120" y="0" width="195" height="20" uuid="7064fbfa-b1bd-4e70-b066-0bf350d31240"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -71,6 +62,16 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mediamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="115" height="20" uuid="0f167614-ffda-43fb-93b9-0d2a26368a7c"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

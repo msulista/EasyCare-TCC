@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_paciente" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7335e9a3-8043-4205-9cc5-b43990b5e326">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="44"/>
+	<property name="ireport.y" value="119"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Marcus\\workspace\\EasyCare-TCC\\src\\main\\java\\resources\\reports\\"]]></defaultValueExpression>
 	</parameter>
@@ -14,6 +14,7 @@
 	<field name="pacienteEndereco" class="java.lang.String"/>
 	<field name="familiarNome" class="java.lang.String"/>
 	<field name="eventos" class="java.util.List"/>
+	<field name="medicamentos" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -37,14 +38,6 @@
 				</textElement>
 				<text><![CDATA[Relatório de atendimento]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="76" width="555" height="20" uuid="41fb478e-3ca6-49c2-a8a0-5b03b393bea9"/>
-				<box leftPadding="5"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Periodo: " + $F{dataInicial}.toLocaleString() + " até " + $F{dataFinal}.toLocaleString()]]></textFieldExpression>
-			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="96" width="331" height="20" uuid="17a7ae6b-fd73-4847-9f36-f636f28b2ddf"/>
 				<box leftPadding="5"/>
@@ -85,6 +78,33 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Familiar responsável: " + $F{familiarNome}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="76" width="39" height="20" uuid="f7d321ba-bae6-432d-be9c-20ee2ba028a0"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="39" y="76" width="45" height="20" uuid="ed1a797f-c1b7-4f46-9150-01a5ba5ed9b7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="84" y="76" width="18" height="20" uuid="34d0497d-4b38-44dc-8606-96ff298c16b6"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[até]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="102" y="76" width="45" height="20" uuid="02cabb35-358e-41f5-91da-ba1759d850f3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataFinal}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -119,7 +139,7 @@
 				<text><![CDATA[Horário]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="120" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="eadc2724-8aa3-453f-8c29-9c91061ea72b"/>
+				<reportElement mode="Opaque" x="120" y="0" width="195" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="eadc2724-8aa3-453f-8c29-9c91061ea72b"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -132,7 +152,7 @@
 				<text><![CDATA[Medicação]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="305" y="0" width="125" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="2ad51a11-c22b-48f6-a346-aba8cec1ab3e"/>
+				<reportElement mode="Opaque" x="315" y="0" width="125" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="2ad51a11-c22b-48f6-a346-aba8cec1ab3e"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -145,7 +165,7 @@
 				<text><![CDATA[Dosagem]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="430" y="0" width="125" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="ce726dc7-c5f8-4e06-b4ae-8b66d7732fb3"/>
+				<reportElement mode="Opaque" x="440" y="0" width="115" height="20" forecolor="#FFFFFF" backcolor="#003300" uuid="ce726dc7-c5f8-4e06-b4ae-8b66d7732fb3"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -165,6 +185,13 @@
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isPrintWhenDetailOverflows="true" uuid="491aa341-c078-4cfa-898f-de42a88119ba"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{eventos})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["/resources/reports/relatorio_paciente_eventos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="11" width="555" height="39" isPrintWhenDetailOverflows="true" uuid="09c4ffc8-5c82-475d-a699-cdcc9906a012"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{medicamentos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["/resources/reports/relatorio_paciente_medicamentos.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

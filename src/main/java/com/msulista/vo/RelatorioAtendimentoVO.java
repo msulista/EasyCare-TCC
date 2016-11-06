@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.msulista.entidade.Medicamento;
+
 public class RelatorioAtendimentoVO implements Serializable {
 
 	private static final long serialVersionUID = -3694950953721262491L;
@@ -18,6 +20,7 @@ public class RelatorioAtendimentoVO implements Serializable {
 	private Date dataFinal;
 
 	private List<RealatorioAtendimentoEventoVO> eventos = new ArrayList<>();
+	private List<Medicamento> medicamentos = new ArrayList<>();
 
 	public String getCuidadorNome() {
 		return this.cuidadorNome;
@@ -81,6 +84,14 @@ public class RelatorioAtendimentoVO implements Serializable {
 
 	public void setDataFinal(final Date dataFinal) {
 		this.dataFinal = dataFinal;
+	}
+
+	public List<Medicamento> getMedicamentos() {
+		return this.medicamentos;
+	}
+
+	public void setMedicamentos(final List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
 	}
 
 }

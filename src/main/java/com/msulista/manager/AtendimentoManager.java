@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
@@ -98,6 +99,7 @@ public class AtendimentoManager {
 
 		try {
 			relatorio = this.atendimentoNegocio.exportaRelatorioAtendimentoPdf(atendimento);
+			Mensagem.add("Relatório gerado com sucesso!");
 		} catch (final SQLException e) {
 			Mensagem.add("Ocorreu um erro ao gerar o relatório!");
 		}
@@ -119,6 +121,7 @@ public class AtendimentoManager {
 	 */
 	public String excluirAtendimento(final Atendimento atendimentoExcluir) {
 		this.atendimentoNegocio.excluir(atendimentoExcluir);
+		Mensagem.add("Atendimento Excluido com sucesso!");
 		return "pretty:atendimento";
 	}
 
@@ -136,15 +139,20 @@ public class AtendimentoManager {
 	}
 
 	public void enviarRelatorio(final Atendimento atendimento) {
-		try {
-			if (this.atendimentoNegocio.enviarRealatorio(atendimento)) {
-				Mensagem.add("Relatório enviado com sucesso.");
-			} else {
-				Mensagem.add("Paciente não possui familiar cadastrado para envio de relatório.");
+		if (StringUtils.isNotBlank(atendimento.getPaciente().getEmailFamiliar())) {
+
+			try {
+				if (this.atendimentoNegocio.enviarRealatorio(atendimento)) {
+					Mensagem.add("Relatório enviado com sucesso.");
+				} else {
+					Mensagem.add("Paciente não possui familiar cadastrado para envio de relatório.");
+				}
+			} catch (final SQLException e) {
+				Mensagem.add("Falha ao enviar relatório.");
+				e.printStackTrace();
 			}
-		} catch (final SQLException e) {
-			Mensagem.add("Falha ao enviar relatório.");
-			e.printStackTrace();
+		} else {
+			Mensagem.add("Paciente não possui responsável cadastrado!");
 		}
 	}
 

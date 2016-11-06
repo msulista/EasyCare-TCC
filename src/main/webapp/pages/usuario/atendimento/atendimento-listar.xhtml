@@ -9,7 +9,7 @@
 	<ui:define name="content">
 			<div class="panel-lista">
 			<h2>#{message['title.atendimento.lista']}</h2>
-			<p:growl id="growl" life="4000" globalOnly="true" sticky="true" />
+			<p:growl id="growl" life="3000" globalOnly="true" sticky="true" />
 			<h:form>
 			<br />
 				<p:button styleClass="btn-default" value="#{message['button.novo']}" outcome="pretty:atendimento-incluir" />
@@ -43,10 +43,10 @@
 					<p:column headerText="#{message['label.acoes']}">
 						<p:commandButton id="editar" styleClass="btn-acao" icon="ui-icon-pencil" action="#{atendimentoManager.editar(atendimento)}" />
 						<p:commandButton id="deletar" styleClass="btn-acao" icon="ui-icon-trash" action="#{atendimentoManager.excluirAtendimento(atendimento)}" />
-						<p:commandButton id="report" styleClass="btn-acao" ajax="false" icon="ui-icon-document" >
+						<p:commandButton id="report" styleClass="btn-acao" ajax="false" icon="ui-icon-document" update="growl">
 						      <p:fileDownload value="#{atendimentoManager.relatorio(atendimento)}" />
 						</p:commandButton>
-						<p:commandButton id="mail" styleClass="btn-acao" icon="ui-icon-mail-closed" action="#{atendimentoManager.enviarRelatorio(atendimento)}" />
+						<p:commandButton id="mail" styleClass="btn-acao" icon="ui-icon-mail-closed" action="#{atendimentoManager.enviarRelatorio(atendimento)}" update="growl"/>
 					</p:column>						
 							
 				</p:dataTable>

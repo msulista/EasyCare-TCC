@@ -2,47 +2,63 @@ package com.msulista.vo;
 
 import java.io.Serializable;
 
-public class RealatorioAtendimentoEventoVO implements Serializable{
-	
+public class RealatorioAtendimentoEventoVO implements Serializable {
+
 	private static final long serialVersionUID = 4089794192637288298L;
-	
+
 	private String hora;
 	private String dia;
 	private String mediamento;
 	private String dosagem;
 	private String status;
-	
+	private Integer estoque;
+
 	public String getHora() {
-		return hora;
+		return this.hora;
 	}
-	public void setHora(String hora) {
+
+	public void setHora(final String hora) {
 		this.hora = hora;
 	}
+
 	public String getDia() {
-		return dia;
+		return this.dia;
 	}
-	public void setDia(String dia) {
+
+	public void setDia(final String dia) {
 		this.dia = dia;
 	}
+
 	public String getMediamento() {
-		return mediamento;
+		return this.mediamento;
 	}
-	public void setMediamento(String mediamento) {
+
+	public void setMediamento(final String mediamento) {
 		this.mediamento = mediamento;
 	}
+
 	public String getDosagem() {
-		return dosagem;
+		return this.dosagem;
 	}
-	public void setDosagem(String dosagem) {
+
+	public void setDosagem(final String dosagem) {
 		this.dosagem = dosagem;
 	}
+
 	public String getStatus() {
-		return status;
+		return this.status;
 	}
-	public void setStatus(String status) {
+
+	public void setStatus(final String status) {
 		this.status = status;
 	}
-	
-	
+
+	public Integer getEstoque() {
+		return this.estoque;
+	}
+
+	public void setEstoque(final Integer estoque) {
+		this.estoque = estoque;
+	}
 
 }
