@@ -6,48 +6,51 @@
 	template="/pages/template/default.xhtml">
 
 	<ui:define name="content">
-		
+
 		<div class="index-geral ui-g">
-			
-			<div class="index-paineis ui-g-6">
-				
-				<h1>Não possui cadastro no sistema?</h1>
-				
-					<div id="evento" class="index-painel ">
-						<h:link outcome="pretty:cuidador-incluir">
-							<div class="index-text-painel">Cadastro Cuidador</div>
-						</h:link>
-					</div>
-					
-					<br /><br />
-					
-					<h1>Realize o login no sistema</h1>
-					<p:growl id="growl" life="3000" globalOnly="true" sticky="true" />
-					<h:form>           
-						<h:panelGrid columns="2" cellpadding="10">
-							<h:outputLabel for="email" value="Email:" />
-						    <p:inputText id="email" value="#{loginManager.email}" required="true" label="username" />
-						 
-						    <h:outputLabel for="cpf" value="Password:" />
-						    <p:password id="cpf" value="#{loginManager.cpf}" required="true" label="password" />
-						 
-						    <f:facet name="footer">
-						   		<p:commandButton value="Login" action="#{loginManager.autentica()}" update="growl" />
-						    </f:facet>  
-						</h:panelGrid>
-					</h:form>
-			
-			</div>
-			
+
 			<div class="ui-g-6">
-				<h1>Classificados de cuidadores</h1>
-				<div id="agenda" class="index-painel ">
+				<p class="inicial-titulo">Classificados de cuidadores</p>
+				<div id="agenda" class="inicial-painel-login">
+					<p class="inicial-paragrafo">
+					       Você está procurando por cuidadores, o sistema <br /> 
+					       EasyCare lhe ajuda com os classificados de oferta <br />
+					       de serviços.
+					</p>
 					<h:link outcome="/pages/classificado/classificado.xhtml">
-						<div class="index-text-painel">Classificado Serviço</div>
+						<div class="inicial-text-painel">CLASSIFICADOS DE CUIDADORES</div>
 					</h:link>
 				</div>
 			</div>
-		
+			
+			
+
+			<div class="ui-g-6">
+				<p class="inicial-titulo">Login de cuidadores</p>
+				<p:growl id="growl" life="3000" globalOnly="true" sticky="true" />
+				<div id="agenda" class="inicial-painel-login">
+				<h:form>
+					<h:panelGrid columns="2" cellpadding="10">
+						<h:outputLabel for="email" value="Email:" />
+						<p:inputText id="email" value="#{loginManager.email}"
+							required="true" label="username" placeholder="e-mail"/>
+						<h:outputLabel for="cpf" value="Password:" />
+						<p:password id="cpf" value="#{loginManager.cpf}" required="true"
+							label="password" placeholder="cpf" size="46"/>
+							<br />
+						<f:facet name="footer">
+							<p:commandButton value="Login"
+								action="#{loginManager.autentica()}" update="growl" />
+						</f:facet>
+					</h:panelGrid>
+					<br />
+					<h:link outcome="pretty:cuidador-incluir">
+                            <div >Não possui cadastro? Clique aqui.</div>
+                    </h:link>
+				</h:form>
+                </div>
+			</div>
+
 		</div>
 	</ui:define>
 
