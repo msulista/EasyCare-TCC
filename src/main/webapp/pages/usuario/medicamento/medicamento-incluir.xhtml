@@ -38,11 +38,11 @@
 	        		<br/><br/>
 	        		
 	        		<p:outputLabel for="validade" value="#{message['label.medicamento.validade']}" styleClass="label" />
-	        		<p:calendar id="validade" value="#{medicamentoManager.medicamento.dataValidade}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false"/>
+	        		<p:calendar id="validade" value="#{medicamentoManager.medicamento.dataValidade}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false" required="true" requiredMessage="#{message['span.obrigatorio.validade']}"/>
 	        		<br/><br/>
 	        		
 	        		<p:outputLabel for="estoque" value="#{message['label.medicamento.estoque']}" styleClass="label" />
-					<p:inputNumber id="estoque" value="#{medicamentoManager.medicamento.estoque}" minValue="0" maxValue="100" cols="20">  
+					<p:inputNumber id="estoque" value="#{medicamentoManager.medicamento.estoque}" minValue="0" maxValue="100" cols="20" required="true" requiredMessage="#{message['span.obrigatorio.estoque']}">  
                 	</p:inputNumber>  
 					<br/><br/>
 					  		       		

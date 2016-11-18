@@ -6,12 +6,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Duration;
 import org.joda.time.Interval;
-import org.joda.time.LocalTime;
 
 public class DateUtil {
 
@@ -66,7 +64,8 @@ public class DateUtil {
 	}
 
 	public static String dateToStringDate(final Date data) {
-		return (new SimpleDateFormat(DATA_FORMATO).format(data));
+		String dat = new SimpleDateFormat(DATA_FORMATO).format(data);
+		return dat;
 	}
 
 	public static String hourToStringHour(final Date data) {
