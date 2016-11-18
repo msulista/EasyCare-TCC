@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "cuidador")
@@ -56,6 +57,12 @@ public class Cuidador implements BaseEntity, Serializable {
 
 	@Column(name = "cuid_status")
 	private Integer status;
+	
+	@Column(name = "cuid_senha")
+	private String senha;
+	
+	@Transient
+	private String confirma;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cuidador", cascade = CascadeType.REMOVE)
 	private List<Atendimento> atendimentos = new ArrayList<>();
@@ -147,6 +154,22 @@ public class Cuidador implements BaseEntity, Serializable {
 
 	public void setCpf(final String cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getConfirma() {
+		return confirma;
+	}
+
+	public void setConfirma(String confirma) {
+		this.confirma = confirma;
 	}
 
 	public boolean verificaLogin(final String email, final String cpf) {

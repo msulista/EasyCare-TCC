@@ -33,10 +33,10 @@
 					<h:panelGrid columns="2" cellpadding="10">
 						<h:outputLabel for="email" value="Email:" />
 						<p:inputText id="email" value="#{loginManager.email}"
-							required="true" label="username" placeholder="e-mail"/>
-						<h:outputLabel for="cpf" value="Password:" />
-						<p:password id="cpf" value="#{loginManager.cpf}" required="true"
-							label="password" placeholder="cpf" size="46"/>
+							required="true" label="username" placeholder="e-mail" maxlength="100"/>
+						<h:outputLabel for="senha" value="Password:" />
+						<p:password id="senha" value="#{loginManager.senha}" required="true"
+							label="password" placeholder="senha" maxlength="8" size="46"/>
 							<br />
 						<f:facet name="footer">
 							<p:commandButton value="Login"

@@ -1,6 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-    template="/pages/template/default.xhtml"
+    template="/pages/template/default2.xhtml"
     xmlns:pretty="http://ocpsoft.com/prettyfaces"
     xmlns:pe="http://primefaces.org/ui/extensions">
 
@@ -23,7 +23,7 @@
 					<br/><br/>	
 								
 					<p:outputLabel for="fone" value="#{message['label.fone']}" styleClass="label" />
-					<p:inputMask id="fone" value="#{cuidadorManager.cuidador.telefone}" mask="(99) 9999.9999" required="false" />
+					<p:inputMask id="fone" value="#{cuidadorManager.cuidador.telefone}" mask="(99) 9999.9999" required="true" />
 					<br/><br/>	
 					
 					<p:outputLabel for="email" value="#{message['label.email']}" styleClass="label" />
@@ -44,6 +44,14 @@
 	        		
 	        		<p:outputLabel for="aniver" value="#{message['label.data.nascimento']}" styleClass="label" />
 	        		<p:calendar id="aniver" value="#{cuidadorManager.cuidador.dataNascimento}" pattern="dd/MM/yyyy" mask="true" showOn="button" disabledWeekends="false"/>
+	        		<br/><br/>
+	        		
+	        		<p:outputLabel for="senha" value="#{message['label.senha']}" styleClass="label" />
+	        		<p:password id="senha" value="#{cuidadorManager.cuidador.senha}"  maxlength="8" size="46" required="true" requiredMessage="#{message['span.obrigatorio.senha']}"/>
+	        		<br/><br/>
+	        		
+	        		<p:outputLabel for="senha2" value="#{message['label.senha.confirmacao']}" styleClass="label" />
+	        		<p:password id="senha2" value="#{cuidadorManager.cuidador.confirma}"  maxlength="8" size="46" required="true" requiredMessage="#{message['span.obrigatorio.confirmacao']}"/>
 	        		<br/><br/>
 					  		       		
 	        		<p:commandButton value="#{message['button.salvar']}" action="#{cuidadorManager.salvar()}" update="growl" styleClass="btn"/>

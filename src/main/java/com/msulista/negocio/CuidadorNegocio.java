@@ -1,16 +1,13 @@
 package com.msulista.negocio;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import com.msulista.dao.CuidadorDao;
-import com.msulista.dao.PacienteDao;
 import com.msulista.entidade.Cuidador;
-import com.msulista.entidade.Paciente;
 import com.msulista.util.Mensagem;
 
 public class CuidadorNegocio implements NegocioBase<Cuidador> {
@@ -33,6 +30,10 @@ public class CuidadorNegocio implements NegocioBase<Cuidador> {
 	public boolean alterar(final Cuidador bean) {
 		this.cuidadorDao = new CuidadorDao();
 		try {
+			Cuidador cuidadorBanco = this.cuidadorDao.obterEvento(bean.getId());
+			if (bean.getSenha().isEmpty() ) {
+				bean.setSenha(cuidadorBanco.getSenha());
+			}
 			this.cuidadorDao.alterar(bean);
 		} catch (final SQLException e) {
 			Mensagem.add("Ocorreu um erro ao alterar o evento.");

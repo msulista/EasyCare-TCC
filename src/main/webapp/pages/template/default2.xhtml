@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+<h:head>
+	<title>#{app.title}</title>
+	<base href="#{request.contextPath}/" />
+	<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+	
+	<h:outputScript library="js" name="js.js"></h:outputScript>
+</h:head>
+<h:body>
+	<div class="ct-top">
+		<div class="container--topmenu">
+			<div class="cabecalho">
+				<a href="#"> <img class="img-logo" />
+				</a>
+				<div class="nome-sistema">
+				
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ct-menu">
+		<div class="menu">
+			<ul class="clearfix">
+				<li><a href="#"  class="menu-categoria">Home</a></li>
+				
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+		<div class="ct-content" >
+			<ui:insert name="content" />
+		</div>
+	</div>
+</h:body>
+</html>

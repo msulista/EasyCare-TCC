@@ -16,15 +16,13 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @SessionScoped
 @URLMappings(mappings = {
-		// @URLMapping(id = "easycare", pattern = "/easycare", viewId =
-		// "/pages/home/inicial.xhtml"),
 		@URLMapping(id = "logado", pattern = "/logado", viewId = "/pages/usuario/home/index.xhtml") })
 public class LoginManager implements Serializable {
 
 	private static final long serialVersionUID = 7165000715351164498L;
 
 	private String email;
-	private String cpf;
+	private String senha;
 
 	private Cuidador cuidadorLogado;
 
@@ -33,7 +31,7 @@ public class LoginManager implements Serializable {
 		final List<Cuidador> cuidadores = cuidadorNegocio.obterLista();
 		for (final Cuidador cuidador : cuidadores) {
 
-			if (this.email.equals(cuidador.getEmail()) && this.cpf.equals(cuidador.getCpf())) {
+			if (this.email.equals(cuidador.getEmail()) && this.senha.equals(cuidador.getSenha())) {
 
 				Mensagem.add("Login realizado com sucesso!");
 
@@ -61,12 +59,12 @@ public class LoginManager implements Serializable {
 		this.email = email;
 	}
 
-	public String getCpf() {
-		return this.cpf;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setCpf(final String cpf) {
-		this.cpf = cpf;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Cuidador getCuidadorLogado() {

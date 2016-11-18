@@ -37,9 +37,15 @@ public class CuidadorManager {
 	}
 
 	public String salvar() {
-		this.cuidadorNegocio.salvar(this.cuidador);
-		Mensagem.add("Cadastro realizado com sucesso.");
-		return "/pages/home/inicial.xhtml";
+		if (this.cuidador.getSenha().equals(this.cuidador.getConfirma())) {
+			this.cuidadorNegocio.salvar(this.cuidador);
+			Mensagem.add("Cadastro realizado com sucesso.");
+			return "/pages/home/inicial.xhtml";
+		}else {
+			
+			Mensagem.add("Senha informada incorreta.");
+			return null;
+		}
 	}
 
 	public String alterar() {
