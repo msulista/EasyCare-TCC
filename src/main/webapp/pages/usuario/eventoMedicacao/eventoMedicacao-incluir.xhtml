@@ -45,8 +45,13 @@
 					<p:outputLabel for="diahora" value="#{message['label.evento.dataHora']}" styleClass="label"/>
         				<p:calendar id="diahora" value="#{eventoMedicacaoManager.eventoMedicacao.dataHora}" pattern="dd/MM/yyyy HH:mm" mask="true" showOn="button" disabledWeekends="false" required="true" requiredMessage="#{message['span.obrigatorio.data']}"/>
 					<br /><br />
+					
+					<p:outputLabel for="quantidade" value="Quantidade" styleClass="label"/>
+        			<p:spinner  id="quantidade" value="#{eventoMedicacaoManager.eventoMedicacao.quantidade}" min="0" required="true" requiredMessage="#{message['span.obrigatorio.quantidade']}"/>
+					<br /><br />
+					
 					<p:outputLabel for="descricao" value="#{message['label.evento.descricao']}" styleClass="label" />
-					<p:inputTextarea id="descricao" rows="6" cols="33" value="#{eventoMedicacaoManager.eventoMedicacao.descricao}" required="true" requiredMessage="#{message['span.obrigatorio.descricao']}"/>
+					<p:inputTextarea id="descricao" rows="4" cols="46" value="#{eventoMedicacaoManager.eventoMedicacao.descricao}" required="true" requiredMessage="#{message['span.obrigatorio.descricao']}"/>
 					<br/><br/>	
 					<p:separator />
 					<h4>Repetir evento</h4>
@@ -54,10 +59,9 @@
 					<p:outputLabel for="diaria" value="Diariamente" styleClass="label"/>
         			<p:selectBooleanCheckbox id="diaria" value="#{eventoMedicacaoManager.eventoMedicacao.transientRepetirDiariamente}" />							  
 					<br/><br/>	     		
-	        		<p:outputLabel for="repetir" value="#{message['label.evento.repetir']}" styleClass="label" />
-					<p:inputNumber id="repetir" value="#{eventoMedicacaoManager.eventoMedicacao.transientFrequenciaEvento}" minValue="0" maxValue="24" cols="5">  
-                    	<p:ajax update="repetir" />  
-                	</p:inputNumber>  
+	        							
+					<p:outputLabel for="repethora" value="#{message['label.evento.repetir']}" styleClass="label" />
+					<p:spinner id="repethora" value="#{eventoMedicacaoManager.eventoMedicacao.transientFrequenciaEvento}" min="0" max="24"/>
 					<br/><br/>
 					     		       		
 	        		<p:commandButton value="#{message['button.salvar']}" action="#{eventoMedicacaoManager.salvar()}" update="growl" />

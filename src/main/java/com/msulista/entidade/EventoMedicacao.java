@@ -49,6 +49,9 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 
 	@Column(name = "event_status")
 	private Integer stattus;
+	
+	@Column(name = "event_quant")
+	private Integer quantidade;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "atend_id", nullable = false)
@@ -115,6 +118,14 @@ public class EventoMedicacao implements BaseEntity, Serializable {
 
 	public void setStattus(final Integer stattus) {
 		this.stattus = stattus;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public void setId(final Long id) {

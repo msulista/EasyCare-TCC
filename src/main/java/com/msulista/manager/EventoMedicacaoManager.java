@@ -150,11 +150,11 @@ public class EventoMedicacaoManager {
 	 * @param evento
 	 */
 	private void realizaBaixaEstoque(final EventoMedicacao evento) {
-		if (evento.getStattus() == 1) {
+		if (evento.getStattus() == 0) {
 			final MedicamentoNegocio medicamentoNegocio = new MedicamentoNegocio();
 			final List<Medicamento> medicamentos = evento.getMedicamentos();
 			for (final Medicamento med : medicamentos) {
-				med.setEstoque(med.getEstoque() - 1);
+				med.setEstoque(med.getEstoque() - evento.getQuantidade());
 				medicamentoNegocio.alterar(med);
 			}
 		}
