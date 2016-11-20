@@ -212,6 +212,7 @@ public class EventoMedicacaoNegocio implements NegocioBase<EventoMedicacao> {
 
 		final EventoMedicacao evento = new EventoMedicacao();
 		evento.setAtendimento(ev.getAtendimento());
+		evento.setQuantidade(ev.getQuantidade());
 		evento.setDescricao(ev.getDescricao());
 		evento.getMedicamentos().addAll(ev.getMedicamentos());
 		evento.getRefeicoes().addAll(ev.getRefeicoes());

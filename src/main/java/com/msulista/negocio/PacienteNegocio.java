@@ -20,7 +20,7 @@ public class PacienteNegocio {
 
 	public String salvar(final Paciente paciente) {
 		this.pacienteDao = new PacienteDao();
-		Cuidador cui = SessionUtil.obtemUsuarioLogado();
+		final Cuidador cui = SessionUtil.obtemUsuarioLogado();
 		paciente.setCuidador(cui);
 		try {
 			this.pacienteDao.salvar(paciente);
@@ -33,6 +33,8 @@ public class PacienteNegocio {
 
 	public String alterar(final Paciente paciente) {
 		this.pacienteDao = new PacienteDao();
+		final Cuidador cui = SessionUtil.obtemUsuarioLogado();
+		paciente.setCuidador(cui);
 		try {
 			this.pacienteDao.alterar(paciente);
 		} catch (final SQLException e) {
@@ -45,7 +47,7 @@ public class PacienteNegocio {
 	public Paciente obterPaciente(final Long id) {
 		this.pacienteDao = new PacienteDao();
 		try {
-			return this.pacienteDao.obterEvento(id); 
+			return this.pacienteDao.obterEvento(id);
 		} catch (final SQLException e) {
 			Mensagem.add("Ocorreu um erro ao obter o paciente.");
 			e.printStackTrace();
@@ -58,7 +60,7 @@ public class PacienteNegocio {
 		this.pacienteDao = new PacienteDao();
 
 		List<Paciente> retorno = null;
-		Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
+		final Cuidador usuarioLogado = SessionUtil.obtemUsuarioLogado();
 		try {
 			retorno = this.pacienteDao.obterListaPorCuidador(usuarioLogado.getId());
 		} catch (final SQLException e) {
@@ -68,8 +70,8 @@ public class PacienteNegocio {
 		}
 		return retorno;
 	}
-	
-	public void excluirPaciente(Paciente paciente) throws SQLException {
+
+	public void excluirPaciente(final Paciente paciente) throws SQLException {
 		this.pacienteDao = new PacienteDao();
 		this.pacienteDao.excluir(paciente);
 	}

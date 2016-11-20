@@ -189,6 +189,7 @@ public class AtendimentoNegocio implements NegocioBase<Atendimento> {
 			relatorioEventoVO.setHora(DateFormatUtils.format(evento.getDataHora(), "HH:mm"));
 			relatorioEventoVO.setMediamento(evento.getMedicamentos().get(0).getNome());
 			relatorioEventoVO.setEstoque(evento.getMedicamentos().get(0).getEstoque());
+			relatorioEventoVO.setQuantidade(evento.getQuantidade());
 			relatorioEventoVO.setDosagem(evento.getDescricao());
 			if (evento.getStattus() != null) {
 				final String statusii = StatusEventoEnum.obterDescricaoPorId(evento.getStattus());

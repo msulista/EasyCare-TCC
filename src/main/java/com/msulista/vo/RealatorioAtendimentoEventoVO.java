@@ -9,6 +9,7 @@ public class RealatorioAtendimentoEventoVO implements Serializable {
 	private String hora;
 	private String dia;
 	private String mediamento;
+	private Integer quantidade;
 	private String dosagem;
 	private String status;
 	private Integer estoque;
@@ -35,6 +36,14 @@ public class RealatorioAtendimentoEventoVO implements Serializable {
 
 	public void setMediamento(final String mediamento) {
 		this.mediamento = mediamento;
+	}
+
+	public Integer getQuantidade() {
+		return this.quantidade;
+	}
+
+	public void setQuantidade(final Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public String getDosagem() {

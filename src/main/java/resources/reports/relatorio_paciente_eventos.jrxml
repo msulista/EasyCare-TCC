@@ -9,6 +9,7 @@
 	<field name="dosagem" class="java.lang.String"/>
 	<field name="status" class="java.lang.String"/>
 	<field name="estoque" class="java.lang.Integer"/>
+	<field name="quantidade" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -51,7 +52,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dosagem}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[ $F{quantidade} + " " + $F{dosagem}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="120" y="0" width="195" height="20" uuid="7064fbfa-b1bd-4e70-b066-0bf350d31240"/>
